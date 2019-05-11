@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\seba_\\Source\\Repos\\EL BUEN SABOR\\Prueba\\Prueba\\Facturacion.csproj": {}
+    "C:\\Users\\seba_\\source\\repos\\EL BUEN SABOR\\Prueba\\Prueba\\Facturacion.csproj": {}
   },
   "projects": {
-    "C:\\Users\\seba_\\Source\\Repos\\EL BUEN SABOR\\Prueba\\Prueba\\Facturacion.csproj": {
+    "C:\\Users\\seba_\\source\\repos\\EL BUEN SABOR\\Prueba\\Prueba\\Facturacion.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\seba_\\Source\\Repos\\EL BUEN SABOR\\Prueba\\Prueba\\Facturacion.csproj",
+        "projectUniqueName": "C:\\Users\\seba_\\source\\repos\\EL BUEN SABOR\\Prueba\\Prueba\\Facturacion.csproj",
         "projectName": "Facturacion",
-        "projectPath": "C:\\Users\\seba_\\Source\\Repos\\EL BUEN SABOR\\Prueba\\Prueba\\Facturacion.csproj",
+        "projectPath": "C:\\Users\\seba_\\source\\repos\\EL BUEN SABOR\\Prueba\\Prueba\\Facturacion.csproj",
         "packagesPath": "C:\\Users\\seba_\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\seba_\\Source\\Repos\\EL BUEN SABOR\\Prueba\\Prueba\\obj\\",
+        "outputPath": "C:\\Users\\seba_\\source\\repos\\EL BUEN SABOR\\Prueba\\Prueba\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
