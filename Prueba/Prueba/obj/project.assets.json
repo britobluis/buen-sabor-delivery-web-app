@@ -12940,11 +12940,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\seba_\\source\\repos\\EL BUEN SABOR\\Prueba\\Prueba\\Prueba.csproj",
-      "projectName": "Prueba",
-      "projectPath": "C:\\Users\\seba_\\source\\repos\\EL BUEN SABOR\\Prueba\\Prueba\\Prueba.csproj",
+      "projectUniqueName": "C:\\Users\\seba_\\Source\\Repos\\EL BUEN SABOR\\Prueba\\Prueba\\Facturacion.csproj",
+      "projectName": "Facturacion",
+      "projectPath": "C:\\Users\\seba_\\Source\\Repos\\EL BUEN SABOR\\Prueba\\Prueba\\Facturacion.csproj",
       "packagesPath": "C:\\Users\\seba_\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\seba_\\source\\repos\\EL BUEN SABOR\\Prueba\\Prueba\\obj\\",
+      "outputPath": "C:\\Users\\seba_\\Source\\Repos\\EL BUEN SABOR\\Prueba\\Prueba\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
