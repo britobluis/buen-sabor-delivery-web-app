@@ -22,25 +22,7 @@ namespace EmpleadosEBS.Controllers
         // GET: Articulo
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Articulo.ToListAsync());
-        }
-
-        // GET: Articulo/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var articulo = await _context.Articulo
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (articulo == null)
-            {
-                return NotFound();
-            }
-
-            return View(articulo);
+            return View(await _context.Articulo.Where(i => i.EsInsumo == true).ToListAsync());
         }
 
         // GET: Articulo/Create
@@ -56,6 +38,8 @@ namespace EmpleadosEBS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida")] Articulo articulo)
         {
+            articulo.EsInsumo = true;
+
             if (ModelState.IsValid)
             {
                 _context.Add(articulo);

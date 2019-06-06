@@ -46,25 +46,6 @@ namespace EmpleadosEBS.Controllers
             return View(viewModel);
         }
 
-        // GET: Pedido/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var pedido = await _context.Pedido
-                .Include(p => p.EstadoPedido)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (pedido == null)
-            {
-                return NotFound();
-            }
-
-            return View(pedido);
-        }
-
         // GET: Pedido/Create
         public IActionResult Create()
         {

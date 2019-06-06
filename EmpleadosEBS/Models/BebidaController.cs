@@ -6,30 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EmpleadosEBS.Data;
-using EmpleadosEBS.Models;
 
-namespace EmpleadosEBS.Controllers
+namespace EmpleadosEBS.Models
 {
-    public class RecetaController : Controller
+    public class BebidaController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public RecetaController(ApplicationDbContext context)
+        public BebidaController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Receta
+        // GET: Bebida
         public async Task<IActionResult> Index()
         {
-            var receta = _context.Receta
-                .Include(r => r.Articulo)
-                .Include(r => r.Plato)
-                .AsNoTracking();
-            return View(await receta.ToListAsync());
+            return View(await _context.Articulo.Where(i => i.EsInsumo == false).ToListAsync());
         }
 
-        // GET: Receta/Details/5
+        // GET: Bebida/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,45 +32,39 @@ namespace EmpleadosEBS.Controllers
                 return NotFound();
             }
 
-            var receta = await _context.Receta
-                .Include(r => r.Articulo)
-                .Include(r => r.Plato)
+            var articulo = await _context.Articulo
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (receta == null)
+            if (articulo == null)
             {
                 return NotFound();
             }
 
-            return View(receta);
+            return View(articulo);
         }
 
-        // GET: Receta/Create
+        // GET: Bebida/Create
         public IActionResult Create()
         {
-            ViewData["ArticuloID"] = new SelectList(_context.Articulo, "ID", "Denominacion");
-            ViewData["PlatoID"] = new SelectList(_context.Plato, "ID", "Denominacion");
             return View();
         }
 
-        // POST: Receta/Create
+        // POST: Bebida/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ArticuloID,PlatoID,Cantidad")] Receta receta)
+        public async Task<IActionResult> Create([Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida")] Articulo articulo)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(receta);
+                _context.Add(articulo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ArticuloID"] = new SelectList(_context.Articulo, "ID", "Denominacion", receta.ArticuloID);
-            ViewData["PlatoID"] = new SelectList(_context.Plato, "ID", "Denominacion", receta.PlatoID);
-            return View(receta);
+            return View(articulo);
         }
 
-        // GET: Receta/Edit/5
+        // GET: Bebida/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,24 +72,22 @@ namespace EmpleadosEBS.Controllers
                 return NotFound();
             }
 
-            var receta = await _context.Receta.FindAsync(id);
-            if (receta == null)
+            var articulo = await _context.Articulo.FindAsync(id);
+            if (articulo == null)
             {
                 return NotFound();
             }
-            ViewData["ArticuloID"] = new SelectList(_context.Articulo, "ID", "Denominacion", receta.ArticuloID);
-            ViewData["PlatoID"] = new SelectList(_context.Plato, "ID", "Denominacion", receta.PlatoID);
-            return View(receta);
+            return View(articulo);
         }
 
-        // POST: Receta/Edit/5
+        // POST: Bebida/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,ArticuloID,PlatoID,Cantidad")] Receta receta)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida")] Articulo articulo)
         {
-            if (id != receta.ID)
+            if (id != articulo.ID)
             {
                 return NotFound();
             }
@@ -109,12 +96,12 @@ namespace EmpleadosEBS.Controllers
             {
                 try
                 {
-                    _context.Update(receta);
+                    _context.Update(articulo);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RecetaExists(receta.ID))
+                    if (!ArticuloExists(articulo.ID))
                     {
                         return NotFound();
                     }
@@ -125,12 +112,10 @@ namespace EmpleadosEBS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ArticuloID"] = new SelectList(_context.Articulo, "ID", "Denominacion", receta.ArticuloID);
-            ViewData["PlatoID"] = new SelectList(_context.Plato, "ID", "Denominacion", receta.PlatoID);
-            return View(receta);
+            return View(articulo);
         }
 
-        // GET: Receta/Delete/5
+        // GET: Bebida/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,32 +123,30 @@ namespace EmpleadosEBS.Controllers
                 return NotFound();
             }
 
-            var receta = await _context.Receta
-                .Include(r => r.Articulo)
-                .Include(r => r.Plato)
+            var articulo = await _context.Articulo
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (receta == null)
+            if (articulo == null)
             {
                 return NotFound();
             }
 
-            return View(receta);
+            return View(articulo);
         }
 
-        // POST: Receta/Delete/5
+        // POST: Bebida/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var receta = await _context.Receta.FindAsync(id);
-            _context.Receta.Remove(receta);
+            var articulo = await _context.Articulo.FindAsync(id);
+            _context.Articulo.Remove(articulo);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RecetaExists(int id)
+        private bool ArticuloExists(int id)
         {
-            return _context.Receta.Any(e => e.ID == id);
+            return _context.Articulo.Any(e => e.ID == id);
         }
     }
 }
