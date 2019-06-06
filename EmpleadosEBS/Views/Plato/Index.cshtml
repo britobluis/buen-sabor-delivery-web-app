@@ -1,0 +1,118 @@
+﻿@model EmpleadosEBS.Models.PlatoIndexData.PlatoIndexData
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutCocinero.cshtml";
+}
+
+<h3>Platos</h3>
+
+<p>
+    <a asp-action="Create">Crear Nuevo Plato</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                denominacion
+            </th>
+            <th>
+                Precio Venta
+            </th>
+            <th>
+                Receta
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Platos)
+        {
+            string selectedRow = "";
+            if (item.ID == (int?)ViewData["PlatoID"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Denominacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrecioVenta)
+                </td>
+                <td>
+                    @{
+                        foreach (var Articulo in item.Recetas)
+                        {
+                            @Articulo.Articulo.UnidadMedida @:  @Articulo.Articulo.Denominacion <br />
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Articulos != null)
+{
+    <h3>Ingredientes de un Plato</h3>
+    <table class="table">
+        <tr>
+
+            <th>
+                Denominacion
+            </th>
+            <th>
+                UnidadMedida
+            </th>
+            <th>
+                Precio de Compra
+            </th>
+            <th>
+                Precio de Venta
+            </th>
+            <th>
+                Stock
+            </th>
+            <th>
+                Cantidad
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model.Articulos)
+        {
+            string selectedRow = "";
+            if (item.ID == (int?)ViewData["ArticuloID"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+
+                <td>
+                    @item.Denominacion
+                </td>
+                <td>
+                    @item.UnidadMedida
+                </td>
+                <td>
+                    @item.PrecioCompra
+                </td>
+                <td>
+                    @item.PrecioVenta
+                </td>
+                <td>
+                    @item.Stock
+                </td>
+
+                <td></td>
+            </tr>
+        }
+
+    </table>
+}
