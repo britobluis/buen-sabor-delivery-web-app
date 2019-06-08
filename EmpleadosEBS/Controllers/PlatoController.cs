@@ -92,9 +92,10 @@ namespace EmpleadosEBS.Controllers
             ArticulosPlatoData(plato);
             return View(plato);
         }
+
         private void ArticulosPlatoData(Plato plato)
         {
-            var allArticulos = _context.Articulo;
+            var allArticulos = _context.Articulo.Include(r => r.Recetas).ThenInclude(p=>p.Plato);
             var PlatosArticulos = new HashSet<int>(plato.Recetas.Select(c => c.ID));
             var viewModel = new List<ArticuloAsignado>();
             foreach (var articulo in allArticulos)
@@ -103,8 +104,10 @@ namespace EmpleadosEBS.Controllers
                 {
                     ID = articulo.ID,
                     Denominacion = articulo.Denominacion,
+                   // Cantidad = articulo.Recetas.Where(a => a.ArticuloID == articulo.ID).Select(a => a.Cantidad).Single(),
                     Asignado = PlatosArticulos.Contains(articulo.ID)
-                });
+
+                }) ;
             }
             ViewData["Articulos"] = viewModel;
         }

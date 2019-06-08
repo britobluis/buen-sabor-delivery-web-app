@@ -10,6 +10,7 @@ namespace EmpleadosEBS.Models.PlatoIndexData
         public int ID { get; set; }
         public string Denominacion { get; set; }
         public bool Asignado { get; set; } 
+        public int Cantidad { get; set; }
 
     }
 }
