@@ -69,6 +69,8 @@ namespace EmpleadosEBS.Models
         [DisplayName("Nombre del Plato")]
         [Required]
         public string Denominacion { get; set; }
+        public string Descripcion { get; set; }
+        public string Imagen { get; set; }
         [DisplayName("Precio de Venta")]
         public int PrecioVenta { get; set; }
         //relacion con receta de uno a muchos

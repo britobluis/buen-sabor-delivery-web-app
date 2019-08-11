@@ -58,7 +58,7 @@ namespace EmpleadosEBS.Areas.Identity.Pages.Account
             [Display(Name = "Telefono")]
             public string PhoneNumber { get; set; }
 
-            [Display(Name = "rol dentro de la empresa")]
+            [Display(Name = "Rol dentro de la empresa")]
 
             public string Role { get; set; }
 
@@ -111,8 +111,17 @@ namespace EmpleadosEBS.Areas.Identity.Pages.Account
 
                         await _signInManager.SignInAsync(newUser, isPersistent: false);
 
-                        Task<IdentityResult> newUserRole = _userManager.AddToRoleAsync(appUser, Input.Role);
-                        newUserRole.Wait();
+                        //Si el campo de Role esta vacio se asigna el Role "Cliente"
+                        if (string.IsNullOrEmpty(Input.Role)) 
+                        {
+                            Task<IdentityResult> newUserRole = _userManager.AddToRoleAsync(appUser, "Cliente");
+                            newUserRole.Wait();
+                        }
+                        else
+                        {
+                            Task<IdentityResult> newUserRole = _userManager.AddToRoleAsync(appUser, Input.Role);
+                            newUserRole.Wait();
+                        }
 
                         return LocalRedirect(returnUrl);
                     }

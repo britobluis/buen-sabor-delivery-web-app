@@ -22,8 +22,8 @@ namespace EmpleadosEBS.Data
             }
             var platos = new Plato[]
             {
-                new Plato{ Denominacion = "Sandwich de lomo",PrecioVenta = 50},
-                new Plato{ Denominacion = "Sandwich de Lechuga",PrecioVenta = 80}
+                new Plato{ Denominacion = "Sandwich de lomo", Descripcion = "Lomo Simple", Imagen = "~/img/lomo.jpg", PrecioVenta = 50},
+                new Plato{ Denominacion = "Sandwich de Lechuga", Descripcion = "Lomo con Lechuga", Imagen = "~/img/lomo2.jpg", PrecioVenta = 80}
             };
             foreach (Plato p in platos)
             {

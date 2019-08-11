@@ -116,7 +116,7 @@ namespace EmpleadosEBS
         {
             const string adminRoleName = "Administrador";
             // lista de Roles
-            string[] roleNames = { adminRoleName, "Cocinero", "Cajero" };
+            string[] roleNames = { adminRoleName, "Cocinero", "Cajero", "Cliente" };
 
             foreach (string roleName in roleNames)
             {

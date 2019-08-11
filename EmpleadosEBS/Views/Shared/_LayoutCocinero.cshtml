@@ -46,14 +46,13 @@
         </nav>
     </header>
     <div class="container">
-        <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2019 - Caja El Buen Sabor
+            &copy; @DateTime.Now.Year - El Buen Sabor
         </div>
     </footer>
     <environment include="Development">

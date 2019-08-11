@@ -4,58 +4,63 @@
 
 @{ if (User.IsInRole("Administrador"))
     {
-        <div class="text-center">
-            <div class="jumbotron">
-                <h1 class="display-3">Bienvenido Admnistrador!</h1>
-                <p class="lead">En esta pagina podra registrar usuarios</p>
-                <hr class="my-4">
-                <p>Puede utilizar la ayuda de aqui.</p>
-                <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Ayuda</a>
-                </p>
-            </div>
+        <div class="text-center welcome-page">
+            <h1 class="display-3">Bienvenido Admnistrador!</h1>
+            <p class="lead">En esta pagina podra registrar usuarios</p>
+            <hr class="my-4">
+            <p>Puede utilizar la ayuda de aqui.</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Ayuda</a>
+            </p>
         </div>
     }
     else if (User.IsInRole("Cajero"))
     {
-        <div class="text-center">
-            <div class="jumbotron">
-                <h1 class="display-3">Bienvenido Cajero!</h1>
-                <p class="lead">
-                    En esta pagina podra ingresar articulos
-                </p>
-                <hr class="my-4">
-                <p>Puede utilizar la ayuda de aqui.</p>
-                <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Ayuda</a>
-                </p>
-            </div>
+        <div class="text-center welcome-page">
+            <h1 class="display-3">Bienvenido Cajero!</h1>
+            <p class="lead">
+                En esta pagina podra ingresar articulos
+            </p>
+            <hr class="my-4">
+            <p>Puede utilizar la ayuda de aqui.</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Ayuda</a>
+            </p>
         </div>
     }
     else if (User.IsInRole("Cocinero"))
     {
-        <div class="text-center">
-            <div class="jumbotron">
-                <h1 class="display-3">Bienvenido Cocinero!</h1>
+        <div class="text-center welcome-page">
+            <h1 class="display-3">Bienvenido Cocinero!</h1>
+            <p class="lead">
+                En esta pagina podra ingresar recetas
+            </p>
+            <hr class="my-4">
+            <p>Puede utilizar la ayuda de aqui.</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Ayuda</a>
+            </p>
+        </div>
+    }
+    else if (User.IsInRole("Cliente"))
+    {
+        
+        <div class="text-center welcome-page">
+            <div class="my-auto">
+                <h1 class="display-3">Bienvenido Cliente!</h1>
                 <p class="lead">
-                    En esta pagina podra ingresar recetas
-                </p>
-                <hr class="my-4">
-                <p>Puede utilizar la ayuda de aqui.</p>
-                <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Ayuda</a>
+                    <a class="btn btn-secondary my-2 my-sm-0" asp-area="" asp-controller="Cliente" asp-action="Index">Ordenar</a>    
                 </p>
             </div>
         </div>
     }
     else
-    { 
-        <div class="jumbotron">
-            <div class="text-center">
-            <h1 class="display-1">EL BUEN SABOR</h1>
+    {
+        <div class="text-center welcome-page">
+            <h1 class="display-3">EL BUEN SABOR</h1>
+            <a class="btn btn-secondary my-2 my-sm-0" asp-area="Identity" asp-page="/Account/Login">Ingresar</a>
+            <a class="btn btn-primary my-2 my-sm-0" asp-area="Identity" asp-page="/Account/Register">Registro</a>
         </div>
-        </div>
-
     }
 
 }

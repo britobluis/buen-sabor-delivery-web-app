@@ -52,7 +52,7 @@ namespace EmpleadosEBS.Controllers
         // POST: Plato/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID, Denominacion, PrecioVenta")] Plato plato, string[] articulosSeleccionados)
+        public async Task<IActionResult> Create([Bind("ID, Denominacion, Descripcion, Imagen, PrecioVenta")] Plato plato, string[] articulosSeleccionados)
         {
             if (articulosSeleccionados != null)
             {

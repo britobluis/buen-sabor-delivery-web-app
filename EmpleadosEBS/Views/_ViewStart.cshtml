@@ -11,6 +11,10 @@
     {
     Layout = "_LayoutCocinero";
     }
+    else if (User.IsInRole("Cliente"))
+    {
+    Layout = "_LayoutCliente";
+    }
     else
     {
     Layout = "_Layout";

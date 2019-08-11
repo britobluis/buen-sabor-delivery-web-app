@@ -1,0 +1,26 @@
+﻿@model IEnumerable<EmpleadosEBS.Models.Plato>
+@{
+    Layout = "_LayoutCliente";
+}
+
+<div class="welcome-page text-center">
+    <h1 class="display-3">Cliente</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            @foreach (var plato in Model)
+            {
+                <div class="col-auto mb-3">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="@plato.Imagen" alt="@plato.Denominacion" style="height:12rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">@plato.Denominacion</h5>
+                            <p class="card-text">@plato.Descripcion.</p>
+                            <a href="#" class="btn btn-primary">Agregar al carrito</a>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+    </div>
+</div>
+

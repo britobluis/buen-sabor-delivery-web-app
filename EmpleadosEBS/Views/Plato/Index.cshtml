@@ -13,7 +13,13 @@
         <thead>
             <tr>
                 <th>
-                    denominacion
+                    Denominacion
+                </th>
+                <th>
+                    Descripcion
+                </th>
+                <th>
+                    Imagen
                 </th>
                 <th>
                     Precio Venta
@@ -35,6 +41,12 @@
                 <tr class="@selectedRow">
                     <td>
                         @Html.DisplayFor(modelItem => item.Denominacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Imagen)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PrecioVenta)

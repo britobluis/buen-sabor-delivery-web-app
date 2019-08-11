@@ -14,7 +14,6 @@ namespace EmpleadosEBS.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "Administrador")]
         public IActionResult Registrar()
         {
             return View();

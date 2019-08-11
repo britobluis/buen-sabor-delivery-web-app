@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ClientesEBS.Models;
 
 namespace ClientesEBS.Models
 {
@@ -12,15 +13,15 @@ namespace ClientesEBS.Models
             : base(options)
         {
         }
-        public DbSet<ClientesEBS.Models.Factura> Factura { get; set; }
-        public DbSet<ClientesEBS.Models.Devolucion> Devolucion { get; set; }
-        public DbSet<ClientesEBS.Models.UnidadMedida> UnidadMedida { get; set; }
-        public DbSet<ClientesEBS.Models.Articulo> Articulo { get; set; }
-        public DbSet<ClientesEBS.Models.RecetaDetalle> RecetaDetalle { get; set; }
-        public DbSet<ClientesEBS.Models.Receta> Receta { get; set; }
-        public DbSet<ClientesEBS.Models.DetPedido> DetPedido { get; set; }
-        public DbSet<ClientesEBS.Models.Pedido> Pedido { get; set; }
-        public DbSet<ClientesEBS.Models.Comanda> Comanda { get; set; }
+        public DbSet<Factura> Factura { get; set; }
+        public DbSet<Devolucion> Devolucion { get; set; }
+        public DbSet<UnidadMedida> UnidadMedida { get; set; }
+        public DbSet<Articulo> Articulo { get; set; }
+        public DbSet<RecetaDetalle> RecetaDetalle { get; set; }
+        public DbSet<Receta> Receta { get; set; }
+        public DbSet<DetPedido> DetPedido { get; set; }
+        public DbSet<Pedido> Pedido { get; set; }
+        public DbSet<Comanda> Comanda { get; set; }
 
     }
 
