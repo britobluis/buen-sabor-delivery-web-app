@@ -59,6 +59,8 @@
     <Compile Remove="Migrations\20190605093554_inicial.Designer.cs" />
     <Compile Remove="Migrations\20190606042016_inicial.cs" />
     <Compile Remove="Migrations\20190606042016_inicial.Designer.cs" />
+    <Compile Remove="Migrations\20190811183419_Plato-Agregado-Descripcion-Imagen-Campos.cs" />
+    <Compile Remove="Migrations\20190811183419_Plato-Agregado-Descripcion-Imagen-Campos.Designer.cs" />
   </ItemGroup>
 
 
