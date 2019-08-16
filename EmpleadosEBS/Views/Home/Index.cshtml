@@ -6,40 +6,20 @@
     {
         <div class="text-center welcome-page">
             <h1 class="display-3">Bienvenido Admnistrador!</h1>
-            <p class="lead">En esta pagina podra registrar usuarios</p>
-            <hr class="my-4">
-            <p>Puede utilizar la ayuda de aqui.</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Ayuda</a>
-            </p>
+            
         </div>
     }
     else if (User.IsInRole("Cajero"))
     {
         <div class="text-center welcome-page">
             <h1 class="display-3">Bienvenido Cajero!</h1>
-            <p class="lead">
-                En esta pagina podra ingresar articulos
-            </p>
-            <hr class="my-4">
-            <p>Puede utilizar la ayuda de aqui.</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Ayuda</a>
-            </p>
         </div>
     }
     else if (User.IsInRole("Cocinero"))
     {
         <div class="text-center welcome-page">
             <h1 class="display-3">Bienvenido Cocinero!</h1>
-            <p class="lead">
-                En esta pagina podra ingresar recetas
-            </p>
-            <hr class="my-4">
-            <p>Puede utilizar la ayuda de aqui.</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Ayuda</a>
-            </p>
+            
         </div>
     }
     else if (User.IsInRole("Cliente"))
