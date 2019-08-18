@@ -6,20 +6,12 @@
 }
 
 <div class="jumbotron">
-    <p>
-        <a class="btn btn-outline-primary"  asp-action="Create">Create Nuevo insumo</a>
-    </p>
+   
     <table class="table">
         <thead>
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Denominacion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PrecioCompra)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PrecioVenta)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Stock)
@@ -38,20 +30,13 @@
                         @Html.DisplayFor(modelItem => item.Denominacion)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.PrecioCompra)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PrecioVenta)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.Stock)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.UnidadMedida)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.ID">Editar</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ID">Borrar</a>
+                        <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.ID">Modificar Stock</a>
                     </td>
                 </tr>
             }

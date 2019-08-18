@@ -10,22 +10,62 @@ using EmpleadosEBS.Models;
 
 namespace EmpleadosEBS.Controllers
 {
-    public class ArticuloController : Controller
+    public class ArticuloAdministradorController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ArticuloController(ApplicationDbContext context)
+        public ArticuloAdministradorController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Articulo
+        // GET: ArticuloAdministrador
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Articulo.Where(i => i.EsInsumo == true).ToListAsync());
+            return View(await _context.Articulo.ToListAsync());
         }
 
-        // GET: Articulo/Edit/5
+        // GET: ArticuloAdministrador/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var articulo = await _context.Articulo
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (articulo == null)
+            {
+                return NotFound();
+            }
+
+            return View(articulo);
+        }
+
+        // GET: ArticuloAdministrador/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: ArticuloAdministrador/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida,Aprobado")] Articulo articulo)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(articulo);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(articulo);
+        }
+
+        // GET: ArticuloAdministrador/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -41,19 +81,17 @@ namespace EmpleadosEBS.Controllers
             return View(articulo);
         }
 
-        // POST: Articulo/Edit/5
+        // POST: ArticuloAdministrador/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida")] Articulo articulo)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida,Aprobado")] Articulo articulo)
         {
             if (id != articulo.ID)
             {
                 return NotFound();
             }
-
-            articulo.EsInsumo = true;
 
             if (ModelState.IsValid)
             {
@@ -78,7 +116,7 @@ namespace EmpleadosEBS.Controllers
             return View(articulo);
         }
 
-        // GET: Articulo/Delete/5
+        // GET: ArticuloAdministrador/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -96,7 +134,7 @@ namespace EmpleadosEBS.Controllers
             return View(articulo);
         }
 
-        // POST: Articulo/Delete/5
+        // POST: ArticuloAdministrador/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

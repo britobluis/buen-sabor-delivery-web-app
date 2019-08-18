@@ -38,12 +38,14 @@ namespace EmpleadosEBS.Data
             }
             var articulos = new Articulo[]
                 {
-                new Articulo{Denominacion = "Pan",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = true , Stock = 20,UnidadMedida = "bollos" },
-                new Articulo{Denominacion = "Lomo",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = true , Stock = 20 ,UnidadMedida = "bifes"},
-                new Articulo{Denominacion = "Lechuga",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = true , Stock = 20,UnidadMedida = "hojas" },
-                new Articulo{Denominacion = "Tomate",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = true , Stock = 20 , UnidadMedida ="rodajas"},
-                new Articulo{Denominacion = "Coca Zero",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = false , Stock = 10 , UnidadMedida ="Botella"},
-                new Articulo{Denominacion = "Coca comun",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = false , Stock = 10 , UnidadMedida ="Botella"}
+                new Articulo{Denominacion = "Pan",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = true , Stock = 20,UnidadMedida = "bollos" ,Aprobado = true},
+                new Articulo{Denominacion = "Lomo",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = true , Stock = 20 ,UnidadMedida = "bifes",Aprobado = true},
+                new Articulo{Denominacion = "Lechuga",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = true , Stock = 20,UnidadMedida = "hojas" ,Aprobado = true},
+                new Articulo{Denominacion = "Tomate",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = true , Stock = 20 , UnidadMedida ="rodajas",Aprobado = true},
+                new Articulo{Denominacion = "Coca Zero",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = false , Stock = 10 , UnidadMedida ="Botella",Aprobado = true},
+                new Articulo{Denominacion = "Coca comun",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = false , Stock = 10 , UnidadMedida ="Botella",Aprobado = true},
+                new Articulo{Denominacion = "Cerveza",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = false , Stock = 10 , UnidadMedida ="Botella",Aprobado = false},
+                new Articulo{Denominacion = "Coca comun",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = false , Stock = 10 , UnidadMedida ="Botella",Aprobado = false}
                 };
             foreach (Articulo a in articulos)
             {
@@ -80,10 +82,11 @@ namespace EmpleadosEBS.Data
             }
             var estado = new EstadoPedido[]
             {
-                new EstadoPedido{ Descripcion = "Solicitado"},
-                new EstadoPedido{ Descripcion = "Elaborando"},
-                new EstadoPedido{ Descripcion = "Listo"},
-                new EstadoPedido{ Descripcion = "Facturado"},
+                new EstadoPedido{Denominacion = 1, Descripcion = "Solicitado"},
+                new EstadoPedido{Denominacion = 2, Descripcion = "Aceptado"},
+                new EstadoPedido{Denominacion = 3, Descripcion = "Cocinado"},
+                new EstadoPedido{Denominacion = 4, Descripcion = "Listo para enviar/entregar"},
+                new EstadoPedido{Denominacion = 5, Descripcion = "Entregado"},
             };
             foreach (EstadoPedido p in estado)
             {

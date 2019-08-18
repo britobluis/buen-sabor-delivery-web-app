@@ -44,6 +44,11 @@ namespace EmpleadosEBS.Models
         public double Stock { get; set; }
         [DisplayName("Unidad")]
         public string UnidadMedida { get; set; }
+        [DisplayName("Aprobado")]
+        public Boolean Aprobado { get; set; }
+        /// <summary>
+        /// relacion con las clases Recetas y detpedidos:
+        /// </summary>
         //relacion con receta de uno a muchos
         public ICollection<Receta> Recetas { get; set; }
         //relacion con detpedido de uno a muchos
@@ -69,10 +74,17 @@ namespace EmpleadosEBS.Models
         [DisplayName("Nombre del Plato")]
         [Required]
         public string Denominacion { get; set; }
+        [DisplayName("Descripcion")]
         public string Descripcion { get; set; }
+        [ScaffoldColumn(false)]
         public string Imagen { get; set; }
         [DisplayName("Precio de Venta")]
         public int PrecioVenta { get; set; }
+        [DisplayName("Aprobado")]
+        public Boolean Aprobado { get; set; }
+        /// <summary>
+        /// relacion con la clase Recetas y DetPedidos
+        /// </summary>
         //relacion con receta de uno a muchos
         public ICollection<Receta> Recetas { get; set; }
         //relacion con detpedido de uno a muchos
@@ -99,7 +111,14 @@ namespace EmpleadosEBS.Models
     {
         public int ID { get; set; }
         [Required]
+        [DisplayName("Denominacion")]
+        public int Denominacion { get; set; }
+        [Required]
+        [DisplayName("Descripcion")]
         public String Descripcion { get; set; }
+        /// <summary>
+        /// Relacion Con la clase Pedido
+        /// </summary>
         //Relaciones con pedido uno a muchos
         public ICollection<Pedido> Pedido { get; set; }
     }
@@ -116,19 +135,14 @@ namespace EmpleadosEBS.Models
         public DateTime FechaHora { get; set; }
         [DisplayName("Precio Total")]
         public int PrecioVenta { get; set; }
+        /// <summary>
+        /// Relacion con la clase Det pedido u Estado de pedido
+        /// </summary>
         //relacione con detalle pedido de uno a muchos
         public ICollection<DetPedido> DetPedidos { get; set; }
+        //relacion con EstadoPEdido de muchos a uno
         public EstadoPedido EstadoPedido { get; set; }
-        public ICollection<Comanda> Comanda { get; set; }
+
     }
-    public class Comanda
-    {
-        public int ID { get; set; }
-        [DisplayName("Pedido")]
-        public int PedidoID { get; set; }
-        [Required]
-        [DisplayName("Estado del Pedido")]
-        public int EstadoPedido { get; set; }
-        public Pedido Pedido { get; set; }
-    }
+
 }

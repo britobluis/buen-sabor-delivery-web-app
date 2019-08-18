@@ -19,7 +19,8 @@ namespace EmpleadosEBS.Migrations
                     PrecioVenta = table.Column<double>(nullable: false),
                     EsInsumo = table.Column<bool>(nullable: false),
                     Stock = table.Column<double>(nullable: false),
-                    UnidadMedida = table.Column<string>(nullable: true)
+                    UnidadMedida = table.Column<string>(nullable: true),
+                    Aprobado = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,6 +72,7 @@ namespace EmpleadosEBS.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Denominacion = table.Column<int>(nullable: false),
                     Descripcion = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -87,7 +89,8 @@ namespace EmpleadosEBS.Migrations
                     Denominacion = table.Column<string>(nullable: false),
                     Descripcion = table.Column<string>(nullable: true),
                     Imagen = table.Column<string>(nullable: true),
-                    PrecioVenta = table.Column<int>(nullable: false)
+                    PrecioVenta = table.Column<int>(nullable: false),
+                    Aprobado = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -250,26 +253,6 @@ namespace EmpleadosEBS.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comanda",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    PedidoID = table.Column<int>(nullable: false),
-                    EstadoPedido = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comanda", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Comanda_Pedido_PedidoID",
-                        column: x => x.PedidoID,
-                        principalTable: "Pedido",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DetPedido",
                 columns: table => new
                 {
@@ -384,11 +367,6 @@ namespace EmpleadosEBS.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comanda_PedidoID",
-                table: "Comanda",
-                column: "PedidoID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_DetPedido_ArticuloID",
                 table: "DetPedido",
                 column: "ArticuloID");
@@ -445,9 +423,6 @@ namespace EmpleadosEBS.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "Comanda");
 
             migrationBuilder.DropTable(
                 name: "DetPedido");

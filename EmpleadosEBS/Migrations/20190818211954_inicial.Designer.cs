@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmpleadosEBS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190812213251_inicial")]
+    [Migration("20190818211954_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,6 +26,8 @@ namespace EmpleadosEBS.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Aprobado");
 
                     b.Property<string>("Denominacion")
                         .IsRequired();
@@ -43,23 +45,6 @@ namespace EmpleadosEBS.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Articulo");
-                });
-
-            modelBuilder.Entity("EmpleadosEBS.Models.Comanda", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EstadoPedido");
-
-                    b.Property<int>("PedidoID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PedidoID");
-
-                    b.ToTable("Comanda");
                 });
 
             modelBuilder.Entity("EmpleadosEBS.Models.DetPedido", b =>
@@ -109,6 +94,8 @@ namespace EmpleadosEBS.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Denominacion");
 
                     b.Property<string>("Descripcion")
                         .IsRequired();
@@ -163,6 +150,8 @@ namespace EmpleadosEBS.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Aprobado");
 
                     b.Property<string>("Denominacion")
                         .IsRequired();
@@ -362,14 +351,6 @@ namespace EmpleadosEBS.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("EmpleadosEBS.Models.Comanda", b =>
-                {
-                    b.HasOne("EmpleadosEBS.Models.Pedido", "Pedido")
-                        .WithMany("Comanda")
-                        .HasForeignKey("PedidoID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("EmpleadosEBS.Models.DetPedido", b =>

@@ -7,7 +7,7 @@
 
 <div class="jumbotron">
     <p>
-    <a class="btn btn-outline-primary" asp-action="Create">Crear Nuevo Plato</a>
+        <a class="btn btn-outline-primary" asp-action="Create">Crear Nuevo Plato</a>
     </p>
     <table class="table">
         <thead>
@@ -17,9 +17,6 @@
                 </th>
                 <th>
                     Descripcion
-                </th>
-                <th>
-                    Imagen
                 </th>
                 <th>
                     Precio Venta
@@ -42,12 +39,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Denominacion)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descripcion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Imagen)
-                    </td>
+
                     <td>
                         @Html.DisplayFor(modelItem => item.PrecioVenta)
                     </td>
@@ -55,12 +47,15 @@
                         @{
                             foreach (var Articulo in item.Recetas)
                             {
-                                @Articulo.Articulo.UnidadMedida @:  @Articulo.Articulo.Denominacion <br />
+
+                                @Articulo.Cantidad @:
+                                @Articulo.Articulo.UnidadMedida @:
+                                @Articulo.Articulo.Denominacion; <br />
                             }
                         }
                     </td>
                     <td>
-                        <a asp-action="Index" asp-route-id="@item.ID">Receta</a> |
+
                         <a asp-action="Edit" asp-route-id="@item.ID">Editar</a> |
                         <a asp-action="Delete" asp-route-id="@item.ID">Borrar</a>
                     </td>
@@ -69,62 +64,4 @@
         </tbody>
     </table>
 
-    @if (Model.Articulos != null)
-    {
-        <h3>Ingredientes </h3>
-        <table class="table">
-            <tr>
-
-                <th>
-                    Denominacion
-                </th>
-                <th>
-                    UnidadMedida
-                </th>
-                <th>
-                    Precio de Compra
-                </th>
-                <th>
-                    Precio de Venta
-                </th>
-                <th>
-                    Stock
-                </th>
-                <th>
-                    Cantidad
-                </th>
-
-            </tr>
-
-            @foreach (var item in Model.Articulos)
-            {
-                string selectedRow = "";
-                if (item.ID == (int?)ViewData["ArticuloID"])
-                {
-                    selectedRow = "success";
-                }
-                <tr class="@selectedRow">
-
-                    <td>
-                        @item.Denominacion
-                    </td>
-                    <td>
-                        @item.UnidadMedida
-                    </td>
-                    <td>
-                        @item.PrecioCompra
-                    </td>
-                    <td>
-                        @item.PrecioVenta
-                    </td>
-                    <td>
-                        @item.Stock
-                    </td>
-
-                    <td></td>
-                </tr>
-            }
-
-        </table>
-    }
 </div>
