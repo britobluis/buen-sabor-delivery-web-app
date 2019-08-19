@@ -8,15 +8,11 @@
     <div class="alert alert-dismissible alert-warning">
         <h3>Articulos Pendientes</h3>
         <table class="table">
-            <caption class="cap"> Articulos Pendientes de revision</caption>
             <thead>
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Denominacion)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.PrecioCompra)
-                    </th>
+                    </th>                 
                     <th>
                         @Html.DisplayNameFor(model => model.EsInsumo)
                     </th>
@@ -26,7 +22,6 @@
                     <th>
                         @Html.DisplayNameFor(model => model.UnidadMedida)
                     </th>
-
                     <th></th>
                 </tr>
             </thead>
@@ -41,9 +36,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Denominacion)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PrecioCompra)
-                            </td>
+                           
                             <td>
                                 @Html.DisplayFor(modelItem => item.EsInsumo)
                             </td>
@@ -55,8 +48,8 @@
                             </td>
 
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                                <a class="btn btn-outline-info" asp-action="Revisar" asp-route-id="@item.ID">Revisar</a>
+                                <a class="btn btn-outline-danger" asp-action="Descartar" asp-route-id="@item.ID">Descartar</a>
                             </td>
                         </tr>
                     }
@@ -120,8 +113,8 @@
                                 @Html.DisplayFor(modelItem => item.UnidadMedida)
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                                 <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                                <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.ID">Editar</a> 
+                                 <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.ID">Eliminar</a>
                             </td>
                         </tr>
                     }

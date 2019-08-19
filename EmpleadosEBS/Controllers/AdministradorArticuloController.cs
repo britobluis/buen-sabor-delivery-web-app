@@ -24,12 +24,12 @@ namespace EmpleadosEBS.Controllers
         {
             var articulo = await _context.Articulo.ToListAsync();
 
-          
+
 
 
             return View(articulo);
 
-            
+
         }
 
         // GET: AdministradorArticulo/Create
@@ -104,7 +104,57 @@ namespace EmpleadosEBS.Controllers
             }
             return View(articulo);
         }
+        //------------------------------------------------------------------------------------------------------
+        // GET: AdministradorArticulo/Revisar/5
+        public async Task<IActionResult> Revisar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var articulo = await _context.Articulo.FindAsync(id);
+            if (articulo == null)
+            {
+                return NotFound();
+            }
+            return View(articulo);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Revisar(int id, [Bind("ID,Denominacion,PrecioCompra," +
+            "PrecioVenta,EsInsumo,Stock,UnidadMedida,Aprobado")] Articulo articulo)
+        {
+            if (id != articulo.ID)
+            {
+                return NotFound();
+            }
+
+            articulo.Aprobado = true;
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(articulo);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ArticuloExists(articulo.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(articulo);
+        }
+        //---------------------------------------------------------------------------------------
         // GET: AdministradorArticulo/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -127,6 +177,34 @@ namespace EmpleadosEBS.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var articulo = await _context.Articulo.FindAsync(id);
+            _context.Articulo.Remove(articulo);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        // GET: AdministradorArticulo/Delete/5
+        public async Task<IActionResult> Descartar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var articulo = await _context.Articulo
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (articulo == null)
+            {
+                return NotFound();
+            }
+
+            return View(articulo);
+        }
+
+        // POST: AdministradorArticulo/Delete/5
+        [HttpPost, ActionName("Descartar")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DescartarConfirmed(int id)
         {
             var articulo = await _context.Articulo.FindAsync(id);
             _context.Articulo.Remove(articulo);
