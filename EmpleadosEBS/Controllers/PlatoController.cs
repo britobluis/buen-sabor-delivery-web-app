@@ -95,7 +95,7 @@ namespace EmpleadosEBS.Controllers
 
         private void ArticulosPlatoData(Plato plato)
         {
-            var allArticulos = _context.Articulo.Include(r => r.Recetas).ThenInclude(p=>p.Plato).Where(p => p.EsInsumo == true);
+            var allArticulos = _context.Articulo.Include(r => r.Recetas).ThenInclude(p => p.Plato).Where(p => p.EsInsumo == true);
             var PlatosArticulos = new HashSet<int>(plato.Recetas.Select(c => c.ID));
             var viewModel = new List<ArticuloAsignado>();
             foreach (var articulo in allArticulos)
@@ -104,10 +104,10 @@ namespace EmpleadosEBS.Controllers
                 {
                     ID = articulo.ID,
                     Denominacion = articulo.Denominacion,
-                   // Cantidad = articulo.Recetas.Where(a => a.ArticuloID == articulo.ID).Select(a => a.Cantidad).Single(),
+                    // Cantidad = articulo.Recetas.Where(a => a.ArticuloID == articulo.ID).Select(a => a.Cantidad).Single(),
                     Asignado = PlatosArticulos.Contains(articulo.ID)
 
-                }) ;
+                });
             }
             ViewData["Articulos"] = viewModel;
         }
@@ -177,34 +177,6 @@ namespace EmpleadosEBS.Controllers
                     }
                 }
             }
-        }
-
-        // GET: Plato/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var plato = await _context.Plato
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (plato == null)
-            {
-                return NotFound();
-            }
-            return View(plato);
-        }
-        // POST: Plato/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            Plato plato = await _context.Plato
-                .Include(i => i.Recetas)
-                .SingleAsync(i => i.ID == id);
-            _context.Plato.Remove(plato);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
     }
 }
