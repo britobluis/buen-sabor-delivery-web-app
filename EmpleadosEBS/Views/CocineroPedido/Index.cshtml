@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EmpleadosEBS.Models.Pedido>
+﻿@model EmpleadosEBS.Models.PedidoIndexData.PedidoIndexData
 
 @{
     ViewData["Title"] = "Index";
@@ -9,30 +9,55 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.FechaHora)
+                    FechaHora
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EstadoPedido)
+                    EstadoPedido
+                </th>
+                <th>
+                    Detalle de Pedido
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Pedidos)
             {
-                <tr>
+                if (item.EstadoPedido.Descripcion == "Solicitado")
+                {
+                    string selectedRow = "";
+                    if (item.ID == (int?)ViewData["PlatoID"])
+                    {
+                        selectedRow = "success";
+                    }
+                <tr class="@selectedRow">
                     <td>
                         @Html.DisplayFor(modelItem => item.FechaHora)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.EstadoPedido.Descripcion)
                     </td>
+
+                    <td>
+                        @{
+                            foreach (var det in item.DetPedidos)
+                            {
+
+                                @det.Articulo.Denominacion @:
+                                @det.Plato.Denominacion
+                                 <br />
+                            }
+                        }
+
+                    </td>
+                                       
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
                     </td>
                 </tr>
+                }
             }
         </tbody>
     </table>
