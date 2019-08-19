@@ -19,8 +19,10 @@ namespace EmpleadosEBS.Data
             }
             var platos = new Plato[]
             {
-                new Plato{ Denominacion = "Sandwich de lomo", Descripcion = "Lomo Simple", Imagen = "~/img/lomo.jpg", PrecioVenta = 50},
-                new Plato{ Denominacion = "Sandwich de Lechuga", Descripcion = "Lomo con Lechuga", Imagen = "~/img/lomo2.jpg", PrecioVenta = 80}
+                new Plato{ Denominacion = "Sandwich de lomo", Descripcion = "Lomo Simple",
+                    Imagen = "~/img/lomo.jpg", PrecioVenta = 50,Aprobado = true},
+                new Plato{ Denominacion = "Sandwich de Lechuga", Descripcion = "Lomo con Lechuga",
+                    Imagen = "~/img/lomo2.jpg", PrecioVenta = 80, Aprobado = false}
             };
             foreach (Plato p in platos)
             {
@@ -57,14 +59,21 @@ namespace EmpleadosEBS.Data
             }
             var recetas = new Receta[]
             {
-                new Receta{Cantidad = 1, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de lomo").ID,ArticuloID = articulos.Single(a => a.Denominacion == "Pan").ID },
-                new Receta{Cantidad = 1, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de lomo").ID,ArticuloID = articulos.Single(a => a.Denominacion == "Lomo").ID },
-                new Receta{Cantidad = 1, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de lomo").ID,ArticuloID = articulos.Single(a => a.Denominacion == "Lechuga").ID },
-                new Receta{Cantidad = 1, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de lomo").ID,ArticuloID = articulos.Single(a => a.Denominacion == "Tomate").ID },
-                new Receta{Cantidad = 1, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de Lechuga").ID,ArticuloID = articulos.Single(a => a.Denominacion == "Pan").ID },
-                new Receta{Cantidad = 1, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de Lechuga").ID,ArticuloID = articulos.Single(a => a.Denominacion == "Lomo").ID },
-                new Receta{Cantidad = 2, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de Lechuga").ID,ArticuloID = articulos.Single(a => a.Denominacion == "Lechuga").ID },
-           
+                new Receta{Cantidad = 1, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de lomo").ID,
+                    ArticuloID = articulos.Single(a => a.Denominacion == "Pan").ID },
+                new Receta{Cantidad = 1, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de lomo").ID,
+                    ArticuloID = articulos.Single(a => a.Denominacion == "Lomo").ID },
+                new Receta{Cantidad = 1, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de lomo").ID,
+                    ArticuloID = articulos.Single(a => a.Denominacion == "Lechuga").ID },
+                new Receta{Cantidad = 1, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de lomo").ID,
+                    ArticuloID = articulos.Single(a => a.Denominacion == "Tomate").ID },
+                new Receta{Cantidad = 1, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de Lechuga").ID,
+                    ArticuloID = articulos.Single(a => a.Denominacion == "Pan").ID },
+                new Receta{Cantidad = 1, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de Lechuga").ID,
+                    ArticuloID = articulos.Single(a => a.Denominacion == "Lomo").ID },
+                new Receta{Cantidad = 2, PlatoID = platos.Single(p => p.Denominacion == "Sandwich de Lechuga").ID,
+                    ArticuloID = articulos.Single(a => a.Denominacion == "Lechuga").ID },
+
             };
             foreach (Receta r in recetas)
             {
@@ -77,7 +86,7 @@ namespace EmpleadosEBS.Data
             {
                 return;//si no hay datos no retorna nada
             }
-            var estado = new EstadoPedido[]
+            var estados = new EstadoPedido[]
             {
                 new EstadoPedido{Denominacion = 1, Descripcion = "Solicitado"},
                 new EstadoPedido{Denominacion = 2, Descripcion = "Aceptado"},
@@ -85,9 +94,35 @@ namespace EmpleadosEBS.Data
                 new EstadoPedido{Denominacion = 4, Descripcion = "Listo para enviar/entregar"},
                 new EstadoPedido{Denominacion = 5, Descripcion = "Entregado"},
             };
-            foreach (EstadoPedido p in estado)
+            foreach (EstadoPedido p in estados)
             {
                 context.EstadoPedido.Add(p);
+            }
+            context.SaveChanges();
+
+            ///
+            ///DATOS INICIALES DE PEDIDO
+            ///
+            if (context.Pedido.Any())
+            {
+                return;//Si no hay pedidos No retorna nada
+            }
+            var pedidos = new Pedido[]
+                {
+                    new Pedido{NumeroPedido = 1000,FechaHora = DateTime.Parse("19/8/2019 12:00:00 PM" ),
+                        EstadoPedidoID = estados.Single(p => p.Descripcion == "Solicitado").ID,PorDelivery = true ,
+                        PrecioVenta = 100 },
+                    new Pedido{NumeroPedido = 1001,FechaHora = DateTime.Parse("19/8/2019 10:00:00 PM" ),
+                        EstadoPedidoID = estados.Single(p => p.Descripcion == "Solicitado").ID,PorDelivery = true,
+                        PrecioVenta = 200},
+                    new Pedido{NumeroPedido = 1002, FechaHora = DateTime.Parse("19/8/2019 11:00:00 PM"),
+                        EstadoPedidoID = estados.Single(p => p.Descripcion == "Solicitado").ID,PorDelivery = false,
+                        PrecioVenta = 150}
+
+                };
+            foreach (Pedido p in pedidos)
+            {
+                context.Pedido.Add(p);
             }
             context.SaveChanges();
 
@@ -96,9 +131,13 @@ namespace EmpleadosEBS.Data
                 return;//Sino hay datos no retorna nada
 
             }
-            var detalle = new DetPedido[]
+            var detalles = new DetPedido[]
                 {
-                    new DetPedido{ }
+                    new DetPedido{ PedidoID = pedidos.Single(p => p.NumeroPedido == 1001).ID ,
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
+                    new DetPedido{ PedidoID = pedidos.Single(p => p.NumeroPedido == 1001).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
+                    
                 };
 
 
