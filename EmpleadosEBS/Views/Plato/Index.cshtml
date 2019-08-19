@@ -6,9 +6,7 @@
 }
 
 <div class="jumbotron">
-    <p>
-        <a class="btn btn-outline-primary" asp-action="Create">Crear Nuevo Plato</a>
-    </p>
+    <h3> Lista de Platos   </h3>
     <table class="table">
         <thead>
             <tr>
@@ -25,35 +23,42 @@
         <tbody>
             @foreach (var item in Model.Platos)
             {
-                string selectedRow = "";
-                if (item.ID == (int?)ViewData["PlatoID"])
+                if (item.Aprobado)
                 {
-                    selectedRow = "success";
-                }
-                <tr class="@selectedRow">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Denominacion)
-                    </td>
 
-                    <td>
-                        @{
-                            foreach (var Articulo in item.Recetas)
-                            {
 
-                                @Articulo.Cantidad @:
-                                @Articulo.Articulo.UnidadMedida @:
-                                @Articulo.Articulo.Denominacion; <br />
+                    string selectedRow = "";
+                    if (item.ID == (int?)ViewData["PlatoID"])
+                    {
+                        selectedRow = "success";
+                    }
+                    <tr class="@selectedRow">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Denominacion)
+                        </td>
+
+                        <td>
+                            @{
+                                foreach (var Articulo in item.Recetas)
+                                {
+
+                                    @Articulo.Cantidad @:
+                                    @Articulo.Articulo.UnidadMedida @:
+                                    @Articulo.Articulo.Denominacion; <br />
+                                }
                             }
-                        }
-                    </td>
-                    <td>
+                        </td>
+                        <td>
 
-                        <a asp-action="Edit" asp-route-id="@item.ID">Editar</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ID">Borrar</a>
-                    </td>
-                </tr>
+                            <a asp-action="Edit" asp-route-id="@item.ID">Editar</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ID">Borrar</a>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
-
+    <p>
+        <a class="btn btn-outline-primary" asp-action="Create">Crear Nuevo Plato</a>
+    </p>
 </div>
