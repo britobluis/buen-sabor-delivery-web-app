@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmpleadosEBS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190818211954_inicial")]
-    partial class inicial
+    [Migration("20190819214156_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -133,6 +133,8 @@ namespace EmpleadosEBS.Migrations
                     b.Property<int>("EstadoPedidoID");
 
                     b.Property<DateTime>("FechaHora");
+
+                    b.Property<int>("NumeroPedido");
 
                     b.Property<bool>("PorDelivery");
 

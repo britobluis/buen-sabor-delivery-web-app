@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EmpleadosEBS.Migrations
 {
-    public partial class inicial : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -209,6 +209,7 @@ namespace EmpleadosEBS.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    NumeroPedido = table.Column<int>(nullable: false),
                     EstadoPedidoID = table.Column<int>(nullable: false),
                     PorDelivery = table.Column<bool>(nullable: false),
                     FechaHora = table.Column<DateTime>(nullable: false),

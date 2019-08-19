@@ -132,6 +132,8 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<DateTime>("FechaHora");
 
+                    b.Property<int>("NumeroPedido");
+
                     b.Property<bool>("PorDelivery");
 
                     b.Property<int>("PrecioVenta");

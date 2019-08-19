@@ -126,6 +126,9 @@ namespace EmpleadosEBS.Models
     {
         public int ID { get; set; }
         [Required]
+        [DisplayName("Numero de Pedido")]
+        public int NumeroPedido { get; set; }
+        [Required]
         [DisplayName("Estado del Pedido")]
         public int EstadoPedidoID { get; set; }
         [Required]

@@ -12,9 +12,6 @@ namespace EmpleadosEBS.Data
         public static void Initialize(ApplicationDbContext context)
         {
             context.Database.EnsureCreated();
-
-           
-
             //comprobacion de datos en la tabla Plato
             if (context.Plato.Any())
             {
@@ -93,6 +90,18 @@ namespace EmpleadosEBS.Data
                 context.EstadoPedido.Add(p);
             }
             context.SaveChanges();
+
+            if (context.DetPedido.Any())
+            {
+                return;//Sino hay datos no retorna nada
+
+            }
+            var detalle = new DetPedido[]
+                {
+                    new DetPedido{ }
+                };
+
+
         }
     }
 }
