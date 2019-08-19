@@ -11,6 +11,6 @@ namespace EmpleadosEBS.Models.PedidoIndexData
         public IEnumerable<DetPedido> DetPedidos { get; set; }
         public IEnumerable<Articulo> Articulos { get; set; }
         public IEnumerable<Plato> Platos { get; set; }
-        public IEnumerable<EstadoPedido> EstadoPedidos { get; set; }     
+        public IEnumerable<EstadoPedido> EstadoPedidos { get; set; }
     }
 }

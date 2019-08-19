@@ -10,23 +10,23 @@ using EmpleadosEBS.Models;
 
 namespace EmpleadosEBS.Controllers
 {
-    public class PedidoCocinaController : Controller
+    public class CocineroPedidoController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public PedidoCocinaController(ApplicationDbContext context)
+        public CocineroPedidoController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: PedidoCocina
+        // GET: CocineroPedido
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Pedido.Include(p => p.EstadoPedido);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: PedidoCocina/Details/5
+        // GET: CocineroPedido/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,14 +45,14 @@ namespace EmpleadosEBS.Controllers
             return View(pedido);
         }
 
-        // GET: PedidoCocina/Create
+        // GET: CocineroPedido/Create
         public IActionResult Create()
         {
             ViewData["EstadoPedidoID"] = new SelectList(_context.EstadoPedido, "ID", "Descripcion");
             return View();
         }
 
-        // POST: PedidoCocina/Create
+        // POST: CocineroPedido/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -69,7 +69,7 @@ namespace EmpleadosEBS.Controllers
             return View(pedido);
         }
 
-        // GET: PedidoCocina/Edit/5
+        // GET: CocineroPedido/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,7 +86,7 @@ namespace EmpleadosEBS.Controllers
             return View(pedido);
         }
 
-        // POST: PedidoCocina/Edit/5
+        // POST: CocineroPedido/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -122,7 +122,7 @@ namespace EmpleadosEBS.Controllers
             return View(pedido);
         }
 
-        // GET: PedidoCocina/Delete/5
+        // GET: CocineroPedido/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,7 +141,7 @@ namespace EmpleadosEBS.Controllers
             return View(pedido);
         }
 
-        // POST: PedidoCocina/Delete/5
+        // POST: CocineroPedido/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
