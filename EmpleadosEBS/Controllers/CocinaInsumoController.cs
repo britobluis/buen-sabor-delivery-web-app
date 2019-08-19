@@ -49,13 +49,14 @@ namespace EmpleadosEBS.Controllers
             return View();
         }
 
-        // POST: CocinaInsumo/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida,Aprobado")] Articulo articulo)
         {
+            articulo.Aprobado = false;
+            articulo.PrecioVenta = 0;
+            articulo.EsInsumo = true;
+
             if (ModelState.IsValid)
             {
                 _context.Add(articulo);
@@ -63,86 +64,6 @@ namespace EmpleadosEBS.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(articulo);
-        }
-
-        // GET: CocinaInsumo/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var articulo = await _context.Articulo.FindAsync(id);
-            if (articulo == null)
-            {
-                return NotFound();
-            }
-            return View(articulo);
-        }
-
-        // POST: CocinaInsumo/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida,Aprobado")] Articulo articulo)
-        {
-            if (id != articulo.ID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(articulo);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ArticuloExists(articulo.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(articulo);
-        }
-
-        // GET: CocinaInsumo/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var articulo = await _context.Articulo
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (articulo == null)
-            {
-                return NotFound();
-            }
-
-            return View(articulo);
-        }
-
-        // POST: CocinaInsumo/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var articulo = await _context.Articulo.FindAsync(id);
-            _context.Articulo.Remove(articulo);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool ArticuloExists(int id)
