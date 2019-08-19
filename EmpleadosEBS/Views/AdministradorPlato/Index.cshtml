@@ -33,9 +33,8 @@
                                 @Html.DisplayFor(modelItem => item.Descripcion)
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                                <a class="btn btn-outline-info" asp-action="Revisar" asp-route-id="@item.ID">Revisar</a>
+                                <a class="btn btn-outline-danger" asp-action="Descartar" asp-route-id="@item.ID">Descartar</a>
                             </td>
                         </tr>
                     }
@@ -76,9 +75,8 @@
                                 @Html.DisplayFor(modelItem => item.PrecioVenta)
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                                <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.ID">Editar</a> 
+                                <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.ID">Eliminar</a>
                             </td>
                         </tr>
                     }
@@ -86,5 +84,5 @@
             </tbody>
         </table>
     </div>
-    <a class="btn btn-outline-primary" asp-action="Create">Create New</a>
+    <a class="btn btn-outline-primary" asp-action="Create">Ingresar Plato</a>
 </div>

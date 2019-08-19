@@ -62,10 +62,6 @@ namespace EmpleadosEBS.Controllers
             }
             return View(plato);
         }
-
-        // POST: AdministradorPlato/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Denominacion,Descripcion,PrecioVenta,Aprobado")] Plato plato)
@@ -74,6 +70,56 @@ namespace EmpleadosEBS.Controllers
             {
                 return NotFound();
             }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(plato);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PlatoExists(plato.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(plato);
+        }
+        //-----------------------------------------------------------------------------------------
+        // GET: AdministradorPlato/Edit/5
+        public async Task<IActionResult> Revisar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var plato = await _context.Plato.FindAsync(id);
+            if (plato == null)
+            {
+                return NotFound();
+            }
+            return View(plato);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Revisar(int id, [Bind("ID,Denominacion,Descripcion," +
+            "PrecioVenta,Aprobado")] Plato plato)
+        {
+            if (id != plato.ID)
+            {
+                return NotFound();
+            }
+
+            plato.Aprobado = true;
 
             if (ModelState.IsValid)
             {
@@ -120,6 +166,35 @@ namespace EmpleadosEBS.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var plato = await _context.Plato.FindAsync(id);
+            _context.Plato.Remove(plato);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        //-------------------------------------------------------------------------
+        // GET: AdministradorPlato/Descartar/5
+        public async Task<IActionResult> Descartar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var plato = await _context.Plato
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (plato == null)
+            {
+                return NotFound();
+            }
+
+            return View(plato);
+        }
+
+        // POST: AdministradorPlato/Delete/5
+        [HttpPost, ActionName("Descartar")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DescartarConfirmed(int id)
         {
             var plato = await _context.Plato.FindAsync(id);
             _context.Plato.Remove(plato);
