@@ -13,14 +13,9 @@
         <thead>
             <tr>
                 <th>
-                    Denominacion
+                    Nombre del Plato
                 </th>
-                <th>
-                    Descripcion
-                </th>
-                <th>
-                    Precio Venta
-                </th>
+
                 <th>
                     Receta
                 </th>
@@ -40,9 +35,6 @@
                         @Html.DisplayFor(modelItem => item.Denominacion)
                     </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PrecioVenta)
-                    </td>
                     <td>
                         @{
                             foreach (var Articulo in item.Recetas)
