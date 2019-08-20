@@ -22,12 +22,7 @@
             {
                 if (item.EstadoPedido.Descripcion == "Solicitado")
                 {
-                    string selectedRow = "";
-                    if (item.ID == (int?)ViewData["PedidoID"])
-                    {
-                        selectedRow = "success";
-                    }
-                    <tr class="@selectedRow">
+                    <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.FechaHora)
                         </td>
@@ -36,7 +31,8 @@
                                 foreach (var Plato in item.DetPedidos)
                                 {
                                     @Plato.Plato.Denominacion @:
-                                     <br />
+                                    @Plato.Plato.Descripcion;
+                                    <br />
                                 }
                             }
                         </td>

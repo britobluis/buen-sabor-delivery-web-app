@@ -25,12 +25,7 @@
             {
                 if (item.Aprobado)
                 {
-                    string selectedRow = "";
-                    if (item.ID == (int?)ViewData["PlatoID"])
-                    {
-                        selectedRow = "success";
-                    }
-                    <tr class="@selectedRow">
+                    <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Denominacion)
                         </td>

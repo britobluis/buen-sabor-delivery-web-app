@@ -53,6 +53,8 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<int?>("ArticuloID");
 
+                    b.Property<int>("Cantidad");
+
                     b.Property<int?>("PedidoID");
 
                     b.Property<int?>("PlatoID");

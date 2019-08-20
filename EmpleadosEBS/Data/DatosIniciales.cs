@@ -133,9 +133,9 @@ namespace EmpleadosEBS.Data
             }
             var detalles = new DetPedido[]
                 {
-                    new DetPedido{ PedidoID = pedidos.Single(p => p.NumeroPedido == 1001).ID ,
+                    new DetPedido{Cantidad = 2 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1001).ID ,
                         ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
-                    new DetPedido{ PedidoID = pedidos.Single(p => p.NumeroPedido == 1001).ID ,
+                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1001).ID ,
                         PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
                     
                 };

@@ -259,6 +259,7 @@ namespace EmpleadosEBS.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Cantidad = table.Column<int>(nullable: false),
                     PlatoID = table.Column<int>(nullable: true),
                     ArticuloID = table.Column<int>(nullable: true),
                     PedidoID = table.Column<int>(nullable: true)

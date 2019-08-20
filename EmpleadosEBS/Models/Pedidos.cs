@@ -94,6 +94,9 @@ namespace EmpleadosEBS.Models
     public class DetPedido
     {
         public int ID { get; set; }
+        [Required]
+        [DisplayName("Cantidad")]
+        public int Cantidad { get; set; }
         [DisplayName("Plato")]
         public int? PlatoID { get; set; }
         [DisplayName("Articulo")]
