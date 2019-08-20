@@ -21,7 +21,7 @@ namespace EmpleadosEBS.Controllers
             _context = context;
         }
         // GET: Plato
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index()
         {
             var viewModel = new PlatoIndexData();
             viewModel.Platos = await _context.Plato
@@ -31,12 +31,6 @@ namespace EmpleadosEBS.Controllers
                     .OrderBy(i => i.Denominacion)
                     .ToListAsync();
 
-            if (id != null)
-            {
-                ViewData["PLatoID"] = id.Value;
-                Plato plato = viewModel.Platos.Where(i => i.ID == id.Value).Single();
-                viewModel.Articulos = plato.Recetas.Select(s => s.Articulo);
-            }
             return View(viewModel);
         }
 

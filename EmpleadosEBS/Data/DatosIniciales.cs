@@ -139,6 +139,11 @@ namespace EmpleadosEBS.Data
                         PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
                     
                 };
+            foreach (DetPedido p in detalles)
+            {
+                context.DetPedido.Add(p);
+            }
+            context.SaveChanges();
 
 
         }

@@ -12,9 +12,6 @@
                     FechaHora
                 </th>
                 <th>
-                    EstadoPedido
-                </th>
-                <th>
                     Detalle de Pedido
                 </th>
                 <th></th>
@@ -26,37 +23,28 @@
                 if (item.EstadoPedido.Descripcion == "Solicitado")
                 {
                     string selectedRow = "";
-                    if (item.ID == (int?)ViewData["PlatoID"])
+                    if (item.ID == (int?)ViewData["PedidoID"])
                     {
                         selectedRow = "success";
                     }
-                <tr class="@selectedRow">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FechaHora)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EstadoPedido.Descripcion)
-                    </td>
-
-                    <td>
-                        @{
-                            foreach (var det in item.DetPedidos)
-                            {
-
-                                @det.Articulo.Denominacion @:
-                                @det.Plato.Denominacion
-                                 <br />
+                    <tr class="@selectedRow">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaHora)
+                        </td>
+                        <td>
+                            @{
+                                foreach (var Plato in item.DetPedidos)
+                                {
+                                    @Plato.Plato.Denominacion @:
+                                     <br />
+                                }
                             }
-                        }
-
-                    </td>
-                                       
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                        </td>
+                    </tr>
                 }
             }
         </tbody>

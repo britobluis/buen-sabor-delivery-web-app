@@ -19,17 +19,14 @@ namespace EmpleadosEBS.Controllers
         {
             _context = context;
         }
-
         // GET: CocineroPedido
         public async Task<IActionResult> Index()
         {
             var viewModel = new PedidoIndexData();
             viewModel.Pedidos = await _context.Pedido
-                .Include(d => d.EstadoPedido) 
                 .Include(p => p.DetPedidos)
-                    .ThenInclude(a => a.Articulo)
-                .Include(p=> p.DetPedidos)
-                    .ThenInclude(p=> p.Plato)
+                    .ThenInclude(p => p.Plato)
+                .Include(d => d.EstadoPedido)             
                     .AsNoTracking()
                     .OrderBy(i => i.FechaHora)
                     .ToListAsync();
