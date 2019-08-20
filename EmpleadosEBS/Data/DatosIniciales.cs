@@ -22,7 +22,7 @@ namespace EmpleadosEBS.Data
                 new Plato{ Denominacion = "Sandwich de lomo", Descripcion = "Lomo Simple",
                     Imagen = "~/img/lomo.jpg", PrecioVenta = 50,Aprobado = true},
                 new Plato{ Denominacion = "Sandwich de Lechuga", Descripcion = "Lomo con Lechuga",
-                    Imagen = "~/img/lomo2.jpg", PrecioVenta = 80, Aprobado = false}
+                    Imagen = "~/img/lomo2.jpg", PrecioVenta = 80, Aprobado = true}
             };
             foreach (Plato p in platos)
             {
@@ -137,7 +137,15 @@ namespace EmpleadosEBS.Data
                         ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
                     new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1001).ID ,
                         PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
-                    
+                    new DetPedido{Cantidad = 1 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1000).ID ,
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
+                    new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1000).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
+                    new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1000).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+                    new DetPedido{Cantidad = 5, PedidoID = pedidos.Single(p => p.NumeroPedido == 1002).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+
                 };
             foreach (DetPedido p in detalles)
             {

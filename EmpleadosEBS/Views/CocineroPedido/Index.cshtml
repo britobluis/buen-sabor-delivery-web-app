@@ -30,9 +30,11 @@
                             @{
                                 foreach (var Plato in item.DetPedidos)
                                 {
-                                    @Plato.Plato.Denominacion @:
-                                    @Plato.Plato.Descripcion;
-                                    <br />
+                                    if (Plato.PlatoID.HasValue)
+                                    {
+
+                                        @Plato.Cantidad @: @Plato.Plato.Denominacion<br />
+                                    }
                                 }
                             }
                         </td>
