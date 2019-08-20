@@ -89,7 +89,11 @@ namespace EmpleadosEBS.Controllers
 
         private void ArticulosPlatoData(Plato plato)
         {
-            var allArticulos = _context.Articulo.Include(r => r.Recetas).ThenInclude(p => p.Plato).Where(p => p.EsInsumo == true);
+            var allArticulos = _context.Articulo
+                .Include(r => r.Recetas)
+                .ThenInclude(p => p.Plato)
+                .Where(p => p.EsInsumo == true);
+
             var PlatosArticulos = new HashSet<int>(plato.Recetas.Select(c => c.ID));
             var viewModel = new List<ArticuloAsignado>();
             foreach (var articulo in allArticulos)

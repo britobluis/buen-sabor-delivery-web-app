@@ -34,49 +34,6 @@ namespace EmpleadosEBS.Controllers
             return View(viewModel);
         }
 
-        // GET: CocineroPedido/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var pedido = await _context.Pedido
-                .Include(p => p.EstadoPedido)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (pedido == null)
-            {
-                return NotFound();
-            }
-
-            return View(pedido);
-        }
-
-        // GET: CocineroPedido/Create
-        public IActionResult Create()
-        {
-            ViewData["EstadoPedidoID"] = new SelectList(_context.EstadoPedido, "ID", "Descripcion");
-            return View();
-        }
-
-        // POST: CocineroPedido/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,EstadoPedidoID,PorDelivery,FechaHora,PrecioVenta")] Pedido pedido)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(pedido);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["EstadoPedidoID"] = new SelectList(_context.EstadoPedido, "ID", "Descripcion", pedido.EstadoPedidoID);
-            return View(pedido);
-        }
-
         // GET: CocineroPedido/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -85,11 +42,17 @@ namespace EmpleadosEBS.Controllers
                 return NotFound();
             }
 
-            var pedido = await _context.Pedido.FindAsync(id);
+            var pedido = await _context.Pedido
+                .Include(d => d.DetPedidos)
+                    .ThenInclude(p => p.Plato)
+                     .AsNoTracking()
+                     .FirstOrDefaultAsync(m => m.ID == id);
+
             if (pedido == null)
             {
                 return NotFound();
             }
+
             ViewData["EstadoPedidoID"] = new SelectList(_context.EstadoPedido, "ID", "Descripcion", pedido.EstadoPedidoID);
             return View(pedido);
         }
@@ -105,12 +68,13 @@ namespace EmpleadosEBS.Controllers
             {
                 return NotFound();
             }
-
+          
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(pedido);
+                    _context.Update(pedido.EstadoPedido.Descripcion = "Cocinado");
+                    
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -125,8 +89,7 @@ namespace EmpleadosEBS.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["EstadoPedidoID"] = new SelectList(_context.EstadoPedido, "ID", "Descripcion", pedido.EstadoPedidoID);
+            }          
             return View(pedido);
         }
 
