@@ -26,7 +26,7 @@ namespace EmpleadosEBS.Controllers
             viewModel.Pedidos = await _context.Pedido
                 .Include(p => p.DetPedidos)
                     .ThenInclude(p => p.Plato)
-                .Include(d => d.EstadoPedido)             
+                .Include(d => d.EstadoPedido)
                     .AsNoTracking()
                     .OrderBy(i => i.FechaHora)
                     .ToListAsync();
@@ -63,15 +63,28 @@ namespace EmpleadosEBS.Controllers
             {
                 return NotFound();
             }
-           
+
             pedido.EstadoPedidoID = 3;
-           
+
+            var descuento = await _context.DetPedido
+                .Include(d => d.Plato)
+                    .ThenInclude(p => p.Recetas)
+                .Include(p => p.Pedido)
+                     .AsNoTracking()
+                     .FirstOrDefaultAsync(m => m.ID == id);
+
+            foreach (var detalle in descuento.Plato.Recetas)
+            {
+                //detalle.Articulo.Stock - detalle.Cantidad;
+
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
                     _context.Update(pedido);
-                  
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

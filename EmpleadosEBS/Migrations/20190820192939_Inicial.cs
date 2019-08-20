@@ -234,7 +234,7 @@ namespace EmpleadosEBS.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ArticuloID = table.Column<int>(nullable: false),
                     PlatoID = table.Column<int>(nullable: false),
-                    Cantidad = table.Column<int>(nullable: false)
+                    Cantidad = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {

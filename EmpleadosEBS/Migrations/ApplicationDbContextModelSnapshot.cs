@@ -177,7 +177,7 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<int>("ArticuloID");
 
-                    b.Property<int>("Cantidad");
+                    b.Property<double>("Cantidad");
 
                     b.Property<int>("PlatoID");
 

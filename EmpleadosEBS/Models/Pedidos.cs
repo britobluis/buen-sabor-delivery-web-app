@@ -62,7 +62,7 @@ namespace EmpleadosEBS.Models
         [DisplayName("Plato")]
         public int PlatoID { get; set; }
         [Required]
-        public int Cantidad { get; set; }
+        public double Cantidad { get; set; }
         //relacion con articulo de muchos a uno
         public Articulo Articulo { get; set; }
         //relacion con plato de muchos a uno
