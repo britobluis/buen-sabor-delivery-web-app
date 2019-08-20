@@ -52,14 +52,9 @@ namespace EmpleadosEBS.Controllers
             {
                 return NotFound();
             }
-
-            ViewData["EstadoPedidoID"] = new SelectList(_context.EstadoPedido, "ID", "Descripcion", pedido.EstadoPedidoID);
             return View(pedido);
         }
 
-        // POST: CocineroPedido/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,EstadoPedidoID,PorDelivery,FechaHora,PrecioVenta")] Pedido pedido)
@@ -68,13 +63,15 @@ namespace EmpleadosEBS.Controllers
             {
                 return NotFound();
             }
-          
+           
+            pedido.EstadoPedidoID = 3;
+           
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(pedido.EstadoPedido.Descripcion = "Cocinado");
-                    
+                    _context.Update(pedido);
+                  
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -89,38 +86,9 @@ namespace EmpleadosEBS.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }          
-            return View(pedido);
-        }
-
-        // GET: CocineroPedido/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
             }
-
-            var pedido = await _context.Pedido
-                .Include(p => p.EstadoPedido)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (pedido == null)
-            {
-                return NotFound();
-            }
-
+            ViewData["EstadoPedidoID"] = new SelectList(_context.EstadoPedido, "ID", "Descripcion", pedido.EstadoPedidoID);
             return View(pedido);
-        }
-
-        // POST: CocineroPedido/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var pedido = await _context.Pedido.FindAsync(id);
-            _context.Pedido.Remove(pedido);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool PedidoExists(int id)
