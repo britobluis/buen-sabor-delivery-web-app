@@ -22,27 +22,9 @@ namespace EmpleadosEBS.Controllers
         // GET: CajeroBebida
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Articulo.Where(i => i.EsInsumo == false).ToListAsync());
+            return View(await _context.Articulo.Where(i => i.EsInsumo == false && i.Aprobado == true).ToListAsync());
         }
-
-        // GET: CajeroBebida/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var articulo = await _context.Articulo
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (articulo == null)
-            {
-                return NotFound();
-            }
-
-            return View(articulo);
-        }
-
+     
         // GET: CajeroBebida/Create
         public IActionResult Create()
         {
@@ -50,8 +32,6 @@ namespace EmpleadosEBS.Controllers
         }
 
         // POST: CajeroBebida/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida,Aprobado")] Articulo articulo)
@@ -82,8 +62,6 @@ namespace EmpleadosEBS.Controllers
         }
 
         // POST: CajeroBebida/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida,Aprobado")] Articulo articulo)
@@ -114,35 +92,6 @@ namespace EmpleadosEBS.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(articulo);
-        }
-
-        // GET: CajeroBebida/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var articulo = await _context.Articulo
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (articulo == null)
-            {
-                return NotFound();
-            }
-
-            return View(articulo);
-        }
-
-        // POST: CajeroBebida/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var articulo = await _context.Articulo.FindAsync(id);
-            _context.Articulo.Remove(articulo);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool ArticuloExists(int id)

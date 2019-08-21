@@ -36,6 +36,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.UnidadMedida)
                     </td>
+                    <td>
+                        <a class="btn btn-outline-success" asp-action="Edit" asp-route-id="@item.ID">Modificar stock</a>
+                    </td>
                 </tr>
             }
         </tbody>

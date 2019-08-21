@@ -86,7 +86,7 @@ namespace EmpleadosEBS.Data
             }
             context.SaveChanges();
 
-            //comprobacion de datos en la tabla EstadoPEdido
+            //comprobacion de datos en la tabla EstadoPedido
             if (context.EstadoPedido.Any())
             {
                 return;//si no hay datos no retorna nada
