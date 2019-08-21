@@ -1,0 +1,55 @@
+﻿@model IEnumerable<EmpleadosEBS.Models.Pedido>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<div class="jumbotron">
+    <h3>Pedidos</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumeroPedido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PorDelivery)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaHora)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PrecioVenta)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EstadoPedido)
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroPedido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PorDelivery)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaHora)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrecioVenta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstadoPedido.Descripcion)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
