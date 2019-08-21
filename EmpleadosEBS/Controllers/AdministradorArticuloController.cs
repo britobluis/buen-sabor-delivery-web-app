@@ -23,13 +23,7 @@ namespace EmpleadosEBS.Controllers
         public async Task<IActionResult> Index()
         {
             var articulo = await _context.Articulo.ToListAsync();
-
-
-
-
             return View(articulo);
-
-
         }
 
         // GET: AdministradorArticulo/Create
@@ -38,9 +32,6 @@ namespace EmpleadosEBS.Controllers
             return View();
         }
 
-        // POST: AdministradorArticulo/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida,Aprobado")] Articulo articulo)

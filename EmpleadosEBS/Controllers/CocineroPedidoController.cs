@@ -66,19 +66,16 @@ namespace EmpleadosEBS.Controllers
 
             pedido.EstadoPedidoID = 3;
 
-            var descuento = await _context.DetPedido
-                .Include(d => d.Plato)
-                    .ThenInclude(p => p.Recetas)
-                .Include(p => p.Pedido)
+            var detalles = await _context.DetPedido
+                .Include(d => d.Pedido).Where(m => m.ID == id)
+                    .Include(a => a.Articulo)
+                    .Include(p => p.Plato)
+                        .ThenInclude(r=> r.Recetas)
                      .AsNoTracking()
-                     .FirstOrDefaultAsync(m => m.ID == id);
+                     .FirstOrDefaultAsync();
 
-            foreach (var detalle in descuento.Plato.Recetas)
-            {
-                //detalle.Articulo.Stock - detalle.Cantidad;
-
-            }
-
+           // var detalle = await _context.Articulo.Where(a => a.ID == detalles.Articulo);
+           
             if (ModelState.IsValid)
             {
                 try

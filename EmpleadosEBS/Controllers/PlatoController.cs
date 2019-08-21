@@ -46,7 +46,8 @@ namespace EmpleadosEBS.Controllers
         // POST: Plato/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID, Denominacion, Descripcion, Imagen, PrecioVenta")] Plato plato, string[] articulosSeleccionados)
+        public async Task<IActionResult> Create([Bind("ID, Denominacion, Descripcion, Imagen, PrecioVenta")]
+                                                                Plato plato, string[] articulosSeleccionados)
         {
             if (articulosSeleccionados != null)
             {
@@ -102,7 +103,6 @@ namespace EmpleadosEBS.Controllers
                 {
                     ID = articulo.ID,
                     Denominacion = articulo.Denominacion,
-                    // Cantidad = articulo.Recetas.Where(a => a.ArticuloID == articulo.ID).Select(a => a.Cantidad).Single(),
                     Asignado = PlatosArticulos.Contains(articulo.ID)
 
                 });
