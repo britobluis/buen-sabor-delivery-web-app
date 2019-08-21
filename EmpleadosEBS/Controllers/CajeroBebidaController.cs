@@ -6,25 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EmpleadosEBS.Data;
+using EmpleadosEBS.Models;
 
-namespace EmpleadosEBS.Models
+namespace EmpleadosEBS.Controllers
 {
-    public class BebidaController : Controller
+    public class CajeroBebidaController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public BebidaController(ApplicationDbContext context)
+        public CajeroBebidaController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Bebida
+        // GET: CajeroBebida
         public async Task<IActionResult> Index()
         {
             return View(await _context.Articulo.Where(i => i.EsInsumo == false).ToListAsync());
         }
 
-        // GET: Bebida/Details/5
+        // GET: CajeroBebida/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,18 +43,18 @@ namespace EmpleadosEBS.Models
             return View(articulo);
         }
 
-        // GET: Bebida/Create
+        // GET: CajeroBebida/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Bebida/Create
+        // POST: CajeroBebida/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida")] Articulo articulo)
+        public async Task<IActionResult> Create([Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida,Aprobado")] Articulo articulo)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +65,7 @@ namespace EmpleadosEBS.Models
             return View(articulo);
         }
 
-        // GET: Bebida/Edit/5
+        // GET: CajeroBebida/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,12 +81,12 @@ namespace EmpleadosEBS.Models
             return View(articulo);
         }
 
-        // POST: Bebida/Edit/5
+        // POST: CajeroBebida/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida")] Articulo articulo)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Denominacion,PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida,Aprobado")] Articulo articulo)
         {
             if (id != articulo.ID)
             {
@@ -115,7 +116,7 @@ namespace EmpleadosEBS.Models
             return View(articulo);
         }
 
-        // GET: Bebida/Delete/5
+        // GET: CajeroBebida/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,7 +134,7 @@ namespace EmpleadosEBS.Models
             return View(articulo);
         }
 
-        // POST: Bebida/Delete/5
+        // POST: CajeroBebida/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
