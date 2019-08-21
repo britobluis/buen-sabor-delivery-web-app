@@ -19,6 +19,7 @@ namespace EmpleadosEBS.Data
         public DbSet<EmpleadosEBS.Models.Pedido> Pedido { get; set; }
         public DbSet<EmpleadosEBS.Models.EstadoPedido> EstadoPedido { get; set; }
         public DbSet<EmpleadosEBS.Models.Comanda> Comanda { get; set; }
+        public DbSet<EmpleadosEBS.Models.ShoppingCartItem> ShoppingCartItems { get; set; }
         
     }
 }

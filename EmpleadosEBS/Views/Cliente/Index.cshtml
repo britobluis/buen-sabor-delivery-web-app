@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EmpleadosEBS.Models.Plato>
+﻿@model EmpleadosEBS.ViewModels.PlatoArticuloViewModel
 @{
     Layout = "_LayoutCliente";
 }
@@ -7,7 +7,7 @@
     <h1 class="display-3">Cliente</h1>
     <div class="container">
         <div class="row justify-content-center">
-            @foreach (var plato in Model)
+            @foreach (var plato in Model.Platos)
             {
                 <div class="col-auto mb-3">
                     <div class="card" style="width: 18rem;">
@@ -16,12 +16,31 @@
                             <h5 class="card-title">@plato.Denominacion</h5>
                             <p class="card-text">@plato.Descripcion.</p>
                             <p><i>$ @plato.PrecioVenta</i></p>
-                            <a href="#" class="btn btn-primary">Agregar al carrito</a>
+                            <a class="btn btn-primary" asp-controller="ShoppingCart" asp-action="AddToShoppingCartPlato"
+                               asp-route-ID="@plato.ID">Agregar al carrito</a>
                         </div>
                     </div>
                 </div>
+            }
+            @foreach (var articulo in Model.Articulos)
+            {
+                if (!articulo.EsInsumo)
+                {
+                    <div class="col-auto mb-3">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="https://www.cocacolaespana.es/content/dam/journey/es/es/private/historia/love-coca-cola/2015/logo-coca-cola-lead.png" alt="" style="height:12rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">@articulo.Denominacion</h5>
+                                <p class="card-text">@articulo.Stock.</p>
+                                <p><i>$ @articulo.PrecioVenta</i></p>
+                                <a class="btn btn-primary" asp-controller="ShoppingCart" asp-action="AddToShoppingCart"
+                                   asp-route-ID="@articulo.ID">Agregar al carrito</a>
+                            </div>
+                        </div>
+                    </div>
                 }
-            </div>
+            }
+        </div>
     </div>
 </div>
 

@@ -88,6 +88,9 @@ namespace EmpleadosEBS.Models
         public int? ArticuloID { get; set; }
         [DisplayName("Pedido")]
         public int? PedidoID { get; set; }
+        public int Cantidad { get; set; }
+        public double PrecioArticulo { get; set; }
+        public double PrecioPlato { get; set; }
         //relacion con receta muchos a uno 
         public Plato Plato { get; set; }
         //relacion con Articulo muchos a uno

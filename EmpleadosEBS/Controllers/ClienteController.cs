@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmpleadosEBS.Data;
+using EmpleadosEBS.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,8 +21,14 @@ namespace EmpleadosEBS.Controllers
         [Authorize(Roles = "Cliente")]
         public IActionResult Index()
         {
+
+            PlatoArticuloViewModel model = new PlatoArticuloViewModel();
+            model.Platos = _context.Plato.ToArray();
+            model.Articulos = _context.Articulo.ToArray();
+
             var platos = _context.Plato.ToArray();
-            return View(platos);
+
+            return View(model);
         }
     }
 }
