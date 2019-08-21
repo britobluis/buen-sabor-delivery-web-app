@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EmpleadosEBS.Data;
 using EmpleadosEBS.Models;
+using EmpleadosEBS.Models.PedidoIndexData;
 
 namespace EmpleadosEBS.Controllers
 {
@@ -22,29 +23,18 @@ namespace EmpleadosEBS.Controllers
         // GET: CajeroPedido
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Pedido.Include(p => p.EstadoPedido);
-            return View(await applicationDbContext.ToListAsync());
+            var viewModel = new PedidoIndexData();
+            viewModel.Pedidos = await _context.Pedido
+                .Include(p => p.DetPedidos)
+                    .ThenInclude(p => p.Plato)
+                .Include(d => d.EstadoPedido)
+                    .AsNoTracking()
+                    .OrderBy(i => i.FechaHora)
+                    .ToListAsync();
+
+            return View(viewModel);
         }
 
-        // GET: CajeroPedido/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var pedido = await _context.Pedido
-                .Include(p => p.EstadoPedido)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (pedido == null)
-            {
-                return NotFound();
-            }
-
-            return View(pedido);
-        }
-     
         // GET: CajeroPedido/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

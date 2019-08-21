@@ -1,56 +1,61 @@
-﻿@model IEnumerable<EmpleadosEBS.Models.Pedido>
+﻿@model EmpleadosEBS.Models.PedidoIndexData.PedidoIndexData
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_LayoutCocinero.cshtml";
+    Layout = "~/Views/Shared/_LayoutCajero.cshtml";
 }
 <div class="jumbotron">
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.NumeroPedido)
+                    NumeroPedido
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PorDelivery)
+                    Por Delivery
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FechaHora)
+                    FechaHora
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PrecioVenta)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EstadoPedido)
+                    Detalle
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Pedidos)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NumeroPedido)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PorDelivery)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FechaHora)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PrecioVenta)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EstadoPedido.Descripcion)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                    </td>
-                </tr>
+                if (item.EstadoPedido.Descripcion == "Solicitado" || item.EstadoPedido.Descripcion == "Cocinado")
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumeroPedido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PorDelivery)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaHora)
+                        </td>
+                        <td>
+                            @{
+                                foreach (var Plato in item.DetPedidos)
+                                {
+                                    if (Plato.PlatoID.HasValue)
+                                    {
+
+                                        @Plato.Cantidad @: @Plato.Plato.Denominacion <br />
+
+                                    }
+                                }
+                            }
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-success" asp-action="Edit" asp-route-id="@item.ID">Confirmar</a>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
