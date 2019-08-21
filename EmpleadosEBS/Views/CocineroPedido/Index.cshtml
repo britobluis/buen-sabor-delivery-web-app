@@ -9,7 +9,10 @@
         <thead>
             <tr>
                 <th>
-                    FechaHora
+                    Nro de Pedido
+                </th>
+                <th>
+                    Fecha y hora
                 </th>
                 <th>
                     Detalle de Pedido
@@ -20,9 +23,12 @@
         <tbody>
             @foreach (var item in Model.Pedidos)
             {
-                if (item.EstadoPedido.Descripcion == "Solicitado")
+                if (item.EstadoPedido.Descripcion == "Aceptado")
                 {
                     <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumeroPedido)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FechaHora)
                         </td>
@@ -34,7 +40,6 @@
                                     {
 
                                         @Plato.Cantidad @: @Plato.Plato.Denominacion <br />
-                                
                                     }
                                 }
                             }
