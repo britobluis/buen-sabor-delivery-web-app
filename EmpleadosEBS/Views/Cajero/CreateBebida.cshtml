@@ -9,7 +9,7 @@
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="Create">
+            <form asp-action="CreateBebida">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Denominacion" class="control-label"></label>
@@ -39,7 +39,7 @@
     </div>
 
     <div>
-        <a class="btn btn-outline-success" asp-action="Index">Volver a la lista</a>
+        <a class="btn btn-outline-success" asp-action="IndexBebida">Volver a la lista</a>
     </div>
 
     @section Scripts {

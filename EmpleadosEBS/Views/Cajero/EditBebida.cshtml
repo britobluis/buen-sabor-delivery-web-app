@@ -9,7 +9,7 @@
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="Edit">
+            <form asp-action="EditBebida">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="ID" />
                 <div class="form-group">
@@ -35,7 +35,7 @@
     </div>
 
     <div>
-        <a  class="btn btn-outline-success" asp-action="Index">Volver a la lista</a>
+        <a  class="btn btn-outline-success" asp-action="IndexBebida">Volver a la lista</a>
     </div>
 
     @section Scripts {
