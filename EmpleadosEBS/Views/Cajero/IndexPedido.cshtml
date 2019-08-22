@@ -46,22 +46,18 @@
                                     {
 
                                         @Plato.Cantidad @: @Plato.Plato.Denominacion  <br />
-                                    }
-                                    //if(Plato.ArticuloID.HasValue)
-                                    // {
-                                    //      @Plato.Cantidad @: @Plato.Articulo.Denominacion <br />
-                                    //  }
+                                    }                                    
                                 }
                             }
                         </td>
                         <td>
                             @if (item.EstadoPedido.Descripcion == "Solicitado")
                             {
-                                <a class="btn btn-outline-success" asp-action="Edit" asp-route-id="@item.ID">Confirmar</a>
+                                <a class="btn btn-outline-success" asp-action="EditPedido" asp-route-id="@item.ID">Confirmar</a>
                             }
                             else
                             {
-                                <a class="btn btn-outline-success" asp-action="Edit" asp-route-id="@item.ID">Entregar</a>
+                                <a class="btn btn-outline-success" asp-action="EditPedido" asp-route-id="@item.ID">Entregar</a>
                             }
                         </td>
                     </tr>
