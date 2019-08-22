@@ -48,8 +48,8 @@
                             </td>
 
                             <td>
-                                <a class="btn btn-outline-info" asp-action="Revisar" asp-route-id="@item.ID">Revisar</a>
-                                <a class="btn btn-outline-danger" asp-action="Descartar" asp-route-id="@item.ID">Descartar</a>
+                                <a class="btn btn-outline-info" asp-action="RevisarArticulo" asp-route-id="@item.ID">Revisar</a>
+                                <a class="btn btn-outline-danger" asp-action="DescartarArticulo" asp-route-id="@item.ID">Descartar</a>
                             </td>
                         </tr>
                     }
@@ -113,8 +113,8 @@
                                 @Html.DisplayFor(modelItem => item.UnidadMedida)
                             </td>
                             <td>
-                                <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.ID">Editar</a> 
-                                 <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.ID">Eliminar</a>
+                                <a class="btn btn-outline-info" asp-action="EditArticulo" asp-route-id="@item.ID">Editar</a> 
+                                 <a class="btn btn-outline-danger" asp-action="DeleteArticulo" asp-route-id="@item.ID">Eliminar</a>
                             </td>
                         </tr>
                     }
@@ -123,6 +123,6 @@
         </table>
     </div>
     <p>
-        <a class="btn btn-outline-primary" asp-action="Create">Ingresar Articulo</a>
+        <a class="btn btn-outline-primary" asp-action="CreateArticulo">Ingresar Articulo</a>
     </p>
 </div>

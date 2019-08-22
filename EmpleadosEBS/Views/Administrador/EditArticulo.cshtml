@@ -10,7 +10,7 @@
         <hr />
         <div class="row">
             <div class="col-md-4">
-                <form asp-action="Edit">
+                <form asp-action="EditArticulo">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="ID" />
                     <div class="form-group">
@@ -56,7 +56,7 @@
         </div>
 
         <div>
-            <a class="btn btn-info" asp-action="Index">Volver a la lista de articulos</a>
+            <a class="btn btn-info" asp-action="IndexArticulo">Volver a la lista de articulos</a>
         </div>
 
         @section Scripts {
