@@ -20,16 +20,18 @@ namespace EmpleadosEBS.Controllers
             _context = context;
         }
         //------------------------------------------------------------------------------
+        //INDEX DE CAJERO
+        //------------------------------------------------------------------------------
         public IActionResult Index()
         {
             return View();
         }
-        /// <summary>
-        /// SECCION DE BEBIDAS
-        /// </summary>
-        /// <returns></returns>
-        //-------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
+        // SECCION CAJEROBEBIDAS
+        //------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
         // GET: Cajero/Bebida
+        //------------------------------------------------------------------------------
         public async Task<IActionResult> IndexBebida()
         {
             return View(await _context.Articulo.Where(i => i.EsInsumo == false && i
@@ -37,12 +39,14 @@ namespace EmpleadosEBS.Controllers
         }
         //-------------------------------------------------------------------------------
         // GET: Cajero/CreateBebida
+        //------------------------------------------------------------------------------
         public IActionResult CreateBebida()
         {
             return View();
         }
         //-------------------------------------------------------------------------------
         // POST: Cajero/CreateBebida
+        //------------------------------------------------------------------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateBebida([Bind("ID,Denominacion,PrecioCompra" +
@@ -58,6 +62,7 @@ namespace EmpleadosEBS.Controllers
         }
         //-------------------------------------------------------------------------------
         // GET: Cajero/EditBebida
+        //------------------------------------------------------------------------------
         public async Task<IActionResult> EditBebida(int? id)
         {
             if (id == null)
@@ -74,6 +79,7 @@ namespace EmpleadosEBS.Controllers
         }
         //-------------------------------------------------------------------------------
         // POST: Cajero/EditBebida
+        //------------------------------------------------------------------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditBebida(int id, [Bind("ID,Denominacion" +
@@ -106,17 +112,20 @@ namespace EmpleadosEBS.Controllers
             }
             return View(articulo);
         }
-
+        //------------------------------------------------------------------------------
         private bool ArticuloExists(int id)
         {
             return _context.Articulo.Any(e => e.ID == id);
         }
-        /// <summary>
-        /// SECCION DE PEDIDOS
-        /// </summary>
-        /// <returns></returns>
-        //--------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
+        //FIN DE SECCION CAJEROBEBIDAS
+        //------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
+        // SECCION CAJEROPEDIDO
+        //------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
         // GET: CajeroPedido
+        //------------------------------------------------------------------------------
         public async Task<IActionResult> IndexPedido()
         {
             var viewModel = new PedidoIndexData();
@@ -130,8 +139,9 @@ namespace EmpleadosEBS.Controllers
 
             return View(viewModel);
         }
-        //--------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
         // GET: Cajero/EditPedido
+        //------------------------------------------------------------------------------
         public async Task<IActionResult> EditPedido(int? id)
         {
             if (id == null)
@@ -148,8 +158,9 @@ namespace EmpleadosEBS.Controllers
                 "Descripcion", pedido.EstadoPedidoID);
             return View(pedido);
         }
-        //--------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
         //POST: Cajero/EditPedido
+        //------------------------------------------------------------------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPedido(int id, [Bind("ID,NumeroPedido" +
@@ -184,11 +195,14 @@ namespace EmpleadosEBS.Controllers
                 , "Descripcion", pedido.EstadoPedidoID);
             return View(pedido);
         }
-        //-------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
         private bool PedidoExists(int id)
         {
             return _context.Pedido.Any(e => e.ID == id);
         }
+        //------------------------------------------------------------------------------
+        //FIN DE SECCION CAJEROPEDIDO
+        //------------------------------------------------------------------------------
 
     }
 }

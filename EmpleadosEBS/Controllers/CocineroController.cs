@@ -20,22 +20,27 @@ namespace EmpleadosEBS.Controllers
         {
             _context = context;
         }
+        //--------------------------------------------------------------------------------
+        //INDEX DE COCINERO
+        //--------------------------------------------------------------------------------
         public IActionResult Index()
         {
             return View();
         }
-        /// <summary>
-        /// SECCION DE INSUMOS
-        /// </summary>
-        //-----------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
+        //SECCION DE COCINEROINSUMO
+        //--------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
         // GET: Cocinero
+        //--------------------------------------------------------------------------------
         public async Task<IActionResult> IndexInsumo()
         {
             return View(await _context.Articulo.Where(i => i.EsInsumo == true).
                 Where(i => i.Aprobado == true).ToListAsync());
         }
-        //-----------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
         // GET: Cocinero/EditInsumo
+        //--------------------------------------------------------------------------------
         public async Task<IActionResult> EditInsumo(int? id)
         {
             if (id == null)
@@ -50,8 +55,9 @@ namespace EmpleadosEBS.Controllers
             }
             return View(articulo);
         }
-        //-----------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
         // POST: Cocinero/EditInsumo
+        //--------------------------------------------------------------------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditInsumo(int id, [Bind("ID,Denominacion,PrecioCompra," +
@@ -84,14 +90,16 @@ namespace EmpleadosEBS.Controllers
             }
             return View(articulo);
         }
-        //-----------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
         // GET: Cocinero/CreateInsumo
+        //--------------------------------------------------------------------------------
         public IActionResult CreateInsumo()
         {
             return View();
         }
-        //-----------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
         // POST:Cocinero/CreateInsumo
+        //--------------------------------------------------------------------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateInsumo([Bind("ID,Denominacion,PrecioCompra,PrecioVenta," +
@@ -109,15 +117,20 @@ namespace EmpleadosEBS.Controllers
             }
             return View(articulo);
         }
+        //--------------------------------------------------------------------------------
         private bool ArticuloExists(int id)
         {
             return _context.Articulo.Any(e => e.ID == id);
         }
-        /// <summary>
-        /// SECCION DE PEDIDOS 
-        /// </summary>
-        //------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
+        //FIN DE COCINEROINSUMO
+        //--------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
+        //SECCION COCINEROPEDIDO
+        //--------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
         // GET: CocineroPedido
+        //--------------------------------------------------------------------------------
         public async Task<IActionResult> IndexPedido()
         {
             var viewModel = new PedidoIndexData();
@@ -131,8 +144,9 @@ namespace EmpleadosEBS.Controllers
 
             return View(viewModel);
         }
-        //------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
         // GET: Cocinero/EditPedido
+        //--------------------------------------------------------------------------------
         public async Task<IActionResult> EditPedido(int? id)
         {
             if (id == null)
@@ -152,12 +166,13 @@ namespace EmpleadosEBS.Controllers
             }
             return View(pedido);
         }
-        //------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
         //POST: Cocinero/EditPedido
+        //--------------------------------------------------------------------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPedido(int id, [Bind("ID,EstadoPedidoID,PorDelivery" +
-            ",FechaHora,PrecioVenta")] Pedido pedido)
+        public async Task<IActionResult> EditPedido(int id, [Bind("ID,EstadoPedidoID" +
+            ",PorDelivery,FechaHora,PrecioVenta")] Pedido pedido)
         {
             if (id != pedido.ID)
             {
@@ -199,16 +214,20 @@ namespace EmpleadosEBS.Controllers
                 "Descripcion", pedido.EstadoPedidoID);
             return View(pedido);
         }
-        //------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
         private bool PedidoExists(int id)
         {
             return _context.Pedido.Any(e => e.ID == id);
         }
-        /// <summary>
-        /// SECCION DE PLATOS
-        /// </summary>
+        //--------------------------------------------------------------------------------
+        //FIN DE COCINEROPEDIDO
+        //--------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
+        // SECCION COCINEROPLATO
+        //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
         // GET: Cocinero/Plato
+        //--------------------------------------------------------------------------------
         public async Task<IActionResult> IndexPlato()
         {
             var viewModel = new PlatoIndexData();
@@ -223,6 +242,7 @@ namespace EmpleadosEBS.Controllers
         }
         //--------------------------------------------------------------------------------
         // GET: Cocinero/CreatePlato
+        //--------------------------------------------------------------------------------
         public IActionResult CreatePlato()
         {
             var plato = new Plato();
@@ -232,6 +252,7 @@ namespace EmpleadosEBS.Controllers
         }
         //--------------------------------------------------------------------------------
         // POST: Cocinero/CreatePlato
+        //--------------------------------------------------------------------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID, Denominacion, Descripcion" +
@@ -263,6 +284,7 @@ namespace EmpleadosEBS.Controllers
         }
         //--------------------------------------------------------------------------------
         // GET: Cocinero/EditPlato
+        //--------------------------------------------------------------------------------
         public async Task<IActionResult> EditPlato(int? id)
         {
             if (id == null)
@@ -306,6 +328,7 @@ namespace EmpleadosEBS.Controllers
         }
         //--------------------------------------------------------------------------------
         // POST: Cocinero/EditPlato
+        //--------------------------------------------------------------------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPlato(int? id, string[] articulosSeleccionados)
@@ -344,7 +367,8 @@ namespace EmpleadosEBS.Controllers
             return View(platoToUpdate);
         }
         //--------------------------------------------------------------------------------
-        private void UpdateArticulosPlato(string[] articuloSeleccionados, Plato platoToUpdate)
+        private void UpdateArticulosPlato(string[] articuloSeleccionados
+            , Plato platoToUpdate)
         {
             if (articuloSeleccionados == null)
             {
@@ -380,7 +404,9 @@ namespace EmpleadosEBS.Controllers
                     }
                 }
             }
-        //--------------------------------------------------------------------------------
+            //--------------------------------------------------------------------------------
+            //FIN DE COCINEROPLATO
+            //--------------------------------------------------------------------------------
         }
     }
 
