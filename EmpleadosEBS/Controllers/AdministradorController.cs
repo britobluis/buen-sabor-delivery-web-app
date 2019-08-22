@@ -223,5 +223,195 @@ namespace EmpleadosEBS.Controllers
         {
             return _context.Articulo.Any(e => e.ID == id);
         }
+        //--------------------------------------------------------------------------------------------------
+        // GET: AdministradorPlato
+        public async Task<IActionResult> IndexPlato()
+        {
+            return View(await _context.Plato.ToListAsync());
+        }
+        //--------------------------------------------------------------------------------------------------
+        // GET: Administrador/CreatePlato
+        public IActionResult CreatePlato()
+        {
+            return View();
+        }
+        //--------------------------------------------------------------------------------------------------
+        // POST: Administrador/CreatePlato
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreatePlato([Bind("ID,Denominacion,Descripcion,PrecioVenta,Aprobado")] Plato plato)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(plato);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(IndexPlato));
+            }
+            return View(plato);
+        }
+        //--------------------------------------------------------------------------------------------------
+        // GET: Administrador/EditPlato
+        public async Task<IActionResult> EditPlato(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var plato = await _context.Plato.FindAsync(id);
+            if (plato == null)
+            {
+                return NotFound();
+            }
+            return View(plato);
+        }
+        //--------------------------------------------------------------------------------------------------
+        //POST: Administrador/EditPlato
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPlato(int id, [Bind("ID,Denominacion,Descripcion,PrecioVenta,Aprobado")] Plato plato)
+        {
+            if (id != plato.ID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(plato);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PlatoExists(plato.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexPlato));
+            }
+            return View(plato);
+        }
+        //--------------------------------------------------------------------------------------------------
+        // GET: Administrador/EditPlato
+        public async Task<IActionResult> RevisarPlato(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var plato = await _context.Plato.FindAsync(id);
+            if (plato == null)
+            {
+                return NotFound();
+            }
+            return View(plato);
+        }
+        //--------------------------------------------------------------------------------------------------
+        // POST Administrador/RevisarPlato
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RevisarPlato(int id, [Bind("ID,Denominacion,Descripcion," +
+            "PrecioVenta,Aprobado")] Plato plato)
+        {
+            if (id != plato.ID)
+            {
+                return NotFound();
+            }
+
+            plato.Aprobado = true;
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(plato);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PlatoExists(plato.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexPlato));
+            }
+            return View(plato);
+        }
+        //--------------------------------------------------------------------------------------------------
+        // GET: Administrador/DeletePlato
+        public async Task<IActionResult> DeletePlato(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var plato = await _context.Plato
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (plato == null)
+            {
+                return NotFound();
+            }
+
+            return View(plato);
+        }
+        //--------------------------------------------------------------------------------------------------
+        // POST: Administrador/DeletePlato
+        [HttpPost, ActionName("DeletePlato")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletePlatoConfirmed(int id)
+        {
+            var plato = await _context.Plato.FindAsync(id);
+            _context.Plato.Remove(plato);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexPlato));
+        }
+        //-------------------------------------------------------------------------------------------------
+        // GET: Administrador/DescartarPlato
+        public async Task<IActionResult> DescartarPlato(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var plato = await _context.Plato
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (plato == null)
+            {
+                return NotFound();
+            }
+
+            return View(plato);
+        }
+        //--------------------------------------------------------------------------------------------------
+        // POST: Administrador/DeletePlato
+        [HttpPost, ActionName("DescartarPlato")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DescartarPlatoConfirmed(int id)
+        {
+            var plato = await _context.Plato.FindAsync(id);
+            _context.Plato.Remove(plato);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexPlato));
+        }
+
+        private bool PlatoExists(int id)
+        {
+            return _context.Plato.Any(e => e.ID == id);
+        }
     }
 }

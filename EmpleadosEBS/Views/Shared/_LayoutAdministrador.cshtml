@@ -28,25 +28,24 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" id="navbarColor01">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Administrador" asp-action="Index">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Administrador" asp-action="Registrar">Registrar</a>
                         </li>
-                        <li>
-                            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                <button type="button" class="btn btn-primary">Cocina</button>
-                                <div class="btn-group" role="group">
-                                    <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                                        <a class="dropdown-item" asp-area="" asp-controller="Administrador" asp-action="IndexArticulo">Articulos</a>
-                                        <a class="dropdown-item" asp-area="" asp-controller="AdministradorPlato" asp-action="Index">Platos</a>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Administrador" asp-action="IndexPedido">Pedidos</a>
-                                    </div>
+                        <li  class="nav-item active">
+                            <div class="btn-group">
+                                <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" 
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Cocina</button>
+                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Administrador" asp-action="IndexArticulo">Articulos</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Administrador" asp-action="IndexPlato">Platos</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Administrador" asp-action="IndexPedido">Pedidos</a>
                                 </div>
                             </div>
-                        </li>
+                        </li>               
                     </ul>
                 </div>
             </div>
