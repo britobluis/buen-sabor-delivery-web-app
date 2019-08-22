@@ -37,13 +37,13 @@
                         @Html.DisplayFor(modelItem => item.UnidadMedida)
                     </td>
                     <td>
-                        <a class="btn btn-outline-success" asp-action="Edit" asp-route-id="@item.ID">Modificar stock</a>
+                        <a class="btn btn-outline-success" asp-action="EditInsumo" asp-route-id="@item.ID">Modificar stock</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
     <p>
-        <a class="btn btn-outline-primary" asp-action="Create">Ingresar Insumo</a>
+        <a class="btn btn-outline-primary" asp-action="CreateInsumo">Ingresar Insumo</a>
     </p>
 </div>
