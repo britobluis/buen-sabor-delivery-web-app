@@ -157,8 +157,9 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RevisarArticulo(int id, [Bind("ID,Denominacion,PrecioCompra," +
-            "PrecioVenta,EsInsumo,Stock,UnidadMedida,Aprobado")] Articulo articulo)
+        public async Task<IActionResult> RevisarArticulo(int id, [Bind("ID,Denominacion" +
+            ",PrecioCompra,PrecioVenta,EsInsumo,Stock,UnidadMedida,Aprobado")]
+                Articulo articulo)
         {
             if (id != articulo.ID)
             {
