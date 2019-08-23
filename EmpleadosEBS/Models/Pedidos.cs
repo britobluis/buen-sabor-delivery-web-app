@@ -79,7 +79,7 @@ namespace EmpleadosEBS.Models
         [ScaffoldColumn(false)]
         public string Imagen { get; set; }
         [DisplayName("Precio de Venta")]
-        public int PrecioVenta { get; set; }
+        public double PrecioVenta { get; set; }
         [DisplayName("Aprobado")]
         public Boolean Aprobado { get; set; }
         /// <summary>
@@ -103,6 +103,8 @@ namespace EmpleadosEBS.Models
         public int? ArticuloID { get; set; }
         [DisplayName("Pedido")]
         public int? PedidoID { get; set; }
+        public double PrecioArticulo { get; set; }
+        public double PrecioPlato { get; set; }
         //relacion con receta muchos a uno 
         public Plato Plato { get; set; }
         //relacion con Articulo muchos a uno
