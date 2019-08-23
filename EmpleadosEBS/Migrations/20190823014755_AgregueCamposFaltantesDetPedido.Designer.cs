@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmpleadosEBS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190820192939_Inicial")]
-    partial class Inicial
+    [Migration("20190823014755_AgregueCamposFaltantesDetPedido")]
+    partial class AgregueCamposFaltantesDetPedido
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -60,6 +60,10 @@ namespace EmpleadosEBS.Migrations
                     b.Property<int?>("PedidoID");
 
                     b.Property<int?>("PlatoID");
+
+                    b.Property<double>("PrecioArticulo");
+
+                    b.Property<double>("PrecioPlato");
 
                     b.HasKey("ID");
 
@@ -140,7 +144,7 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<bool>("PorDelivery");
 
-                    b.Property<int>("PrecioVenta");
+                    b.Property<double>("PrecioVenta");
 
                     b.HasKey("ID");
 
@@ -164,7 +168,7 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<string>("Imagen");
 
-                    b.Property<int>("PrecioVenta");
+                    b.Property<double>("PrecioVenta");
 
                     b.HasKey("ID");
 
@@ -190,6 +194,29 @@ namespace EmpleadosEBS.Migrations
                     b.HasIndex("PlatoID");
 
                     b.ToTable("Receta");
+                });
+
+            modelBuilder.Entity("EmpleadosEBS.Models.ShoppingCartItem", b =>
+                {
+                    b.Property<int>("ShoppingCartItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ArticuloID");
+
+                    b.Property<int>("Cantidad");
+
+                    b.Property<int?>("PlatoID");
+
+                    b.Property<string>("ShoppingCartId");
+
+                    b.HasKey("ShoppingCartItemId");
+
+                    b.HasIndex("ArticuloID");
+
+                    b.HasIndex("PlatoID");
+
+                    b.ToTable("ShoppingCartItems");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -407,6 +434,17 @@ namespace EmpleadosEBS.Migrations
                         .WithMany("Recetas")
                         .HasForeignKey("PlatoID")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EmpleadosEBS.Models.ShoppingCartItem", b =>
+                {
+                    b.HasOne("EmpleadosEBS.Models.Articulo", "Articulo")
+                        .WithMany()
+                        .HasForeignKey("ArticuloID");
+
+                    b.HasOne("EmpleadosEBS.Models.Plato", "Plato")
+                        .WithMany()
+                        .HasForeignKey("PlatoID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

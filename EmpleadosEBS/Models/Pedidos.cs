@@ -142,7 +142,7 @@ namespace EmpleadosEBS.Models
         [DisplayName("Fecha y hora")]
         public DateTime FechaHora { get; set; }
         [DisplayName("Precio Total")]
-        public int PrecioVenta { get; set; }
+        public double PrecioVenta { get; set; }
         /// <summary>
         /// Relacion con la clase Det pedido u Estado de pedido
         /// </summary>

@@ -25,6 +25,8 @@ namespace EmpleadosEBS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Aprobado");
+
                     b.Property<string>("Denominacion")
                         .IsRequired();
 
@@ -43,23 +45,6 @@ namespace EmpleadosEBS.Migrations
                     b.ToTable("Articulo");
                 });
 
-            modelBuilder.Entity("EmpleadosEBS.Models.Comanda", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EstadoPedido");
-
-                    b.Property<int>("PedidoID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PedidoID");
-
-                    b.ToTable("Comanda");
-                });
-
             modelBuilder.Entity("EmpleadosEBS.Models.DetPedido", b =>
                 {
                     b.Property<int>("ID")
@@ -70,7 +55,7 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<int>("Cantidad");
 
-                    b.Property<int>("PedidoID");
+                    b.Property<int?>("PedidoID");
 
                     b.Property<int?>("PlatoID");
 
@@ -114,6 +99,8 @@ namespace EmpleadosEBS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Denominacion");
+
                     b.Property<string>("Descripcion")
                         .IsRequired();
 
@@ -151,6 +138,8 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<DateTime>("FechaHora");
 
+                    b.Property<int>("NumeroPedido");
+
                     b.Property<bool>("PorDelivery");
 
                     b.Property<double>("PrecioVenta");
@@ -168,6 +157,8 @@ namespace EmpleadosEBS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Aprobado");
+
                     b.Property<string>("Denominacion")
                         .IsRequired();
 
@@ -175,7 +166,7 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<string>("Imagen");
 
-                    b.Property<int>("PrecioVenta");
+                    b.Property<double>("PrecioVenta");
 
                     b.HasKey("ID");
 
@@ -190,7 +181,7 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<int>("ArticuloID");
 
-                    b.Property<int>("Cantidad");
+                    b.Property<double>("Cantidad");
 
                     b.Property<int>("PlatoID");
 
@@ -391,14 +382,6 @@ namespace EmpleadosEBS.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("EmpleadosEBS.Models.Comanda", b =>
-                {
-                    b.HasOne("EmpleadosEBS.Models.Pedido", "Pedido")
-                        .WithMany("Comanda")
-                        .HasForeignKey("PedidoID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("EmpleadosEBS.Models.DetPedido", b =>
                 {
                     b.HasOne("EmpleadosEBS.Models.Articulo", "Articulo")
@@ -407,8 +390,7 @@ namespace EmpleadosEBS.Migrations
 
                     b.HasOne("EmpleadosEBS.Models.Pedido", "Pedido")
                         .WithMany("DetPedidos")
-                        .HasForeignKey("PedidoID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PedidoID");
 
                     b.HasOne("EmpleadosEBS.Models.Plato", "Plato")
                         .WithMany("DetPedidos")
