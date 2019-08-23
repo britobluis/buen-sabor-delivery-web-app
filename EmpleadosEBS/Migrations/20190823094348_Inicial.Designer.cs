@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmpleadosEBS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190818234603_shoppingCart1")]
-    partial class shoppingCart1
+    [Migration("20190823094348_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -26,6 +26,8 @@ namespace EmpleadosEBS.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Aprobado");
 
                     b.Property<string>("Denominacion")
                         .IsRequired();
@@ -45,23 +47,6 @@ namespace EmpleadosEBS.Migrations
                     b.ToTable("Articulo");
                 });
 
-            modelBuilder.Entity("EmpleadosEBS.Models.Comanda", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EstadoPedido");
-
-                    b.Property<int>("PedidoID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PedidoID");
-
-                    b.ToTable("Comanda");
-                });
-
             modelBuilder.Entity("EmpleadosEBS.Models.DetPedido", b =>
                 {
                     b.Property<int>("ID")
@@ -70,9 +55,15 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<int?>("ArticuloID");
 
+                    b.Property<int>("Cantidad");
+
                     b.Property<int?>("PedidoID");
 
                     b.Property<int?>("PlatoID");
+
+                    b.Property<double>("PrecioArticulo");
+
+                    b.Property<double>("PrecioPlato");
 
                     b.HasKey("ID");
 
@@ -109,6 +100,8 @@ namespace EmpleadosEBS.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Denominacion");
 
                     b.Property<string>("Descripcion")
                         .IsRequired();
@@ -147,9 +140,11 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<DateTime>("FechaHora");
 
+                    b.Property<int>("NumeroPedido");
+
                     b.Property<bool>("PorDelivery");
 
-                    b.Property<int>("PrecioVenta");
+                    b.Property<double>("PrecioVenta");
 
                     b.HasKey("ID");
 
@@ -164,6 +159,8 @@ namespace EmpleadosEBS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Aprobado");
+
                     b.Property<string>("Denominacion")
                         .IsRequired();
 
@@ -171,7 +168,7 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<string>("Imagen");
 
-                    b.Property<int>("PrecioVenta");
+                    b.Property<double>("PrecioVenta");
 
                     b.HasKey("ID");
 
@@ -186,7 +183,7 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<int>("ArticuloID");
 
-                    b.Property<int>("Cantidad");
+                    b.Property<double>("Cantidad");
 
                     b.Property<int>("PlatoID");
 
@@ -209,15 +206,15 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<int>("Cantidad");
 
-                    b.Property<string>("ShoppingCartId");
+                    b.Property<int?>("PlatoID");
 
-                    b.Property<int?>("platoID");
+                    b.Property<string>("ShoppingCartId");
 
                     b.HasKey("ShoppingCartItemId");
 
                     b.HasIndex("ArticuloID");
 
-                    b.HasIndex("platoID");
+                    b.HasIndex("PlatoID");
 
                     b.ToTable("ShoppingCartItems");
                 });
@@ -387,14 +384,6 @@ namespace EmpleadosEBS.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("EmpleadosEBS.Models.Comanda", b =>
-                {
-                    b.HasOne("EmpleadosEBS.Models.Pedido", "Pedido")
-                        .WithMany("Comanda")
-                        .HasForeignKey("PedidoID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("EmpleadosEBS.Models.DetPedido", b =>
                 {
                     b.HasOne("EmpleadosEBS.Models.Articulo", "Articulo")
@@ -453,9 +442,9 @@ namespace EmpleadosEBS.Migrations
                         .WithMany()
                         .HasForeignKey("ArticuloID");
 
-                    b.HasOne("EmpleadosEBS.Models.Plato", "plato")
+                    b.HasOne("EmpleadosEBS.Models.Plato", "Plato")
                         .WithMany()
-                        .HasForeignKey("platoID");
+                        .HasForeignKey("PlatoID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

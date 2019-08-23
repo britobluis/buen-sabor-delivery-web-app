@@ -65,14 +65,28 @@
     <Compile Remove="Migrations\20190812213251_inicial.Designer.cs" />
     <Compile Remove="Migrations\20190818163016_elimineComanda.cs" />
     <Compile Remove="Migrations\20190818163016_elimineComanda.Designer.cs" />
+    <Compile Remove="Migrations\20190818200339_CartItem.cs" />
+    <Compile Remove="Migrations\20190818200339_CartItem.Designer.cs" />
     <Compile Remove="Migrations\20190818211954_inicial.cs" />
     <Compile Remove="Migrations\20190818211954_inicial.Designer.cs" />
+    <Compile Remove="Migrations\20190818234603_shoppingCart1.cs" />
+    <Compile Remove="Migrations\20190818234603_shoppingCart1.Designer.cs" />
     <Compile Remove="Migrations\20190819214115_migration.cs" />
     <Compile Remove="Migrations\20190819214115_migration.Designer.cs" />
     <Compile Remove="Migrations\20190819214156_Inicial.cs" />
     <Compile Remove="Migrations\20190819214156_Inicial.Designer.cs" />
     <Compile Remove="Migrations\20190820025850_Inicial.cs" />
     <Compile Remove="Migrations\20190820025850_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20190820225002_CamposNuevosDetPedidoyPedido.cs" />
+    <Compile Remove="Migrations\20190820225002_CamposNuevosDetPedidoyPedido.Designer.cs" />
+    <Compile Remove="Migrations\20190821015842_Agregar-precioPlato-detPedido.cs" />
+    <Compile Remove="Migrations\20190821015842_Agregar-precioPlato-detPedido.Designer.cs" />
+    <Compile Remove="Migrations\20190823003620_CambioCampos-DetPedido.cs" />
+    <Compile Remove="Migrations\20190823003620_CambioCampos-DetPedido.Designer.cs" />
+    <Compile Remove="Migrations\20190823010305_CambioCampos-DetPedidos2.cs" />
+    <Compile Remove="Migrations\20190823010305_CambioCampos-DetPedidos2.Designer.cs" />
+    <Compile Remove="Migrations\20190823014755_AgregueCamposFaltantesDetPedido.cs" />
+    <Compile Remove="Migrations\20190823014755_AgregueCamposFaltantesDetPedido.Designer.cs" />
   </ItemGroup>
 
 

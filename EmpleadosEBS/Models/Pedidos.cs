@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmpleadosEBS.Models
 {
+    //------------------------------------------------------------------------------------
     public class Factura
     {
         public int ID { get; set; }
@@ -18,6 +19,7 @@ namespace EmpleadosEBS.Models
         public Pedido Pedido { get; set; }
         public ICollection<Devolucion> Devolucion { get; set; }
     }
+    //------------------------------------------------------------------------------------
     public class Devolucion
     {
         public int ID { get; set; }
@@ -29,7 +31,7 @@ namespace EmpleadosEBS.Models
         public string Motivo { get; set; }
         public Factura Factura { get; set; }
     }
-
+    //------------------------------------------------------------------------------------
     public class Articulo
     {
         public int ID { get; set; }
@@ -41,6 +43,7 @@ namespace EmpleadosEBS.Models
         public double PrecioVenta { get; set; }
         [DisplayName("Es Insumo")]
         public Boolean EsInsumo { get; set; }
+        [DisplayName("Stock")]
         public double Stock { get; set; }
         [DisplayName("Unidad")]
         public string UnidadMedida { get; set; }
@@ -54,6 +57,7 @@ namespace EmpleadosEBS.Models
         //relacion con detpedido de uno a muchos
         public ICollection<DetPedido> DetPedidos { get; set; }
     }
+    //------------------------------------------------------------------------------------
     public class Receta
     {
         public int ID { get; set; }
@@ -68,6 +72,7 @@ namespace EmpleadosEBS.Models
         //relacion con plato de muchos a uno
         public Plato Plato { get; set; }
     }
+    //------------------------------------------------------------------------------------
     public class Plato
     {
         public int ID { get; set; }
@@ -90,7 +95,7 @@ namespace EmpleadosEBS.Models
         //relacion con detpedido de uno a muchos
         public ICollection<DetPedido> DetPedidos { get; set; }
     }
-
+    //------------------------------------------------------------------------------------
     public class DetPedido
     {
         public int ID { get; set; }
@@ -103,7 +108,9 @@ namespace EmpleadosEBS.Models
         public int? ArticuloID { get; set; }
         [DisplayName("Pedido")]
         public int? PedidoID { get; set; }
+        [DisplayName("Precio Articulo")]
         public double PrecioArticulo { get; set; }
+        [DisplayName("Precio Plato")]
         public double PrecioPlato { get; set; }
         //relacion con receta muchos a uno 
         public Plato Plato { get; set; }
@@ -112,6 +119,7 @@ namespace EmpleadosEBS.Models
         //relacion con pedido muchos a uno
         public Pedido Pedido { get; set; }
     }
+    //------------------------------------------------------------------------------------
     public class EstadoPedido
     {
         public int ID { get; set; }
@@ -127,6 +135,7 @@ namespace EmpleadosEBS.Models
         //Relaciones con pedido uno a muchos
         public ICollection<Pedido> Pedido { get; set; }
     }
+    //------------------------------------------------------------------------------------
     public class Pedido
     {
         public int ID { get; set; }
@@ -150,7 +159,6 @@ namespace EmpleadosEBS.Models
         public ICollection<DetPedido> DetPedidos { get; set; }
         //relacion con EstadoPEdido de muchos a uno
         public EstadoPedido EstadoPedido { get; set; }
-
     }
-
+    //------------------------------------------------------------------------------------
 }
