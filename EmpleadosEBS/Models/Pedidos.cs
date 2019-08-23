@@ -87,7 +87,7 @@ namespace EmpleadosEBS.Models
         [DisplayName("Articulo")]
         public int? ArticuloID { get; set; }
         [DisplayName("Pedido")]
-        public int? PedidoID { get; set; }
+        public int PedidoID { get; set; }
         public int Cantidad { get; set; }
         public double PrecioArticulo { get; set; }
         public double PrecioPlato { get; set; }
@@ -109,7 +109,6 @@ namespace EmpleadosEBS.Models
     public class Pedido
     {
         public int ID { get; set; }
-        [Required]
         [DisplayName("Estado del Pedido")]
         public int EstadoPedidoID { get; set; }
         [Required]
@@ -118,7 +117,7 @@ namespace EmpleadosEBS.Models
         [DisplayName("Fecha y hora")]
         public DateTime FechaHora { get; set; }
         [DisplayName("Precio Total")]
-        public int PrecioVenta { get; set; }
+        public double PrecioVenta { get; set; }
         //relacione con detalle pedido de uno a muchos
         public ICollection<DetPedido> DetPedidos { get; set; }
         public EstadoPedido EstadoPedido { get; set; }

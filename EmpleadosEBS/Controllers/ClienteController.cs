@@ -26,8 +26,6 @@ namespace EmpleadosEBS.Controllers
             model.Platos = _context.Plato.ToArray();
             model.Articulos = _context.Articulo.ToArray();
 
-            var platos = _context.Plato.ToArray();
-
             return View(model);
         }
     }
