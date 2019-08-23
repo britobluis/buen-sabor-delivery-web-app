@@ -11,6 +11,7 @@
         <div class="col-md-4">
             <form asp-action="EditPedido">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="NumeroPedido" />
                 <input type="hidden" asp-for="ID" />
                 <input type="hidden" asp-for="EstadoPedidoID" />
                 <input type="hidden" asp-for="PorDelivery" />
@@ -20,26 +21,29 @@
                     <span asp-validation-for="FechaHora" class="text-danger"></span>
                 </div>
                 <input type="hidden" asp-for="PrecioVenta" />
-                <div>
-                    <table>
-                        <tr>
-                            @{
-                                <!--MUESTRA DE PLATOS ASIGNADOS A UN PEDIDO-->
-                                foreach (var platos in Model.DetPedidos)
+
+                <table>
+                    <tr>
+                        @{
+                            <!--MUESTRA DE PLATOS ASIGNADOS A UN PEDIDO-->
+                            foreach (var platos in Model.DetPedidos)
+                            {
+                                if (platos.PlatoID.HasValue)
                                 {
-                                    if (platos.PlatoID.HasValue)
-                                    {
-                                        @:<td>
-                                            @platos.Cantidad @: @platos.Plato.Denominacion
-                                        @:</td>
+                                    <td width="30">
+                                        @platos.Cantidad -
+                                    </td>
+                                    <td>
+                                        @platos.Plato.Denominacion
+                                    </td>
 
-
-                                    }
                                 }
-                            @:</tr>
                             }
-                        </table>
-                    </div>
+                        @:</tr>
+                        }
+                    </table>
+                    <hr />
+
                     <div class="form-group">
                         <input type="submit" value="Cocinado" class="btn btn-outline-success" />
                     </div>
