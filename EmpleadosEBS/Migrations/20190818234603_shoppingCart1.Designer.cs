@@ -4,14 +4,16 @@ using EmpleadosEBS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EmpleadosEBS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190818234603_shoppingCart1")]
+    partial class shoppingCart1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,15 +70,9 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<int?>("ArticuloID");
 
-                    b.Property<int>("Cantidad");
-
-                    b.Property<int>("PedidoID");
+                    b.Property<int?>("PedidoID");
 
                     b.Property<int?>("PlatoID");
-
-                    b.Property<double>("PrecioArticulo");
-
-                    b.Property<double>("PrecioPlato");
 
                     b.HasKey("ID");
 
@@ -153,7 +149,7 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<bool>("PorDelivery");
 
-                    b.Property<double>("PrecioVenta");
+                    b.Property<int>("PrecioVenta");
 
                     b.HasKey("ID");
 
@@ -213,15 +209,15 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<int>("Cantidad");
 
-                    b.Property<int?>("PlatoID");
-
                     b.Property<string>("ShoppingCartId");
+
+                    b.Property<int?>("platoID");
 
                     b.HasKey("ShoppingCartItemId");
 
                     b.HasIndex("ArticuloID");
 
-                    b.HasIndex("PlatoID");
+                    b.HasIndex("platoID");
 
                     b.ToTable("ShoppingCartItems");
                 });
@@ -407,8 +403,7 @@ namespace EmpleadosEBS.Migrations
 
                     b.HasOne("EmpleadosEBS.Models.Pedido", "Pedido")
                         .WithMany("DetPedidos")
-                        .HasForeignKey("PedidoID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PedidoID");
 
                     b.HasOne("EmpleadosEBS.Models.Plato", "Plato")
                         .WithMany("DetPedidos")
@@ -458,9 +453,9 @@ namespace EmpleadosEBS.Migrations
                         .WithMany()
                         .HasForeignKey("ArticuloID");
 
-                    b.HasOne("EmpleadosEBS.Models.Plato", "Plato")
+                    b.HasOne("EmpleadosEBS.Models.Plato", "plato")
                         .WithMany()
-                        .HasForeignKey("PlatoID");
+                        .HasForeignKey("platoID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

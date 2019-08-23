@@ -16,12 +16,13 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" asp-controller="Cajero" asp-action="Index">Caja</a>
+                <a class="navbar-brand" asp-controller="Cliente" asp-action="Index">Cliente</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -29,14 +30,9 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item active">
-                            <a class="nav-link" asp-controller="Cajero" asp-action="Index">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" asp-controller="Cliente" asp-action="Index">Home <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Bebida" asp-action="Index">Cliente</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Pedido" asp-action="Index">Pedido</a>
-                        </li>
+                        @await Component.InvokeAsync("ShoppingCartSummary")
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="" asp-action=""></a>
                         </li>

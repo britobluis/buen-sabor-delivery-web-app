@@ -4,14 +4,16 @@ using EmpleadosEBS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EmpleadosEBS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190823003620_CambioCampos-DetPedido")]
+    partial class CambioCamposDetPedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,13 +68,13 @@ namespace EmpleadosEBS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ArticuloID");
+                    b.Property<int>("ArticuloID");
 
                     b.Property<int>("Cantidad");
 
                     b.Property<int>("PedidoID");
 
-                    b.Property<int?>("PlatoID");
+                    b.Property<int>("PlatoID");
 
                     b.Property<double>("PrecioArticulo");
 
@@ -403,7 +405,8 @@ namespace EmpleadosEBS.Migrations
                 {
                     b.HasOne("EmpleadosEBS.Models.Articulo", "Articulo")
                         .WithMany("DetPedidos")
-                        .HasForeignKey("ArticuloID");
+                        .HasForeignKey("ArticuloID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("EmpleadosEBS.Models.Pedido", "Pedido")
                         .WithMany("DetPedidos")
@@ -412,7 +415,8 @@ namespace EmpleadosEBS.Migrations
 
                     b.HasOne("EmpleadosEBS.Models.Plato", "Plato")
                         .WithMany("DetPedidos")
-                        .HasForeignKey("PlatoID");
+                        .HasForeignKey("PlatoID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("EmpleadosEBS.Models.Devolucion", b =>

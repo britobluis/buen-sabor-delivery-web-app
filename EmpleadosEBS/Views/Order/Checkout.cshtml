@@ -1,0 +1,24 @@
+﻿@model Pedido
+
+    <form asp-action="Checkout" method="post" class="form-horizontal" role="form">
+        <h4>Confirmacion y Pago</h4>
+        <hr />
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="PorDelivery" class="col-md-2 control-label"></label>
+            <div class="col-md-5">
+                <input asp-for="PorDelivery" class="form-control" />
+                <span asp-validation-for="PorDelivery" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <input type="submit" class="btn btn-primary" value="Completar Orden" />
+            </div>
+        </div>
+
+    </form>
+

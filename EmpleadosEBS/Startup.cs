@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using EmpleadosEBS.Models;
+using EmpleadosEBS.Repositories;
 
 namespace EmpleadosEBS
 {
@@ -43,9 +45,20 @@ namespace EmpleadosEBS
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddTransient<IArticuloRepository, ArticuloRepository>();
+            services.AddTransient<IPlatoRepository, PlatoRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sp => ShoppingCart.GetCart(sp));
+
             services.AddMvc(options =>
                    options.EnableEndpointRouting = false)
                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+
+            services.AddMemoryCache();
+            services.AddSession();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -95,6 +108,7 @@ namespace EmpleadosEBS
             }
 
             app.UseHttpsRedirection();
+            app.UseSession();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
