@@ -12,6 +12,27 @@ namespace EmpleadosEBS.Data
         public static void Initialize(ApplicationDbContext context)
         {
             context.Database.EnsureCreated();
+
+            //comprobacion de datos en la tabla EstadoPedido
+            if (context.EstadoPedido.Any())
+            {
+                return;//si no hay datos no retorna nada
+            }
+            var estados = new EstadoPedido[]
+            {
+                new EstadoPedido{Denominacion = 1, Descripcion = "Solicitado"},
+                new EstadoPedido{Denominacion = 2, Descripcion = "Aceptado"},
+                new EstadoPedido{Denominacion = 3, Descripcion = "Cocinado"},
+                new EstadoPedido{Denominacion = 4, Descripcion = "Listo"},
+                new EstadoPedido{Denominacion = 5, Descripcion = "Entregado"},
+            };
+            foreach (EstadoPedido p in estados)
+            {
+                context.EstadoPedido.Add(p);
+            }
+            context.SaveChanges();
+
+
             //comprobacion de datos en la tabla Plato
             if (context.Plato.Any())
             {
@@ -72,14 +93,17 @@ namespace EmpleadosEBS.Data
                     Stock = 20 , UnidadMedida ="lts",Aprobado = true},
                 new Articulo{Denominacion = "queso musarella",PrecioCompra = 10,PrecioVenta = 0, EsInsumo = true ,
                     Stock = 20 , UnidadMedida ="gramos",Aprobado = true},
+                //articulos bebidas va la primera con mayusculas
                 //Lista de articulos Bebidas--------------------------------------------------------------------
                 new Articulo{Denominacion = "Coca Zero",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = false ,
-                    Stock = 10 , UnidadMedida ="Botella",Aprobado = true},
-                new Articulo{Denominacion = "Coca comun",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = false ,
+                    Stock = 10 , UnidadMedida ="botella",Aprobado = true},
+                new Articulo{Denominacion = "Coca Comun",PrecioCompra = 10,PrecioVenta = 20, EsInsumo = false ,
                     Stock = 10 , UnidadMedida ="Botella",Aprobado = true},
                 new Articulo{Denominacion = "Cerveza",PrecioCompra = 20,PrecioVenta = 40, EsInsumo = false ,
                     Stock = 10 , UnidadMedida ="Botella",Aprobado = true},
                 new Articulo{Denominacion = "Cerveza Negra",PrecioCompra = 20,PrecioVenta = 40, EsInsumo = false ,
+                    Stock = 10 , UnidadMedida ="Botella",Aprobado = true},
+                 new Articulo{Denominacion = "Cerveza Roja",PrecioCompra = 20,PrecioVenta = 40, EsInsumo = false ,
                     Stock = 10 , UnidadMedida ="Botella",Aprobado = true}
                 };
             foreach (Articulo a in articulos)
@@ -135,24 +159,7 @@ namespace EmpleadosEBS.Data
             }
             context.SaveChanges();
 
-            //comprobacion de datos en la tabla EstadoPedido
-            if (context.EstadoPedido.Any())
-            {
-                return;//si no hay datos no retorna nada
-            }
-            var estados = new EstadoPedido[]
-            {
-                new EstadoPedido{Denominacion = 1, Descripcion = "Solicitado"},
-                new EstadoPedido{Denominacion = 2, Descripcion = "Aceptado"},
-                new EstadoPedido{Denominacion = 3, Descripcion = "Cocinado"},
-                new EstadoPedido{Denominacion = 4, Descripcion = "Listo"},
-                new EstadoPedido{Denominacion = 5, Descripcion = "Entregado"},
-            };
-            foreach (EstadoPedido p in estados)
-            {
-                context.EstadoPedido.Add(p);
-            }
-            context.SaveChanges();
+
 
             ///
             ///DATOS INICIALES DE PEDIDO
@@ -164,7 +171,7 @@ namespace EmpleadosEBS.Data
             var pedidos = new Pedido[]
                 {
                     //pedidos En la cola del negocio--------------------------------------------------------------
-                    new Pedido{NumeroPedido = 1001,FechaHora = DateTime.Parse("19/8/2019 10:00:00 AM" ),
+                    new Pedido{NumeroPedido = 1001,FechaHora = DateTime.Parse("19/8/2019 10:00:00 AM"),
                         EstadoPedidoID = estados.Single(p => p.Descripcion == "Solicitado").ID,PorDelivery = true ,
                         PrecioVenta = 100 },
                     new Pedido{NumeroPedido = 1002,FechaHora = DateTime.Parse("19/8/2019 11:30:00 AM" ),
@@ -176,7 +183,7 @@ namespace EmpleadosEBS.Data
                     new Pedido{NumeroPedido = 1004, FechaHora = DateTime.Parse("19/8/2019 12:30:00 AM"),
                         EstadoPedidoID = estados.Single(p => p.Descripcion == "Cocinado").ID,PorDelivery = false,
                         PrecioVenta = 150},
-                    new Pedido{NumeroPedido = 1005, FechaHora = DateTime.Parse("19/8/2019 13:00:00 PM"),
+                    new Pedido{NumeroPedido = 1005, FechaHora = DateTime.Parse("19/8/2019 13:00:00 AM"),
                         EstadoPedidoID = estados.Single(p => p.Descripcion == "Cocinado").ID,PorDelivery = true,
                         PrecioVenta = 150},
                     new Pedido{NumeroPedido = 1006,FechaHora = DateTime.Parse("19/8/2019 13:30:00 AM" ),
@@ -227,6 +234,7 @@ namespace EmpleadosEBS.Data
                         PrecioVenta = 150}
 
                 };
+
             foreach (Pedido p in pedidos)
             {
                 context.Pedido.Add(p);
@@ -242,105 +250,106 @@ namespace EmpleadosEBS.Data
                 {
                     //pedido 1001--------------------------------------------------------------------------
                     new DetPedido{Cantidad = 1 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1001).ID ,
-                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Comun").ID },
                     new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1001).ID ,
                         PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lomo Completo").ID },
                     //pedido 1002--------------------------------------------------------------------------
                     new DetPedido{Cantidad = 2 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1002).ID ,
                         ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
                     new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1002).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo Completo").ID },
+                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lomo Simple").ID },
+
                     //pedido 1003--------------------------------------------------------------------------
                     new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1003).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Cerveza").ID },
                     new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1003).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+                        PlatoID = platos.Single(a => a.Denominacion == "Hamburguesa").ID },
                     //pedido 1004--------------------------------------------------------------------------
                     new DetPedido{Cantidad = 2 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1004).ID ,
-                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Cerveza Negra").ID },
                     new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1004).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
+                        PlatoID = platos.Single(a => a.Denominacion == "Pancho").ID },
                     //pedido 1005--------------------------------------------------------------------------
                     new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1005).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Cervesa Roja").ID },
                     new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1005).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+                        PlatoID = platos.Single(a => a.Denominacion == "Pizza").ID },
                      //pedido 1006--------------------------------------------------------------------------
                     new DetPedido{Cantidad = 2 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1006).ID ,
-                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Comun").ID },
                     new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1006).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
+                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lomo Completo").ID },
                     //pedido 1007--------------------------------------------------------------------------
                     new DetPedido{Cantidad = 1 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1007).ID ,
                         ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
                     new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1007).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
+                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lomo Simple").ID },
                     //pedido 1008--------------------------------------------------------------------------
                     new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1008).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Cerveza").ID },
                     new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1008).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+                        PlatoID = platos.Single(a => a.Denominacion == "Hamburguesa").ID },
                     //pedido 1009--------------------------------------------------------------------------
                     new DetPedido{Cantidad = 1 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1009).ID ,
-                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Cerveza Negra").ID },
                     new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1009).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
+                        PlatoID = platos.Single(a => a.Denominacion == "Pancho").ID },
                     //pedido 1010--------------------------------------------------------------------------
                     new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1010).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Cerveza Roja").ID },
                     new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1010).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+                        PlatoID = platos.Single(a => a.Denominacion == "Pizza").ID },
                     //pedidos ya pagados-------------------------------------------------------------------
                     //pedido 1011--------------------------------------------------------------------------
-                    new DetPedido{Cantidad = 2 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1001).ID ,
-                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
-                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1001).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
+                    new DetPedido{Cantidad = 2 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1011).ID ,
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Comun").ID },
+                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1011).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lomo Completo").ID },
                     //pedido 1012--------------------------------------------------------------------------
-                    new DetPedido{Cantidad = 1 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1002).ID ,
+                    new DetPedido{Cantidad = 1 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1012).ID ,
                         ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
-                    new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1002).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
+                    new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1012).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lomo Simple").ID },
                     //pedido 1013--------------------------------------------------------------------------
-                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1003).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
-                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1003).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1013).ID ,
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Cerveza").ID },
+                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1013).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Hamburguesa").ID },
                     //pedido 1014--------------------------------------------------------------------------
-                    new DetPedido{Cantidad = 1 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1004).ID ,
-                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
-                    new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1004).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
+                    new DetPedido{Cantidad = 1 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1014).ID ,
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Cerveza Negra").ID },
+                    new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1014).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Pancho").ID },
                     //pedido 1015--------------------------------------------------------------------------
-                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1005).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
-                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1005).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1015).ID ,
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Cerveza Roja").ID },
+                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1015).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Pizza").ID },
                      //pedido 1016--------------------------------------------------------------------------
-                    new DetPedido{Cantidad = 2 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1001).ID ,
-                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
-                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1001).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
+                    new DetPedido{Cantidad = 2 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1016).ID ,
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Comun").ID },
+                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1016).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lomo Completo").ID },
                     //pedido 1017--------------------------------------------------------------------------
-                    new DetPedido{Cantidad = 1 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1002).ID ,
+                    new DetPedido{Cantidad = 1 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1017).ID ,
                         ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
-                    new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1002).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
+                    new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1017).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lomo Simple").ID },
                     //pedido 1018--------------------------------------------------------------------------
-                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1003).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
-                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1003).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1018).ID ,
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Cerveza").ID },
+                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1018).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Hamburguesa").ID },
                     //pedido 1019--------------------------------------------------------------------------
-                    new DetPedido{Cantidad = 1 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1004).ID ,
-                        ArticuloID = articulos.Single(a => a.Denominacion == "Coca Zero").ID },
-                    new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1004).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de lomo").ID },
+                    new DetPedido{Cantidad = 1 ,PedidoID = pedidos.Single(p => p.NumeroPedido == 1019).ID ,
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Cerveza Negra").ID },
+                    new DetPedido{Cantidad = 1, PedidoID = pedidos.Single(p => p.NumeroPedido == 1019).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Pancho").ID },
                     //pedido 1020--------------------------------------------------------------------------
-                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1005).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
-                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1005).ID ,
-                        PlatoID = platos.Single(a => a.Denominacion == "Sandwich de Lechuga").ID },
+                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1020).ID ,
+                        ArticuloID = articulos.Single(a => a.Denominacion == "Cerveza Negra").ID },
+                    new DetPedido{Cantidad = 2, PedidoID = pedidos.Single(p => p.NumeroPedido == 1020).ID ,
+                        PlatoID = platos.Single(a => a.Denominacion == "Pizza").ID },
                 };
             foreach (DetPedido p in detalles)
             {
