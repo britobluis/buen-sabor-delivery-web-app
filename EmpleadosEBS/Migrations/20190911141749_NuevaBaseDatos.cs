@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EmpleadosEBS.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class NuevaBaseDatos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -213,7 +213,8 @@ namespace EmpleadosEBS.Migrations
                     EstadoPedidoID = table.Column<int>(nullable: false),
                     PorDelivery = table.Column<bool>(nullable: false),
                     FechaHora = table.Column<DateTime>(nullable: false),
-                    PrecioVenta = table.Column<double>(nullable: false)
+                    PrecioVenta = table.Column<double>(nullable: false),
+                    Facturado = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -317,48 +318,6 @@ namespace EmpleadosEBS.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Factura",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Fecha = table.Column<DateTime>(nullable: false),
-                    Monto = table.Column<double>(nullable: false),
-                    PedidoID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Factura", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Factura_Pedido_PedidoID",
-                        column: x => x.PedidoID,
-                        principalTable: "Pedido",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Devolucion",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FacturaID = table.Column<int>(nullable: false),
-                    FechaDevolucion = table.Column<DateTime>(nullable: false),
-                    Motivo = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Devolucion", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Devolucion_Factura_FacturaID",
-                        column: x => x.FacturaID,
-                        principalTable: "Factura",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -414,16 +373,6 @@ namespace EmpleadosEBS.Migrations
                 column: "PlatoID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Devolucion_FacturaID",
-                table: "Devolucion",
-                column: "FacturaID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Factura_PedidoID",
-                table: "Factura",
-                column: "PedidoID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Pedido_EstadoPedidoID",
                 table: "Pedido",
                 column: "EstadoPedidoID");
@@ -470,9 +419,6 @@ namespace EmpleadosEBS.Migrations
                 name: "DetPedido");
 
             migrationBuilder.DropTable(
-                name: "Devolucion");
-
-            migrationBuilder.DropTable(
                 name: "Receta");
 
             migrationBuilder.DropTable(
@@ -485,16 +431,13 @@ namespace EmpleadosEBS.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Factura");
+                name: "Pedido");
 
             migrationBuilder.DropTable(
                 name: "Articulo");
 
             migrationBuilder.DropTable(
                 name: "Plato");
-
-            migrationBuilder.DropTable(
-                name: "Pedido");
 
             migrationBuilder.DropTable(
                 name: "EstadoPedido");

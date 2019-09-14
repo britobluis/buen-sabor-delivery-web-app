@@ -7,31 +7,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EmpleadosEBS.Models
 {
     //------------------------------------------------------------------------------------
-    public class Factura
-    {
-        public int ID { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime Fecha { get; set; }
-        public double Monto { get; set; }
-        //relaciones
-        public int PedidoID { get; set; }
-        public Pedido Pedido { get; set; }
-        public ICollection<Devolucion> Devolucion { get; set; }
-    }
-    //------------------------------------------------------------------------------------
-    public class Devolucion
-    {
-        public int ID { get; set; }
-        [Required]
-        public int FacturaID { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime FechaDevolucion { get; set; }
-        public string Motivo { get; set; }
-        public Factura Factura { get; set; }
-    }
-    //------------------------------------------------------------------------------------
     public class Articulo
     {
         public int ID { get; set; }
@@ -148,10 +123,14 @@ namespace EmpleadosEBS.Models
         [Required]
         [DisplayName("Delivery")]
         public Boolean PorDelivery { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DisplayName("Fecha y hora")]
         public DateTime FechaHora { get; set; }
         [DisplayName("Precio Total")]
         public double PrecioVenta { get; set; }
+        [DisplayName("Facturado")]
+        public Boolean Facturado { get; set; }
         /// <summary>
         /// Relacion con la clase Det pedido u Estado de pedido
         /// </summary>
