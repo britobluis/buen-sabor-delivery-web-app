@@ -27,15 +27,12 @@
         <div class="tab-pane fade active show" id="pedidos">
             <form action="/" method="post">
                <br />
-               <label>  Fecha inicio =</label>
+               <label>Fecha inicio =</label>
                <input type="date" name="inicio" /> 
                <label> Fecha final = </label>
                <input type="date" name="final" /> 
-                <a class="btn btn-primary" asp-action="InformeVenta">Generar Reporte</a>
-            </form>
-
-            @await Component.InvokeAsync("InformeVenta", new { inicio = DateTime.Parse("20/08/2019"), final = DateTime.Parse("25/8/2019") })
-
+                <a class="btn btn-primary" asp-action="generaReporte">Generar Reporte</a>
+            </form>          
             <!-------------------------------------------------------------------->
 
         </div>
