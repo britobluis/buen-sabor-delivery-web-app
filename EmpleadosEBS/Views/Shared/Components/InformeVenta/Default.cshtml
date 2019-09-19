@@ -1,0 +1,35 @@
+﻿@model IEnumerable<EmpleadosEBS.Models.Pedido>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                   Numero de Pedido
+                </th>
+                <th>
+                   Fecha
+                </th>
+                <th>
+                   Precio de Venta
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroPedido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaHora)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrecioVenta)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

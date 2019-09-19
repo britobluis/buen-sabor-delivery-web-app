@@ -471,13 +471,10 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         // GET: Administradorinformes
         //--------------------------------------------------------------------------------
-        public async Task<IActionResult> IndexInformes()
+        public IActionResult IndexInformes()
         {
             return View();
-
         }
-
-
     }
 
 
