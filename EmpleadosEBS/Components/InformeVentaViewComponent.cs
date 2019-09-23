@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace EmpleadosEBS.Components
 {
-    public class InformeVentaViewComponent : ViewComponent
+    public class InformeVenta : ViewComponent
     {
         private readonly ApplicationDbContext _context;
 
-        public InformeVentaViewComponent(ApplicationDbContext context)
+        public InformeVenta(ApplicationDbContext context)
         {
             _context = context;
         }
