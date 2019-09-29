@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Caja El Buen Sabor</title>
 
-    <!-- hoja de estilos Minty de Bootswacht https://bootswatch.com/ -->
-    <link rel="stylesheet" href="~/css/CajeroCss/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/CajeroCss/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/CajeroCss/_bootswatch.scss" />
-    <link rel="stylesheet" href="~/css/CajeroCss/_variables.scss" />
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
 
     <link rel="stylesheet" href="~/css/site.css" />
 
@@ -17,9 +22,9 @@
 <body>
     <header>
         <meta http-equiv="refresh" content="5" />
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFB400;">
             <div class="container">
-                <a class="navbar-brand" asp-controller="Cajero" asp-action="Index">Caja</a>
+                <a class="navbar-brand text-light" asp-controller="Home" asp-action="Index">Caja</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" 
                         aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -28,13 +33,13 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Cajero" asp-action="IndexPedido">Pedidos</a>
+                            <a class="nav-link text-light" asp-controller="Cajero" asp-action="IndexPedido">Pedidos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Cajero" asp-action="IndexBebida">Bebidas</a>
+                            <a class="nav-link text-light" asp-controller="Cajero" asp-action="IndexBebida">Bebidas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="" asp-action="Index">Facturas</a>
+                            <a class="nav-link text-light" asp-controller="" asp-action="Index">Facturas</a>
                         </li>
                     </ul>
                 </div>
@@ -47,11 +52,8 @@
             @RenderBody()
         </main>
     </div>
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - El Buen Sabor
-        </div>
-    </footer>
+
+    <partial name="Footer" />
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>

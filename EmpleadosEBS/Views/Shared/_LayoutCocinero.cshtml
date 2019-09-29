@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cocina El Buen Sabor</title>
 
-    <!--Hoja de Estilos de Bootswacht Materia  https://bootswatch.com/ -->
-    <link rel="stylesheet" href="~/css/CocineroCss/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/CocineroCss/bootstrap.min.css" />
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
 
     <link rel="stylesheet" href="~/css/site.css" />
 
@@ -15,9 +22,9 @@
 <body>
     <header>
         <meta http-equiv="refresh" content="5" />
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #2C7C13;">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Cocinero" asp-action="Index">Cocina</a>
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Cocina</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
                         aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,13 +33,13 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item active">
-                            <a class="nav-link" asp-area="" asp-controller="Cocinero" asp-action="IndexPedido">Pedidos<span class="sr-only">(current)</span></a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Cocinero" asp-action="IndexPedido">Pedidos<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Cocinero" asp-action="IndexPlato">Platos</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Cocinero" asp-action="IndexPlato">Platos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Cocinero" asp-action="IndexInsumo">Insumos</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Cocinero" asp-action="IndexInsumo">Insumos</a>
                         </li>
                     </ul>
                 </div>
@@ -45,11 +52,8 @@
             @RenderBody()
         </main>
     </div>
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - El Buen Sabor
-        </div>
-    </footer>
+
+    <partial name="Footer" />
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>

@@ -8,7 +8,7 @@
 @if (Model.ShoppingCart.ShoppingCartItems.Count > 0 && SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a class="nav-link" asp-controller="ShoppingCart" asp-action="Index">
+        <a class="nav-link text-light" asp-controller="ShoppingCart" asp-action="Index">
             <i class="fa fa-shopping-cart"></i>
             <span id="cart-status" style="display:inline-block;">
                 @Model.ShoppingCart.ShoppingCartItems.Count

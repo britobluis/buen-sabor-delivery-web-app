@@ -42,32 +42,32 @@ namespace EmpleadosEBS.Data
                 new Plato{
                     Denominacion = "Lomo Completo",
                     Descripcion = "Sandwich de Lomo Completo con lechuga y tomate",
-                    Imagen = "~/img/Plato/lomo.jpg",
+                    Imagen = "/img/Plato/lomo.jpg",
                     PrecioVenta = 100,
                     Aprobado = true
                 },
                 new Plato{
                     Denominacion = "Lomo Simple",
                     Descripcion = "Sandwich de Lomo sin vegetales",
-                    Imagen = "~/img/Plato/lomo2.jpg",
+                    Imagen = "/img/Plato/lomo2.jpg",
                     PrecioVenta = 80,
                     Aprobado = true
                 },
                 new Plato{
                     Denominacion = "Hamburguesa",
                     Descripcion = "Sandwich de Hamburguesa sin vegetales",
-                    Imagen = "~/img/Plato/hamburguesa.jpg",
+                    Imagen = "/img/Plato/hamburguesa.jpg",
                     PrecioVenta = 80,
                     Aprobado = true
                 },
                 new Plato{ Denominacion = "Pancho",
                     Descripcion = "Pancho Simple con aderezos",
-                    Imagen = "~/img/Plato/pancho.jpg",
+                    Imagen = "/img/Plato/pancho.jpg",
                     PrecioVenta = 50, Aprobado = true
                 },
                 new Plato{ Denominacion = "Pizza",
                     Descripcion = "Pizza Simple con musarella",
-                    Imagen = "~/img/Plato/pizza.jpg",
+                    Imagen = "/img/Plato/pizza.jpg",
                     PrecioVenta = 90, Aprobado = true
                 }
             };
