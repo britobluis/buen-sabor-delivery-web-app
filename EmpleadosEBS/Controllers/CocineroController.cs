@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         public IActionResult Index()
         {
+            
             return View();
         }
         //--------------------------------------------------------------------------------
@@ -133,6 +135,7 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         public async Task<IActionResult> IndexPedido()
         {
+           
             var viewModel = new PedidoIndexData();
             viewModel.Pedidos = await _context.Pedido
                 .Include(p => p.DetPedidos)
@@ -171,8 +174,8 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPedido(int id, [Bind("ID,EstadoPedidoID" +
-            ",PorDelivery,FechaHora,PrecioVenta")] Pedido pedido)
+        public async Task<IActionResult> EditPedido(int id, [Bind("ID,NumeroPedido" +
+            ",EstadoPedidoID,PorDelivery,FechaHora,PrecioVenta")] Pedido pedido)
         {
             if (id != pedido.ID)
             {

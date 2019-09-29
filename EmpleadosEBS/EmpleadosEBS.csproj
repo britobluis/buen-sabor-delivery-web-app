@@ -87,6 +87,26 @@
     <Compile Remove="Migrations\20190823010305_CambioCampos-DetPedidos2.Designer.cs" />
     <Compile Remove="Migrations\20190823014755_AgregueCamposFaltantesDetPedido.cs" />
     <Compile Remove="Migrations\20190823014755_AgregueCamposFaltantesDetPedido.Designer.cs" />
+    <Compile Remove="Migrations\20190823094348_Inicial.cs" />
+    <Compile Remove="Migrations\20190823094348_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20190823214627_Autoincremental_NumeroPedido.cs" />
+    <Compile Remove="Migrations\20190823214627_Autoincremental_NumeroPedido.Designer.cs" />
+    <Compile Remove="Migrations\20190823214929_Inicial.cs" />
+    <Compile Remove="Migrations\20190823214929_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20190823215415_Inicial.cs" />
+    <Compile Remove="Migrations\20190823215415_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20190823220420_Inicial.cs" />
+    <Compile Remove="Migrations\20190823220420_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20190823223037_Inicial.cs" />
+    <Compile Remove="Migrations\20190823223037_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20190823223405_Inicial.cs" />
+    <Compile Remove="Migrations\20190823223405_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20190823223940_Inicial.cs" />
+    <Compile Remove="Migrations\20190823223940_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20190923183909_cartitem.cs" />
+    <Compile Remove="Migrations\20190923183909_cartitem.Designer.cs" />
+    <Compile Remove="Migrations\20190923185610_carrito.cs" />
+    <Compile Remove="Migrations\20190923185610_carrito.Designer.cs" />
   </ItemGroup>
 
 

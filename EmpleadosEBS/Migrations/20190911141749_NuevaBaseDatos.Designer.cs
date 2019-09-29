@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmpleadosEBS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190823094348_Inicial")]
-    partial class Inicial
+    [Migration("20190911141749_NuevaBaseDatos")]
+    partial class NuevaBaseDatos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,25 +76,6 @@ namespace EmpleadosEBS.Migrations
                     b.ToTable("DetPedido");
                 });
 
-            modelBuilder.Entity("EmpleadosEBS.Models.Devolucion", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("FacturaID");
-
-                    b.Property<DateTime>("FechaDevolucion");
-
-                    b.Property<string>("Motivo");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("FacturaID");
-
-                    b.ToTable("Devolucion");
-                });
-
             modelBuilder.Entity("EmpleadosEBS.Models.EstadoPedido", b =>
                 {
                     b.Property<int>("ID")
@@ -111,25 +92,6 @@ namespace EmpleadosEBS.Migrations
                     b.ToTable("EstadoPedido");
                 });
 
-            modelBuilder.Entity("EmpleadosEBS.Models.Factura", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Fecha");
-
-                    b.Property<double>("Monto");
-
-                    b.Property<int>("PedidoID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PedidoID");
-
-                    b.ToTable("Factura");
-                });
-
             modelBuilder.Entity("EmpleadosEBS.Models.Pedido", b =>
                 {
                     b.Property<int>("ID")
@@ -137,6 +99,8 @@ namespace EmpleadosEBS.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("EstadoPedidoID");
+
+                    b.Property<bool>("Facturado");
 
                     b.Property<DateTime>("FechaHora");
 
@@ -397,22 +361,6 @@ namespace EmpleadosEBS.Migrations
                     b.HasOne("EmpleadosEBS.Models.Plato", "Plato")
                         .WithMany("DetPedidos")
                         .HasForeignKey("PlatoID");
-                });
-
-            modelBuilder.Entity("EmpleadosEBS.Models.Devolucion", b =>
-                {
-                    b.HasOne("EmpleadosEBS.Models.Factura", "Factura")
-                        .WithMany("Devolucion")
-                        .HasForeignKey("FacturaID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("EmpleadosEBS.Models.Factura", b =>
-                {
-                    b.HasOne("EmpleadosEBS.Models.Pedido", "Pedido")
-                        .WithMany()
-                        .HasForeignKey("PedidoID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("EmpleadosEBS.Models.Pedido", b =>
