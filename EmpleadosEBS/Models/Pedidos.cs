@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -138,6 +139,10 @@ namespace EmpleadosEBS.Models
         public ICollection<DetPedido> DetPedidos { get; set; }
         //relacion con EstadoPEdido de muchos a uno
         public EstadoPedido EstadoPedido { get; set; }
+
+        public string UserId { get; set; }
+
+        public IdentityUser User { get; set; }
     }
     //------------------------------------------------------------------------------------
 }

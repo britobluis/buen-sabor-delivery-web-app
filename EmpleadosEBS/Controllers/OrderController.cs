@@ -6,6 +6,7 @@ using EmpleadosEBS.Models;
 using EmpleadosEBS.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmpleadosEBS.Controllers
 {
@@ -14,11 +15,13 @@ namespace EmpleadosEBS.Controllers
 
         private readonly IOrderRepository _orderRepository;
         private readonly ShoppingCart _shoppingCart;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public OrderController(IOrderRepository orderRepository, ShoppingCart shoppingCart)
+        public OrderController(IOrderRepository orderRepository, ShoppingCart shoppingCart, UserManager<IdentityUser> userManager)
         {
             _orderRepository = orderRepository;
             _shoppingCart = shoppingCart;
+            _userManager = userManager;
         }
 
         public IActionResult Checkout()
@@ -29,10 +32,19 @@ namespace EmpleadosEBS.Controllers
         [HttpPost]
         public IActionResult Checkout(Pedido pedido)
         {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            pedido.UserId = userId;
+
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;
 
-            pedido.PrecioVenta = _shoppingCart.GetShoppingCartTotal();
+            if(pedido.PorDelivery)
+            {
+                pedido.PrecioVenta = _shoppingCart.GetShoppingCartTotal();
+            } else
+            {
+                pedido.PrecioVenta = _shoppingCart.GetShoppingCartTotal() * 0.90;
+            }
             pedido.FechaHora = DateTime.Now;
             pedido.EstadoPedidoID = 1;
 
@@ -54,7 +66,11 @@ namespace EmpleadosEBS.Controllers
 
         public IActionResult CheckoutComplete()
         {
+            Random rnd = new Random();
+            int espera = rnd.Next(15, 45);
+
             ViewBag.CheckoutCompleteMessage = "Gracias por su orden";
+            ViewBag.TiempoEspera = espera + " minutos";
             return View();
         }
     }
