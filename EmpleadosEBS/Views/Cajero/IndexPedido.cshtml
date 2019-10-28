@@ -8,9 +8,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>
-                    NumeroPedido
-                </th>
+                
                 <th>
                     Por Delivery
                 </th>
@@ -29,9 +27,7 @@
                 if (item.EstadoPedido.Descripcion == "Solicitado" || item.EstadoPedido.Descripcion == "Cocinado")
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NumeroPedido)
-                        </td>
+                        
                         <td>
                             @Html.DisplayFor(modelItem => item.PorDelivery)
                         </td>

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using EmpleadosEBS.Data;
 using EmpleadosEBS.Models;
+using EmpleadosEBS.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,10 +15,12 @@ namespace EmpleadosEBS.Controllers
     public class AdministradorController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public AdministradorController(ApplicationDbContext context)
+        public AdministradorController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         //--------------------------------------------------------------------------------
         //INDEX DE ADMINISTRADOR
@@ -40,8 +44,14 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         public async Task<IActionResult> IndexPedido()
         {
-            var applicationDbContext = _context.Pedido.Include(p => p.EstadoPedido);
-            return View(await applicationDbContext.ToListAsync());
+            // var applicationDbContext = _context.Pedido.Include(p => p.EstadoPedido);
+            // return View(await applicationDbContext.ToListAsync());
+
+            PedidoUsuarioViewModel model = new PedidoUsuarioViewModel();
+            model.Pedidos = _context.Pedido.Include(p => p.EstadoPedido);
+            model.Usuarios = _userManager.Users.ToArray();
+
+            return View(model);
         }
         //--------------------------------------------------------------------------------
         //FIN DE ADMINISTRADORPEDIDO

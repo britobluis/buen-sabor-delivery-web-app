@@ -170,6 +170,7 @@ namespace EmpleadosEBS.Controllers
             {
                 return NotFound();
             }
+            pedido.EstadoPedidoID = 2;
 
             if (ModelState.IsValid)
             {

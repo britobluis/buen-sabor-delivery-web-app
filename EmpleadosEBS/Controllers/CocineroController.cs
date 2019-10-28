@@ -26,7 +26,7 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         public IActionResult Index()
         {
-            
+
             return View();
         }
         //--------------------------------------------------------------------------------
@@ -135,7 +135,7 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         public async Task<IActionResult> IndexPedido()
         {
-           
+
             var viewModel = new PedidoIndexData();
             viewModel.Pedidos = await _context.Pedido
                 .Include(p => p.DetPedidos)
@@ -160,8 +160,13 @@ namespace EmpleadosEBS.Controllers
             var pedido = await _context.Pedido
                 .Include(d => d.DetPedidos)
                     .ThenInclude(p => p.Plato)
+                    .ThenInclude(r => r.Recetas)
                      .AsNoTracking()
                      .FirstOrDefaultAsync(m => m.ID == id);
+            //--------------------------------------------------------------------------------
+            var viewmodel = new PedidoIndexData();
+
+            //--------------------------------------------------------------------------------
 
             if (pedido == null)
             {
@@ -184,6 +189,7 @@ namespace EmpleadosEBS.Controllers
 
             pedido.EstadoPedidoID = 3;
 
+
             var detalles = await _context.DetPedido
                 .Include(d => d.Pedido).Where(m => m.ID == id)
                     .Include(a => a.Articulo)
@@ -191,6 +197,9 @@ namespace EmpleadosEBS.Controllers
                         .ThenInclude(r => r.Recetas)
                      .AsNoTracking()
                      .FirstOrDefaultAsync();
+
+
+
 
             if (ModelState.IsValid)
             {
