@@ -49,6 +49,10 @@
 
                                         @Plato.Cantidad @: @Plato.Plato.Denominacion  <br />
                                     }
+                                    if (Plato.ArticuloID.HasValue)
+                                    {
+                                        @Plato.Cantidad @: @Plato.Articulo.Denominacion <br />
+                                    }
                                 }
                             }
                         </td>

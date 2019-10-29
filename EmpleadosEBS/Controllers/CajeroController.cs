@@ -132,6 +132,8 @@ namespace EmpleadosEBS.Controllers
             viewModel.Pedidos = await _context.Pedido
                 .Include(p => p.DetPedidos)
                     .ThenInclude(p => p.Plato)
+                .Include(p => p.DetPedidos)    
+                    .ThenInclude(a => a.Articulo)
                 .Include(d => d.EstadoPedido)
                     .AsNoTracking()
                     .OrderBy(i => i.FechaHora)
