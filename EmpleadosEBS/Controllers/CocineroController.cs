@@ -163,16 +163,14 @@ namespace EmpleadosEBS.Controllers
                     .ThenInclude(r => r.Recetas)
                      .AsNoTracking()
                      .FirstOrDefaultAsync(m => m.ID == id);
-            //--------------------------------------------------------------------------------
-            var viewmodel = new PedidoIndexData();
-
-            //--------------------------------------------------------------------------------
 
             if (pedido == null)
             {
                 return NotFound();
             }
             return View(pedido);
+
+
         }
         //--------------------------------------------------------------------------------
         //POST: Cocinero/EditPedido
@@ -189,17 +187,25 @@ namespace EmpleadosEBS.Controllers
 
             pedido.EstadoPedidoID = 3;
 
+            var detalles = _context.DetPedido
+                .Include(p => p.Pedido).Where(i => i.PedidoID == pedido.ID)
+                .AsNoTracking();
 
-            var detalles = await _context.DetPedido
-                .Include(d => d.Pedido).Where(m => m.ID == id)
-                    .Include(a => a.Articulo)
-                    .Include(p => p.Plato)
-                        .ThenInclude(r => r.Recetas)
-                     .AsNoTracking()
-                     .FirstOrDefaultAsync();
+            var platos = _context.Plato
+                .Include(p => p.DetPedidos)
+                .AsNoTracking();
 
-
-
+            foreach (var detalle in detalles)
+            {
+                foreach (var plato in platos)
+                {
+                    if (detalle.PlatoID == plato.ID)
+                    {
+                        DescuentoArticulosPlato(plato, detalle.Cantidad);
+                    }
+                }
+            }
+           
 
             if (ModelState.IsValid)
             {
@@ -225,6 +231,35 @@ namespace EmpleadosEBS.Controllers
             ViewData["EstadoPedidoID"] = new SelectList(_context.EstadoPedido, "ID",
                 "Descripcion", pedido.EstadoPedidoID);
             return View(pedido);
+        }
+        //--------------------------------------------------------------------
+        private void DescuentoArticulosPlato(Plato plato,int cantidad)
+        {
+            var articulos = _context.Articulo
+                .Include(receta => receta.Recetas)
+                    .Where(p => p.EsInsumo == true)
+                    .ToList();
+
+            var recetas = _context.Receta
+                .Include(p => p.Plato)
+                .Where(p => p.PlatoID == plato.ID)
+                .ToList();
+            
+            foreach (var receta in recetas)
+            {
+                foreach (var articulo in articulos)
+                {
+                    if (articulo.ID == receta.ArticuloID)
+                    {
+                        double v = articulo.Stock - (receta.Cantidad*cantidad);
+
+                        articulo.Stock = v;
+
+                        _context.Update(articulo);
+                    }
+                }
+            }
+
         }
         //--------------------------------------------------------------------------------
         private bool PedidoExists(int id)

@@ -1,16 +1,15 @@
 ﻿@model EmpleadosEBS.Models.PedidoIndexData.PedidoIndexData
 
 @{
-    
+
     Layout = "~/Views/Shared/_LayoutCocinero.cshtml";
 }
 <div class="jumbotron" style="margin-top: 40px;">
     <table class="table">
         <thead>
             <tr>
-                
                 <th>
-                    Fecha y hora
+                    Numero de Pedido
                 </th>
                 <th>
                     Detalle de Pedido
@@ -24,21 +23,25 @@
                 if (item.EstadoPedido.Descripcion == "Aceptado")
                 {
                     <tr>
-                       
+
                         <td>
-                            @Html.DisplayFor(modelItem => item.FechaHora)
+                            @Html.DisplayFor(modelItem => item.NumeroPedido)
                         </td>
                         <td>
+
                             @{
                                 foreach (var Plato in item.DetPedidos)
                                 {
                                     if (Plato.PlatoID.HasValue)
                                     {
 
-                                        @Plato.Cantidad @: @Plato.Plato.Denominacion <br />
+                                        @Plato.Cantidad @: -
+
+                                        @Plato.Plato.Denominacion
                                     }
                                 }
                             }
+
                         </td>
                         <td>
                             <a class="btn btn-outline-success" asp-action="EditPedido" asp-route-id="@item.ID">Confirmar</a>

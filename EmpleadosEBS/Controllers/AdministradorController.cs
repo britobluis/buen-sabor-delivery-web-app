@@ -42,7 +42,7 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         // GET: AdministradorPedido
         //--------------------------------------------------------------------------------
-        public async Task<IActionResult> IndexPedido()
+        public IActionResult IndexPedido()
         {
             // var applicationDbContext = _context.Pedido.Include(p => p.EstadoPedido);
             // return View(await applicationDbContext.ToListAsync());

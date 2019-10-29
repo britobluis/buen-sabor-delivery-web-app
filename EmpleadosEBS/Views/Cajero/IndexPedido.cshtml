@@ -8,7 +8,10 @@
     <table class="table">
         <thead>
             <tr>
-                
+                <th>
+                    Nro de Pedido
+                </th>
+
                 <th>
                     Por Delivery
                 </th>
@@ -27,7 +30,10 @@
                 if (item.EstadoPedido.Descripcion == "Solicitado" || item.EstadoPedido.Descripcion == "Cocinado")
                 {
                     <tr>
-                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumeroPedido)
+                        </td>
+
                         <td>
                             @Html.DisplayFor(modelItem => item.PorDelivery)
                         </td>
@@ -42,7 +48,7 @@
                                     {
 
                                         @Plato.Cantidad @: @Plato.Plato.Denominacion  <br />
-                                    }                                    
+                                    }
                                 }
                             }
                         </td>
@@ -53,7 +59,7 @@
                             }
                             else
                             {
-                                <a class="btn btn-outline-success" asp-action="EditPedido" asp-route-id="@item.ID">Entregar</a>
+                                <a class="btn btn-outline-success" asp-action="EntregarPedido" asp-route-id="@item.ID">Entregar</a>
                             }
                         </td>
                     </tr>
