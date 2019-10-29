@@ -64,6 +64,8 @@
                             else
                             {
                                 <a class="btn btn-outline-success" asp-action="EntregarPedido" asp-route-id="@item.ID">Entregar</a>
+                                <a class="btn btn-outline-success" asp-action="FacturaPedido" asp-route-id="@item.ID">Factura</a>
+                                
                             }
                         </td>
                     </tr>
@@ -72,3 +74,11 @@
         </tbody>
     </table>
 </div>
+<div id='myModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+
+</div>   

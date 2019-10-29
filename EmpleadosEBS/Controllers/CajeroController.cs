@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using EmpleadosEBS.Data;
 using EmpleadosEBS.Models;
 using EmpleadosEBS.Models.PedidoIndexData;
+using EmpleadosEBS.Models.PlatoIndexData;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +16,12 @@ namespace EmpleadosEBS.Controllers
     public class CajeroController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public CajeroController(ApplicationDbContext context)
+        public CajeroController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         //------------------------------------------------------------------------------
         //INDEX DE CAJERO
@@ -199,10 +203,93 @@ namespace EmpleadosEBS.Controllers
             return View(pedido);
         }
         //------------------------------------------------------------------------------
+        // GET: Cajero/EntregarPedido
+        //------------------------------------------------------------------------------
+        public async Task<IActionResult> EntregarPedido(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pedido = await _context.Pedido.FindAsync(id);
+            if (pedido == null)
+            {
+                return NotFound();
+            }
+            ViewData["EstadoPedidoID"] = new SelectList(_context.EstadoPedido, "ID",
+                "Descripcion", pedido.EstadoPedidoID);
+            return View(pedido);
+        }
+        //------------------------------------------------------------------------------
+        //POST: Cajero/EntregarPedido
+        //------------------------------------------------------------------------------
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EntregarPedido(int id, [Bind("ID,NumeroPedido" +
+            ",EstadoPedidoID,PorDelivery,FechaHora,PrecioVenta")] Pedido pedido)
+        {
+            if (id != pedido.ID)
+            {
+                return NotFound();
+            }
+            pedido.EstadoPedidoID = 2;
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(pedido);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PedidoExists(pedido.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexPedido));
+            }
+            ViewData["EstadoPedidoID"] = new SelectList(_context.EstadoPedido, "ID"
+                , "Descripcion", pedido.EstadoPedidoID);
+            return View(pedido);
+        }
+        //------------------------------------------------------------------------------
+        // GET: Cajero/FacturaModal
+        //------------------------------------------------------------------------------
+        public async Task<IActionResult> FacturaPedido(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+           
+            Factura factura = new Factura();
+
+            factura.Pedido = await _context.Pedido.SingleAsync(m => m.ID == id);
+            
+            factura.Usuario = await _userManager.Users.SingleAsync(m => m.Id == factura.Pedido.UserId);
+
+            factura.DetPedidos = await _context.DetPedido.Where(m=> m.PedidoID == id).ToListAsync();
+            
+            factura.Articulos = await _context.Articulo.Where(m=> m.EsInsumo == false).ToListAsync();
+
+            factura.Platos = await _context.Plato.ToListAsync();
+                     
+            return View(factura);
+        }
+
+        //------------------------------------------------------------------------------
         private bool PedidoExists(int id)
         {
             return _context.Pedido.Any(e => e.ID == id);
         }
+        //------------------------------------------------------------------------------
         //------------------------------------------------------------------------------
         //FIN DE SECCION CAJEROPEDIDO
         //------------------------------------------------------------------------------

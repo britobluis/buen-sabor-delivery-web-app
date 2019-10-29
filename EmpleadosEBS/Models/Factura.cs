@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EmpleadosEBS.Models.PedidoIndexData
+namespace EmpleadosEBS.Models
 {
-    public class PedidoIndexData
+    public class Factura
     {
-        public IEnumerable<Pedido> Pedidos { get; set; }
+        public Pedido Pedido { get; set; }
+        public IdentityUser Usuario { get; set; }
         public IEnumerable<DetPedido> DetPedidos { get; set; }
         public IEnumerable<Articulo> Articulos { get; set; }
         public IEnumerable<Plato> Platos { get; set; }
-        public IEnumerable<EstadoPedido> EstadoPedidos { get; set; }
-        public IEnumerable<IdentityUser> Usuarios { get; set; }
+        
     }
 }
