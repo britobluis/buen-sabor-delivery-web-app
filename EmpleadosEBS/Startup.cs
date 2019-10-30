@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using EmpleadosEBS.Models;
 using EmpleadosEBS.Repositories;
+using Rotativa.AspNetCore;
 
 namespace EmpleadosEBS
 {
@@ -123,6 +124,8 @@ namespace EmpleadosEBS
             });
 
             CreateRolesAndAdminUser(serviceProvider);
+
+            RotativaConfiguration.Setup(env, "..\\Rotativa\\Windows\\");
         }
 
 

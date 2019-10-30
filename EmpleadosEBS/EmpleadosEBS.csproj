@@ -109,11 +109,17 @@
     <Compile Remove="Migrations\20190923185610_carrito.Designer.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Rotativa\Windows\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\Windows\wkhtmltopdf.exe" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.1.1" />
   </ItemGroup>
 
 </Project>

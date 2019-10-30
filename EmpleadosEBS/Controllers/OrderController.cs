@@ -50,6 +50,7 @@ namespace EmpleadosEBS.Controllers
             }
             pedido.FechaHora = DateTime.Now;
             pedido.EstadoPedidoID = 1;
+            //agrege numero de pedido que parsea la fecha cuando se hace el pedido
             DateTime numeropedido = DateTime.Now;
             pedido.NumeroPedido = Int32.Parse(numeropedido.ToString("yyyyMMdd"));
 
