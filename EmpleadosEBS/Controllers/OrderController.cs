@@ -7,6 +7,7 @@ using EmpleadosEBS.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using EmpleadosEBS.Data;
 
 namespace EmpleadosEBS.Controllers
 {
@@ -16,12 +17,14 @@ namespace EmpleadosEBS.Controllers
         private readonly IOrderRepository _orderRepository;
         private readonly ShoppingCart _shoppingCart;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly ApplicationDbContext _context;
 
-        public OrderController(IOrderRepository orderRepository, ShoppingCart shoppingCart, UserManager<IdentityUser> userManager)
+        public OrderController(IOrderRepository orderRepository, ShoppingCart shoppingCart, UserManager<IdentityUser> userManager, ApplicationDbContext context )
         {
             _orderRepository = orderRepository;
             _shoppingCart = shoppingCart;
             _userManager = userManager;
+            _context = context;
         }
 
         public IActionResult Checkout()
@@ -47,6 +50,8 @@ namespace EmpleadosEBS.Controllers
             }
             pedido.FechaHora = DateTime.Now;
             pedido.EstadoPedidoID = 1;
+            DateTime numeropedido = DateTime.Now;
+            pedido.NumeroPedido = Int32.Parse(numeropedido.ToString("yyyyMMdd"));
 
             if (_shoppingCart.ShoppingCartItems.Count == 0)
             {

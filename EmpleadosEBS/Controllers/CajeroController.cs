@@ -170,7 +170,7 @@ namespace EmpleadosEBS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPedido(int id, [Bind("ID,NumeroPedido" +
-            ",EstadoPedidoID,PorDelivery,FechaHora,PrecioVenta")] Pedido pedido)
+            ",EstadoPedidoID,PorDelivery,FechaHora,PrecioVenta,UserId")] Pedido pedido)
         {
             if (id != pedido.ID)
             {
@@ -227,13 +227,36 @@ namespace EmpleadosEBS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EntregarPedido(int id, [Bind("ID,NumeroPedido" +
-            ",EstadoPedidoID,PorDelivery,FechaHora,PrecioVenta")] Pedido pedido)
+            ",EstadoPedidoID,PorDelivery,FechaHora,PrecioVenta,UserId")] Pedido pedido)
         {
             if (id != pedido.ID)
             {
                 return NotFound();
             }
-            pedido.EstadoPedidoID = 2;
+            pedido.EstadoPedidoID = 4;
+
+            var detalles = _context.DetPedido
+                .Include(p => p.Pedido).Where(i => i.PedidoID == pedido.ID)
+                .AsNoTracking();
+
+            var articulos = _context.Articulo
+                .Where(p => p.EsInsumo == false)
+                    .ToList();
+
+            foreach (var detalle in detalles)
+            {
+                foreach (var articulo in articulos)
+                {
+                    if (articulo.ID == detalle.ArticuloID)
+                    {
+                        double v = articulo.Stock - detalle.Cantidad;
+
+                        articulo.Stock = v;
+
+                        _context.Update(articulo);
+                    }
+                }
+            }
 
             if (ModelState.IsValid)
             {

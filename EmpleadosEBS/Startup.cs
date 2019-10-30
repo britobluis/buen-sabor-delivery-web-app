@@ -138,14 +138,21 @@ namespace EmpleadosEBS
             }
 
             string adminUserEmail = "seba_storm@hotmail.com";
-            string adminPwd = "Dana.2002";
-            AddUserToRole(serviceProvider, adminUserEmail, adminPwd, adminRoleName);
             string cajeroUserEmail = "cajero@cajero.com";
-            string cajeroPwd = "Dana.2002";
-            AddUserToRole(serviceProvider, cajeroUserEmail, cajeroPwd, "Cajero");
             string cocineroUserEmail = "cocinero@cocinero.com";
-            string cocineroPwd = "Dana.2002";
-            AddUserToRole(serviceProvider, cocineroUserEmail, cocineroPwd, "Cocinero");
+            string cliente1 = "usuario1@usuario.com";
+            string cliente2 = "Usuario2@usuario.com";
+            string cliente3 = "Usuario3@usuario.com";
+            string Pwd = "Dana.2002";
+
+            AddUserToRole(serviceProvider, adminUserEmail, Pwd, adminRoleName);
+            AddUserToRole(serviceProvider, cajeroUserEmail, Pwd, "Cajero");
+            AddUserToRole(serviceProvider, cocineroUserEmail, Pwd, "Cocinero");
+            AddUserToRole(serviceProvider, cliente1, Pwd, "Cliente");
+            AddUserToRole(serviceProvider, cliente2, Pwd, "Cliente");
+            AddUserToRole(serviceProvider, cliente3, Pwd, "Cliente");
+           
+            
         }
 
         // Crear un rol si no existe

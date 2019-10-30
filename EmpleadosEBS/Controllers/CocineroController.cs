@@ -178,7 +178,7 @@ namespace EmpleadosEBS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPedido(int id, [Bind("ID,NumeroPedido" +
-            ",EstadoPedidoID,PorDelivery,FechaHora,PrecioVenta")] Pedido pedido)
+            ",EstadoPedidoID,PorDelivery,FechaHora,PrecioVenta,UserId")] Pedido pedido)
         {
             if (id != pedido.ID)
             {
@@ -205,8 +205,7 @@ namespace EmpleadosEBS.Controllers
                     }
                 }
             }
-           
-
+          
             if (ModelState.IsValid)
             {
                 try
