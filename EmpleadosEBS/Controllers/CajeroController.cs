@@ -6,6 +6,7 @@ using EmpleadosEBS.Data;
 using EmpleadosEBS.Models;
 using EmpleadosEBS.Models.PedidoIndexData;
 using EmpleadosEBS.Models.PlatoIndexData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,6 +15,7 @@ using Rotativa.AspNetCore;
 
 namespace EmpleadosEBS.Controllers
 {
+    [Authorize(Roles = "Cajero")]
     public class CajeroController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -284,7 +286,7 @@ namespace EmpleadosEBS.Controllers
             return View(pedido);
         }
         //------------------------------------------------------------------------------
-        // GET: Cajero/FacturaModal
+        // GET: Cajero/FacturaPedido
         //------------------------------------------------------------------------------
         public async Task<IActionResult> FacturaPedido(int id)
         {
@@ -296,33 +298,37 @@ namespace EmpleadosEBS.Controllers
 
             return View(factura);
         }
+        //------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
+        // GET: Cajero/Imprimir Factura
+        //------------------------------------------------------------------------------
         public async Task<IActionResult> ImprimirFactura(int id)
         {
             Factura factura = new Factura();
 
             await getFacturaAsync(factura, id);
 
-            return new ViewAsPdf(factura);
-
-            
+            return new ViewAsPdf(factura);           
         }
-
+        //------------------------------------------------------------------------------
         private async Task getFacturaAsync(Factura factura,int id){
 
 
-            factura.Pedido = await _context.Pedido.SingleAsync(m => m.ID == id);
+            factura.Pedido = await _context
+                .Pedido.SingleAsync(m => m.ID == id);
 
-            factura.Usuario = await _userManager.Users.SingleAsync(m => m.Id == factura.Pedido.UserId);
+            factura.Usuario = await _userManager
+                .Users.SingleAsync(m => m.Id == factura.Pedido.UserId);
 
-            factura.DetPedidos = await _context.DetPedido.Where(m => m.PedidoID == id).ToListAsync();
+            factura.DetPedidos = await _context
+                .DetPedido.Where(m => m.PedidoID == id).ToListAsync();
 
-            factura.Articulos = await _context.Articulo.Where(m => m.EsInsumo == false).ToListAsync();
+            factura.Articulos = await _context
+                .Articulo.Where(m => m.EsInsumo == false).ToListAsync();
 
             factura.Platos = await _context.Plato.ToListAsync();
 
         }
-
-
         //------------------------------------------------------------------------------
         private bool PedidoExists(int id)
         {

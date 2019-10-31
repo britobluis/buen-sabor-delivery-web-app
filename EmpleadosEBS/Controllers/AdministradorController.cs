@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmpleadosEBS.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class AdministradorController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -48,7 +49,7 @@ namespace EmpleadosEBS.Controllers
             // return View(await applicationDbContext.ToListAsync());
 
             PedidoUsuarioViewModel model = new PedidoUsuarioViewModel();
-            model.Pedidos = _context.Pedido.Include(p => p.EstadoPedido);
+            model.Pedidos = _context.Pedido.Include(p => p.EstadoPedido).ToList();
             model.Usuarios = _userManager.Users.ToArray();
 
             return View(model);

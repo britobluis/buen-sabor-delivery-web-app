@@ -10,9 +10,11 @@ using EmpleadosEBS.Models.PlatoIndexData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmpleadosEBS.Controllers
 {
+    [Authorize(Roles = "Cocinero")]
     public class CocineroController : Controller
     {
         private readonly ApplicationDbContext _context;

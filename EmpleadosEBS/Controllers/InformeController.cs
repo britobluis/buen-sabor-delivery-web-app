@@ -23,6 +23,9 @@ namespace EmpleadosEBS.Components
         {
            
             return ViewComponent("InformeVenta", new {t1 = ("20/08/2019"), t2 = ("25/08/2019") });
+
+
+
         }
 
         
