@@ -1,4 +1,4 @@
-﻿
+﻿@model EmpleadosEBS.Models.Factura
 
 @{
     ViewData["Title"] = "IndexInformes";
@@ -30,40 +30,89 @@
                 @await Component.InvokeAsync("InformePlato", null)
             </div>
         </div>
+        <!-------------------------informe de ingresos por tiempo-------------------------->
         <div class="tab-pane fade" id="ingresos">
-            <p>aca van el informe de ingresos por un periodo de tiempo</p>
             <div class="container">
-                <div class="row">
-                    
-                    <div class="col-6">
-                        Desde<input type="date" id="fechaInicio" />
-                        <br />
-                        Hasta<input type="date" id="fechaFinal" />
-                        <input type="button" id="Solicitar" value="Solicitar" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <hr />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">&nbsp;</div>
-                    <div class="col-6">
-                        <p id="Resultado"> </p>
-                    </div>
-                </div>
+                <form class="form-inline needs-validation" novalidate>
+                    <label for="inline-datetime-local">Desde: </label>
+                    <input type="datetime-local"
+                           class="form-control mb-2 mr-sm-2" id="fechaInicio">
 
+                    <label for="inline-datetime-local">Hasta: </label>
+                    <input type="datetime-local"
+                           class="form-control mb-2 mr-sm-2" id="fechaFinal">
+
+                    <input type="button" class="btn btn-primary mb-2" id="SolicitarIngresos"
+                           value="Solicitar" />
+                </form>
+
+                <div class="col-sm-10">
+                    <table class="table-active">
+                        <tr>
+                            <td>Dinero Ingresado en pesos </td>
+                            <td><text id="Resultado"></text></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
+        <!--------------------informe de ingresos por Pedido por tiempo--------------------->
         <div class="tab-pane fade" id="pedido1">
-            <p>aca va el informe de los pedidos periodo de tiempo</p>
+            <div class="container">
+                <form class="form-inline needs-validation" novalidate>
+                    <label for="inline-datetime-local">Desde: </label>
+                    <input type="datetime-local"
+                           class="form-control mb-2 mr-sm-2" id="fechaInicio1"
+                           min="2019-10-10 10:00">
+
+                    <label for="inline-datetime-local">Hasta: </label>
+                    <input type="datetime-local"
+                           class="form-control mb-2 mr-sm-2" id="fechaFinal1"
+                           max="2025-12-31 23:59:59.999Z">
+
+                    <input type="button" class="btn btn-primary mb-2" id="SolicitarPedidos"
+                           value="Solicitar" />
+                </form>
+
+                <div class="col-sm-10">
+                    <table class="table-active">
+                        <tr>
+                            <td>Pedidos solicitados periodo tiempo </td>
+                            <td><text id="Resultado1"></text></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
+        <!--------------------informe de ingresos por Pedido por Cliente-------------------->
         <div class="tab-pane fade" id="pedido2">
-            <p>aca va el informe de los pediodos por cliente</p>
+            <div class="container">
+                <form class="form-inline needs-validation" novalidate>
+                    <label for="inline-datetime-local">Nombre del cliente: </label>
+                    <input type="text"
+                           class="form-control mb-2 mr-sm-2" id="nombreCliente">
+                    <input type="button" class="btn btn-primary mb-2" id="ClientePedidos"
+                           value="Solicitar Pedidos" />
+                </form>
+
+                <div class="col-sm-10">
+                    <table class="table-active">
+                        <tr>
+                            <td>Pedidos solicitados del cliente</td>
+                            <td><text id="Resultado2"></text></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>               
+        
         </div>
+        <!--------------------informe de ingresos por Pedido por tiempo--------------------->
         <div class="tab-pane fade" id="Clientes">
             <p>aca va el informe de registro de los clientes por cliente</p>
+
+
+
+
         </div>
     </div>
     <!-------------------------------------------------------------------->
