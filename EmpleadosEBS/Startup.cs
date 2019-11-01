@@ -16,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 using EmpleadosEBS.Models;
 using EmpleadosEBS.Repositories;
 using Rotativa.AspNetCore;
+using EmpleadosEBS.Hubs;
+
 
 namespace EmpleadosEBS
 {
@@ -60,6 +62,9 @@ namespace EmpleadosEBS
 
             services.AddMemoryCache();
             services.AddSession();
+
+            services.AddSignalR();
+
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -126,9 +131,14 @@ namespace EmpleadosEBS
             CreateRolesAndAdminUser(serviceProvider);
 
             RotativaConfiguration.Setup(env, "..\\Rotativa\\Windows\\");
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<InformeHub>("/InformeHub");
+            });
         }
 
-
+        //----------------------------------------------------------------------------
         private static void CreateRolesAndAdminUser(IServiceProvider serviceProvider)
         {
             const string adminRoleName = "Administrador";

@@ -32,7 +32,29 @@
         </div>
         <div class="tab-pane fade" id="ingresos">
             <p>aca van el informe de ingresos por un periodo de tiempo</p>
-                @await Component.InvokeAsync("InformeIngreso",null)
+            <div class="container">
+                <div class="row">
+                    
+                    <div class="col-6">
+                        Desde<input type="date" id="fechaInicio" />
+                        <br />
+                        Hasta<input type="date" id="fechaFinal" />
+                        <input type="button" id="Solicitar" value="Solicitar" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">&nbsp;</div>
+                    <div class="col-6">
+                        <p id="Resultado"> </p>
+                    </div>
+                </div>
+
+            </div>
         </div>
         <div class="tab-pane fade" id="pedido1">
             <p>aca va el informe de los pedidos periodo de tiempo</p>
@@ -46,3 +68,5 @@
     </div>
     <!-------------------------------------------------------------------->
 </div>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/informe.js"></script>
