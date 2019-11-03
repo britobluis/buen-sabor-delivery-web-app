@@ -62,13 +62,11 @@
                 <form class="form-inline needs-validation" novalidate>
                     <label for="inline-datetime-local">Desde: </label>
                     <input type="datetime-local"
-                           class="form-control mb-2 mr-sm-2" id="fechaInicio1"
-                           min="2019-10-10 10:00">
+                           class="form-control mb-2 mr-sm-2" id="fechaInicio1">
 
                     <label for="inline-datetime-local">Hasta: </label>
                     <input type="datetime-local"
-                           class="form-control mb-2 mr-sm-2" id="fechaFinal1"
-                           max="2025-12-31 23:59:59.999Z">
+                           class="form-control mb-2 mr-sm-2" id="fechaFinal1">
 
                     <input type="button" class="btn btn-primary mb-2" id="SolicitarPedidos"
                            value="Solicitar" />
@@ -88,10 +86,19 @@
         <div class="tab-pane fade" id="pedido2">
             <div class="container">
                 <form class="form-inline needs-validation" novalidate>
+
+                    <label for="inline-datetime-local">Desde: </label>
+                    <input type="datetime-local"
+                           class="form-control mb-2 mr-sm-2" id="fechaInicio2">
+
+                    <label for="inline-datetime-local">Hasta: </label>
+                    <input type="datetime-local"
+                           class="form-control mb-2 mr-sm-2" id="fechaFinal2">
+
                     <label for="inline-datetime-local">Nombre del cliente: </label>
-                    <input type="text"
-                           class="form-control mb-2 mr-sm-2" id="nombreCliente">
-                    <input type="button" class="btn btn-primary mb-2" id="ClientePedidos"
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="nombre">
+
+                    <input type="button" class="btn btn-primary mb-2" id="SolicitarPedidosCliente"
                            value="Solicitar Pedidos" />
                 </form>
 

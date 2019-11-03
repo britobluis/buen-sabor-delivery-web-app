@@ -1,4 +1,6 @@
 ﻿using EmpleadosEBS.Data;
+using EmpleadosEBS.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -10,10 +12,12 @@ namespace EmpleadosEBS.Hubs
     public class InformeHub : Hub
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public InformeHub(ApplicationDbContext context)
+        public InformeHub(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         //-------------------------------------------------------------------------
         
@@ -46,5 +50,28 @@ namespace EmpleadosEBS.Hubs
             pedido = pedidos.Count();
             return Task.FromResult(pedido);
         }
+
+        //-------------------------------------------------------------------------
+
+        public async Task EnviarInformePedidosCliente(string nombre,DateTime inicio, DateTime final) {
+
+            double resultado = await GetPedidosNombreAsync(nombre, inicio, final);
+
+            await Clients.All.SendAsync("RecibirInformePedidosCliente", resultado);
+        }
+
+        private Task<double> GetPedidosNombreAsync(string nombre, DateTime fechaInicio, DateTime fechaFinal)
+        {
+            double pedido;
+
+            var usuario = _userManager.Users.Single(d=>d.UserName == nombre);
+
+            var pedidos = _context.Pedido.Where(d => d.FechaHora > fechaInicio && d.FechaHora < fechaFinal && d.User == usuario)
+                                            .Select(p => p.PrecioVenta).ToList();
+            pedido = pedidos.Count();
+            return Task.FromResult(pedido);
+        }
+
+
     }
 }
