@@ -103,10 +103,18 @@
     <Compile Remove="Migrations\20190823223405_Inicial.Designer.cs" />
     <Compile Remove="Migrations\20190823223940_Inicial.cs" />
     <Compile Remove="Migrations\20190823223940_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20190911141749_NuevaBaseDatos.cs" />
+    <Compile Remove="Migrations\20190911141749_NuevaBaseDatos.Designer.cs" />
     <Compile Remove="Migrations\20190923183909_cartitem.cs" />
     <Compile Remove="Migrations\20190923183909_cartitem.Designer.cs" />
     <Compile Remove="Migrations\20190923185610_carrito.cs" />
     <Compile Remove="Migrations\20190923185610_carrito.Designer.cs" />
+    <Compile Remove="Migrations\20191006160547_agregue-usuario-a-pedido.cs" />
+    <Compile Remove="Migrations\20191006160547_agregue-usuario-a-pedido.Designer.cs" />
+    <Compile Remove="Migrations\20191104014318_CustomUserData.cs" />
+    <Compile Remove="Migrations\20191104014318_CustomUserData.Designer.cs" />
+    <Compile Remove="Migrations\20191104014759_CustomUserData.cs" />
+    <Compile Remove="Migrations\20191104014759_CustomUserData.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

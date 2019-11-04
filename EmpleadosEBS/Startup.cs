@@ -44,7 +44,7 @@ namespace EmpleadosEBS
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>()
+            services.AddDefaultIdentity<User>().AddRoles<IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -186,17 +186,18 @@ namespace EmpleadosEBS
         //Agrega usuario a un rol si el usuario existe, de lo contrario, cree al usuario y agréguelo al rol.
         private static void AddUserToRole(IServiceProvider serviceProvider, string userEmail, string userPwd, string roleName)
         {
-            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
-            Task<IdentityUser> checkAppUser = userManager.FindByEmailAsync(userEmail);
+            Task<User> checkAppUser = userManager.FindByEmailAsync(userEmail);
             checkAppUser.Wait();
 
-            IdentityUser appUser = checkAppUser.Result;
+            User appUser = checkAppUser.Result;
 
             if (checkAppUser.Result == null)
             {
-                IdentityUser newAppUser = new IdentityUser
+                User newAppUser = new User
                 {
+                    Registro = DateTime.Now,
                     Email = userEmail,
                     UserName = userEmail
                 };

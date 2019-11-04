@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EmpleadosEBS.Migrations
 {
-    public partial class NuevaBaseDatos : Migration
+    public partial class UsuarioPersonalizado : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,7 +59,8 @@ namespace EmpleadosEBS.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Registro = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,6 +79,31 @@ namespace EmpleadosEBS.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EstadoPedido", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IdentityUser",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(nullable: true),
+                    NormalizedUserName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    NormalizedEmail = table.Column<string>(nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IdentityUser", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -214,7 +240,8 @@ namespace EmpleadosEBS.Migrations
                     PorDelivery = table.Column<bool>(nullable: false),
                     FechaHora = table.Column<DateTime>(nullable: false),
                     PrecioVenta = table.Column<double>(nullable: false),
-                    Facturado = table.Column<bool>(nullable: false)
+                    Facturado = table.Column<bool>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -225,6 +252,12 @@ namespace EmpleadosEBS.Migrations
                         principalTable: "EstadoPedido",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Pedido_IdentityUser_UserId",
+                        column: x => x.UserId,
+                        principalTable: "IdentityUser",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -263,7 +296,7 @@ namespace EmpleadosEBS.Migrations
                     ArticuloID = table.Column<int>(nullable: true),
                     PlatoID = table.Column<int>(nullable: true),
                     Cantidad = table.Column<int>(nullable: false),
-                    ShoppingCartId = table.Column<string>(nullable: true)
+                    ShoppingCartId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -378,6 +411,11 @@ namespace EmpleadosEBS.Migrations
                 column: "EstadoPedidoID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Pedido_UserId",
+                table: "Pedido",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Receta_ArticuloID",
                 table: "Receta",
                 column: "ArticuloID");
@@ -441,6 +479,9 @@ namespace EmpleadosEBS.Migrations
 
             migrationBuilder.DropTable(
                 name: "EstadoPedido");
+
+            migrationBuilder.DropTable(
+                name: "IdentityUser");
         }
     }
 }
