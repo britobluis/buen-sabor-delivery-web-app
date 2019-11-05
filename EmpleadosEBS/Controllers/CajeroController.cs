@@ -19,9 +19,9 @@ namespace EmpleadosEBS.Controllers
     public class CajeroController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public CajeroController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public CajeroController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;

@@ -20,13 +20,13 @@ namespace EmpleadosEBS.Hubs
             _userManager = userManager;
         }
         //-------------------------------------------------------------------------
-        
-        public async Task EnviarInformeIngresos(DateTime inicio,DateTime final) {
+
+        public async Task EnviarInformeIngresos(DateTime inicio, DateTime final)
+        {
 
             double resultado = await GetIngresoAsync(inicio, final);
             await Clients.All.SendAsync("RecibirInformeIngresos", resultado);
         }
-
         private Task<double> GetIngresoAsync(DateTime fechaInicio, DateTime fechaFinal)
         {
             double ingreso;
@@ -41,7 +41,6 @@ namespace EmpleadosEBS.Hubs
             double resultado = await GetPedidosAsync(inicio, final);
             await Clients.All.SendAsync("RecibirInformePedidosTiempo", resultado);
         }
-
         private Task<double> GetPedidosAsync(DateTime fechaInicio, DateTime fechaFinal)
         {
             double pedido;
@@ -50,10 +49,9 @@ namespace EmpleadosEBS.Hubs
             pedido = pedidos.Count();
             return Task.FromResult(pedido);
         }
-
         //-------------------------------------------------------------------------
-
-        public async Task EnviarInformePedidosCliente(string nombre,DateTime inicio, DateTime final) {
+        public async Task EnviarInformePedidosCliente(string nombre, DateTime inicio, DateTime final)
+        {
 
             double resultado = await GetPedidosNombreAsync(nombre, inicio, final);
 
@@ -64,7 +62,7 @@ namespace EmpleadosEBS.Hubs
         {
             double pedido;
 
-            var usuario = _userManager.Users.Single(d=>d.UserName == nombre).Id;
+            var usuario = _userManager.Users.Single(d => d.UserName == nombre).Id;
 
             var pedidos = _context.Pedido.Where(d => d.FechaHora > fechaInicio && d.FechaHora < fechaFinal && d.UserId == usuario)
                                             .Select(p => p.PrecioVenta).ToList();
@@ -72,7 +70,6 @@ namespace EmpleadosEBS.Hubs
             return Task.FromResult(pedido);
         }
         //-------------------------------------------------------------------------
-
         public async Task EnviarInformeRegistroClientes(DateTime inicio, DateTime final)
         {
 
@@ -80,18 +77,18 @@ namespace EmpleadosEBS.Hubs
 
             await Clients.All.SendAsync("RecibirInformeRegistroClientes", resultado);
         }
-
         private Task<double> GetRegistroClientesAsync(DateTime fechaInicio, DateTime fechaFinal)
         {
             double usuario;
 
-            var usuarios = _userManager.Users.Where(d => d.Registro > fechaInicio && d.Registro < fechaFinal).Select(d => d.Id).ToList();
+            var usuarios = _userManager.Users.Where(d => d.Registro > fechaInicio &&
+            d.Registro < fechaFinal).Select(d => d.Id).ToList();
+
+            //var clientes = usuarios.
 
             usuario = usuarios.Count();
 
             return Task.FromResult(usuario);
         }
-
-
     }
 }

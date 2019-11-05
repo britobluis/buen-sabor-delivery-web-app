@@ -16,10 +16,10 @@ namespace EmpleadosEBS.Controllers
 
         private readonly IOrderRepository _orderRepository;
         private readonly ShoppingCart _shoppingCart;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
 
-        public OrderController(IOrderRepository orderRepository, ShoppingCart shoppingCart, UserManager<IdentityUser> userManager, ApplicationDbContext context )
+        public OrderController(IOrderRepository orderRepository, ShoppingCart shoppingCart, UserManager<User> userManager, ApplicationDbContext context )
         {
             _orderRepository = orderRepository;
             _shoppingCart = shoppingCart;

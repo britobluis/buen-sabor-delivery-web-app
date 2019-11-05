@@ -16,9 +16,9 @@ namespace EmpleadosEBS.Controllers
     public class AdministradorController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public AdministradorController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public AdministradorController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;

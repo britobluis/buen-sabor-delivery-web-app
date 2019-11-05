@@ -115,6 +115,10 @@
     <Compile Remove="Migrations\20191104014318_CustomUserData.Designer.cs" />
     <Compile Remove="Migrations\20191104014759_CustomUserData.cs" />
     <Compile Remove="Migrations\20191104014759_CustomUserData.Designer.cs" />
+    <Compile Remove="Migrations\20191104092918_Usuario-Personalizado.cs" />
+    <Compile Remove="Migrations\20191104092918_Usuario-Personalizado.Designer.cs" />
+    <Compile Remove="Migrations\20191105064330_UsuarioConRegistro.cs" />
+    <Compile Remove="Migrations\20191105064330_UsuarioConRegistro.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

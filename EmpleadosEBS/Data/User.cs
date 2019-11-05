@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace EmpleadosEBS.Data
 {
-    public class User : IdentityUser<string>
+    
+    public class User : IdentityUser
     {
         [PersonalData]
         public DateTime Registro { get; set; }
