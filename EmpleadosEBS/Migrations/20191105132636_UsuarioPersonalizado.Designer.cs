@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmpleadosEBS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191105093648_usuarioCampoRegistro")]
-    partial class usuarioCampoRegistro
+    [Migration("20191105132636_UsuarioPersonalizado")]
+    partial class UsuarioPersonalizado
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -52,7 +52,7 @@ namespace EmpleadosEBS.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<DateTime>("Registro");
+                    b.Property<DateTime?>("Registro");
 
                     b.Property<string>("SecurityStamp");
 

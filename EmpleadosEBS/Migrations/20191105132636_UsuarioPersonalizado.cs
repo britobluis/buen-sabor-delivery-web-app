@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EmpleadosEBS.Migrations
 {
-    public partial class usuarioCampoRegistro : Migration
+    public partial class UsuarioPersonalizado : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,7 +60,7 @@ namespace EmpleadosEBS.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Registro = table.Column<DateTime>(nullable: false)
+                    Registro = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {

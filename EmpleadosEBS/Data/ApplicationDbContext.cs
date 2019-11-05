@@ -17,6 +17,7 @@ namespace EmpleadosEBS.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            
 
         }
         public DbSet<EmpleadosEBS.Models.Articulo> Articulo { get; set; }

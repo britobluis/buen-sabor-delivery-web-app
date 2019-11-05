@@ -60,14 +60,13 @@ namespace EmpleadosEBS.Areas.Identity.Pages.Account
             [Display(Name = "Telefono")]
             public string PhoneNumber { get; set; }
 
-            [Required]
+            
             [Display(Name = "Registro")]
             [DataType(DataType.Date)]
             public DateTime Registro { get; set; }
 
 
             [Display(Name = "Rol dentro de la empresa")]
-
             public string Role { get; set; }
 
             [Required]

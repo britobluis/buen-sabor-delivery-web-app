@@ -48,7 +48,7 @@ namespace EmpleadosEBS.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
 
-            [Required]
+            
             [Display(Name = "Registro")]
             [DataType(DataType.Date)]
             public DateTime Registro { get; set; }
@@ -71,7 +71,7 @@ namespace EmpleadosEBS.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                Registro = user.Registro,
+                
                 Email = email,
                 PhoneNumber = phoneNumber
             };

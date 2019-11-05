@@ -9,8 +9,7 @@ namespace EmpleadosEBS.Data
     
     public class User : IdentityUser
     {
-        [PersonalData]
-        public DateTime Registro { get; set; }
+        public DateTime? Registro { get; set; }
 
     }
 }

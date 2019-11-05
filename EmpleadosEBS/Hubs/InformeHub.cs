@@ -13,7 +13,7 @@ namespace EmpleadosEBS.Hubs
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
-
+        
         public InformeHub(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
@@ -81,10 +81,10 @@ namespace EmpleadosEBS.Hubs
         {
             double usuario;
 
-            var usuarios = _userManager.Users.Where(d => d.Registro > fechaInicio &&
-            d.Registro < fechaFinal).Select(d => d.Id).ToList();
+            var clientes = _userManager.GetUsersInRoleAsync("cliente").Result;
 
-            //var clientes = usuarios.
+            var usuarios = clientes.Where(d => d.Registro > fechaInicio &&
+            d.Registro < fechaFinal).Select(d => d.Id).ToList();
 
             usuario = usuarios.Count();
 

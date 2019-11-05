@@ -119,6 +119,12 @@
     <Compile Remove="Migrations\20191104092918_Usuario-Personalizado.Designer.cs" />
     <Compile Remove="Migrations\20191105064330_UsuarioConRegistro.cs" />
     <Compile Remove="Migrations\20191105064330_UsuarioConRegistro.Designer.cs" />
+    <Compile Remove="Migrations\20191105093648_usuarioCampoRegistro.cs" />
+    <Compile Remove="Migrations\20191105093648_usuarioCampoRegistro.Designer.cs" />
+    <Compile Remove="Migrations\20191105130849_UsuarioPersonalizado.cs" />
+    <Compile Remove="Migrations\20191105130849_UsuarioPersonalizado.Designer.cs" />
+    <Compile Remove="Migrations\20191105131041_UsuarioPersonalizado.cs" />
+    <Compile Remove="Migrations\20191105131041_UsuarioPersonalizado.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

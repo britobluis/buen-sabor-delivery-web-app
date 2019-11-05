@@ -10,6 +10,7 @@ namespace EmpleadosEBS.Data
 {
     public static class DatosIniciales
     {
+
         public static void Initialize(ApplicationDbContext context)
         {
             context.Database.EnsureCreated();
@@ -238,6 +239,7 @@ namespace EmpleadosEBS.Data
                         PorDelivery = true,
                         PrecioVenta = 100,
                         Facturado = false,
+                      
                        
                         
                     }
