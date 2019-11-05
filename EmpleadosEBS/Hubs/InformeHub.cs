@@ -12,9 +12,9 @@ namespace EmpleadosEBS.Hubs
     public class InformeHub : Hub
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public InformeHub(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public InformeHub(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -64,12 +64,32 @@ namespace EmpleadosEBS.Hubs
         {
             double pedido;
 
-            var usuario = _userManager.Users.Single(d=>d.UserName == nombre);
+            var usuario = _userManager.Users.Single(d=>d.UserName == nombre).Id;
 
-            var pedidos = _context.Pedido.Where(d => d.FechaHora > fechaInicio && d.FechaHora < fechaFinal && d.User == usuario)
+            var pedidos = _context.Pedido.Where(d => d.FechaHora > fechaInicio && d.FechaHora < fechaFinal && d.UserId == usuario)
                                             .Select(p => p.PrecioVenta).ToList();
             pedido = pedidos.Count();
             return Task.FromResult(pedido);
+        }
+        //-------------------------------------------------------------------------
+
+        public async Task EnviarInformeRegistroClientes(DateTime inicio, DateTime final)
+        {
+
+            double resultado = await GetRegistroClientesAsync(inicio, final);
+
+            await Clients.All.SendAsync("RecibirInformeRegistroClientes", resultado);
+        }
+
+        private Task<double> GetRegistroClientesAsync(DateTime fechaInicio, DateTime fechaFinal)
+        {
+            double usuario;
+
+            var usuarios = _userManager.Users.Where(d => d.Registro > fechaInicio && d.Registro < fechaFinal).Select(d => d.Id).ToList();
+
+            usuario = usuarios.Count();
+
+            return Task.FromResult(usuario);
         }
 
 

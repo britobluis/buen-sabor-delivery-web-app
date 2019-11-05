@@ -76,3 +76,27 @@ document.getElementById("SolicitarPedidosCliente").addEventListener("click", fun
     event.preventDefault();
 
 });
+//-----------------------------------------------------------------------------------
+
+connection.on("RecibirInformeRegistroClientes", function (resultado) {
+    var msj3 = resultado.toString();
+    document.getElementById("Resultado3").innerHTML = msj3;
+});
+
+connection.start().then(function () {
+    document.getElementById("SolicitarPedidosCliente").disabled = false;
+}).catch(function (err) {
+    return console.error(err.toString());
+});
+
+document.getElementById("SolicitarRegistroClientes").addEventListener("click", function (event) {
+    var inicio3 = document.getElementById("fechaInicio3").value;
+    var final3 = document.getElementById("fechaFinal3").value;
+
+    connection.invoke("EnviarInformeRegistroClientes", inicio3, final3).catch(function (err) {
+        return console.error(err.toString());
+
+    });
+    event.preventDefault();
+
+});

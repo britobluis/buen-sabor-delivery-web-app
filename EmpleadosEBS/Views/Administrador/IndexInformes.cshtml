@@ -110,16 +110,35 @@
                         </tr>
                     </table>
                 </div>
-            </div>               
-        
+            </div>
+
         </div>
         <!--------------------informe de ingresos por Pedido por tiempo--------------------->
         <div class="tab-pane fade" id="Clientes">
-            <p>aca va el informe de registro de los clientes por cliente</p>
+            <form class="form-inline needs-validation" novalidate>
 
+                <label for="inline-datetime-local">Desde: </label>
+                <input type="datetime-local"
+                       class="form-control mb-2 mr-sm-2" id="fechaInicio3">
 
+                <label for="inline-datetime-local">Hasta: </label>
+                <input type="datetime-local"
+                       class="form-control mb-2 mr-sm-2" id="fechaFinal3">
 
+                <label for="inline-datetime-local">Nombre del cliente: </label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="nombre">
 
+                <input type="button" class="btn btn-primary mb-2" id="SolicitarRegistroClientes"
+                       value="Solicitar Pedidos" />
+            </form>
+            <div class="col-sm-10">
+                <table class="table-active">
+                    <tr>
+                        <td>Clientes registrados en ese periodo de tiempo</td>
+                        <td><text id="Resultado3"></text></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
     <!-------------------------------------------------------------------->
