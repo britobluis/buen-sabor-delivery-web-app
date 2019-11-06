@@ -10,9 +10,11 @@ using EmpleadosEBS.Models.PlatoIndexData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmpleadosEBS.Controllers
 {
+    [Authorize(Roles = "Cocinero")]
     public class CocineroController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,7 +28,7 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         public IActionResult Index()
         {
-            
+
             return View();
         }
         //--------------------------------------------------------------------------------
@@ -135,7 +137,7 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         public async Task<IActionResult> IndexPedido()
         {
-           
+
             var viewModel = new PedidoIndexData();
             viewModel.Pedidos = await _context.Pedido
                 .Include(p => p.DetPedidos)
@@ -160,6 +162,7 @@ namespace EmpleadosEBS.Controllers
             var pedido = await _context.Pedido
                 .Include(d => d.DetPedidos)
                     .ThenInclude(p => p.Plato)
+                    .ThenInclude(r => r.Recetas)
                      .AsNoTracking()
                      .FirstOrDefaultAsync(m => m.ID == id);
 
@@ -168,6 +171,8 @@ namespace EmpleadosEBS.Controllers
                 return NotFound();
             }
             return View(pedido);
+
+
         }
         //--------------------------------------------------------------------------------
         //POST: Cocinero/EditPedido
@@ -175,7 +180,7 @@ namespace EmpleadosEBS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPedido(int id, [Bind("ID,NumeroPedido" +
-            ",EstadoPedidoID,PorDelivery,FechaHora,PrecioVenta")] Pedido pedido)
+            ",EstadoPedidoID,PorDelivery,FechaHora,PrecioVenta,UserId")] Pedido pedido)
         {
             if (id != pedido.ID)
             {
@@ -184,14 +189,25 @@ namespace EmpleadosEBS.Controllers
 
             pedido.EstadoPedidoID = 3;
 
-            var detalles = await _context.DetPedido
-                .Include(d => d.Pedido).Where(m => m.ID == id)
-                    .Include(a => a.Articulo)
-                    .Include(p => p.Plato)
-                        .ThenInclude(r => r.Recetas)
-                     .AsNoTracking()
-                     .FirstOrDefaultAsync();
+            var detalles = _context.DetPedido
+                .Include(p => p.Pedido).Where(i => i.PedidoID == pedido.ID)
+                .AsNoTracking();
 
+            var platos = _context.Plato
+                .Include(p => p.DetPedidos)
+                .AsNoTracking();
+
+            foreach (var detalle in detalles)
+            {
+                foreach (var plato in platos)
+                {
+                    if (detalle.PlatoID == plato.ID)
+                    {
+                        DescuentoArticulosPlato(plato, detalle.Cantidad);
+                    }
+                }
+            }
+          
             if (ModelState.IsValid)
             {
                 try
@@ -216,6 +232,35 @@ namespace EmpleadosEBS.Controllers
             ViewData["EstadoPedidoID"] = new SelectList(_context.EstadoPedido, "ID",
                 "Descripcion", pedido.EstadoPedidoID);
             return View(pedido);
+        }
+        //--------------------------------------------------------------------
+        private void DescuentoArticulosPlato(Plato plato,int cantidad)
+        {
+            var articulos = _context.Articulo
+                .Include(receta => receta.Recetas)
+                    .Where(p => p.EsInsumo == true)
+                    .ToList();
+
+            var recetas = _context.Receta
+                .Include(p => p.Plato)
+                .Where(p => p.PlatoID == plato.ID)
+                .ToList();
+            
+            foreach (var receta in recetas)
+            {
+                foreach (var articulo in articulos)
+                {
+                    if (articulo.ID == receta.ArticuloID)
+                    {
+                        double v = articulo.Stock - (receta.Cantidad*cantidad);
+
+                        articulo.Stock = v;
+
+                        _context.Update(articulo);
+                    }
+                }
+            }
+
         }
         //--------------------------------------------------------------------------------
         private bool PedidoExists(int id)

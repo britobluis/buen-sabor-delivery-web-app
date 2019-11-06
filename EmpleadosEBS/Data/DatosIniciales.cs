@@ -4,14 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
 using EmpleadosEBS.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmpleadosEBS.Data
 {
     public static class DatosIniciales
     {
+
         public static void Initialize(ApplicationDbContext context)
         {
             context.Database.EnsureCreated();
+
+            
 
             //comprobacion de datos en la tabla EstadoPedido----------------------------------------------------------------
             if (context.EstadoPedido.Any())
@@ -23,9 +27,8 @@ namespace EmpleadosEBS.Data
                 new EstadoPedido{Denominacion = 1, Descripcion = "Solicitado"},
                 new EstadoPedido{Denominacion = 2, Descripcion = "Aceptado"},
                 new EstadoPedido{Denominacion = 3, Descripcion = "Cocinado"},
-                new EstadoPedido{Denominacion = 4, Descripcion = "Listo"},
-                new EstadoPedido{Denominacion = 5, Descripcion = "Entregado"},
-            };
+                new EstadoPedido{Denominacion = 4, Descripcion = "Entregado"},
+             };
             foreach (EstadoPedido p in estados)
             {
                 context.EstadoPedido.Add(p);
@@ -235,7 +238,10 @@ namespace EmpleadosEBS.Data
                         EstadoPedidoID = estados.Single(p => p.Descripcion == "Solicitado").ID,
                         PorDelivery = true,
                         PrecioVenta = 100,
-                        Facturado = false
+                        Facturado = false,
+                      
+                       
+                        
                     }
                     ,
                     new Pedido{
@@ -304,7 +310,7 @@ namespace EmpleadosEBS.Data
                     new Pedido{
                         NumeroPedido = 1009,
                         FechaHora = DateTime.Parse("19/8/2019 02:00:00 PM"),
-                        EstadoPedidoID = estados.Single(p => p.Descripcion == "Listo").ID,
+                        EstadoPedidoID = estados.Single(p => p.Descripcion == "Entregado").ID,
                         PorDelivery = true,
                         PrecioVenta = 150,
                         Facturado = false
@@ -312,7 +318,7 @@ namespace EmpleadosEBS.Data
                     ,
                     new Pedido{NumeroPedido = 1010,
                         FechaHora = DateTime.Parse("19/8/2019 02:30:00 PM"),
-                        EstadoPedidoID = estados.Single(p => p.Descripcion == "Listo").ID,
+                        EstadoPedidoID = estados.Single(p => p.Descripcion == "Entregado").ID,
                         PorDelivery = false,
                         PrecioVenta = 150,
                         Facturado = false

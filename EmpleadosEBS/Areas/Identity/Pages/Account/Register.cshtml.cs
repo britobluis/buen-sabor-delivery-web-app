@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using EmpleadosEBS.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -13,17 +15,17 @@ namespace EmpleadosEBS.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _signInRole;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
 
-            UserManager<IdentityUser> userManager,
+            UserManager<User> userManager,
             RoleManager<IdentityRole> userRol,
-            SignInManager<IdentityUser> signInManager,
+            SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -41,7 +43,7 @@ namespace EmpleadosEBS.Areas.Identity.Pages.Account
 
         public string ReturnUrl { get; set; }
 
-        public IdentityUser IdentityUser { get; }
+        public User IdentityUser { get; }
 
         public class InputModel
         {
@@ -58,8 +60,13 @@ namespace EmpleadosEBS.Areas.Identity.Pages.Account
             [Display(Name = "Telefono")]
             public string PhoneNumber { get; set; }
 
-            [Display(Name = "Rol dentro de la empresa")]
+            
+            [Display(Name = "Registro")]
+            [DataType(DataType.Date)]
+            public DateTime Registro { get; set; }
 
+
+            [Display(Name = "Rol dentro de la empresa")]
             public string Role { get; set; }
 
             [Required]
@@ -86,15 +93,16 @@ namespace EmpleadosEBS.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 //tarea que busca en la base de datos por el email si existe un usuario registrado con ese nombre
-                Task<IdentityUser> checkAppUser = _userManager.FindByEmailAsync(Input.Email);
+                Task<User> checkAppUser = _userManager.FindByEmailAsync(Input.Email);
                 checkAppUser.Wait();
 
 
 
                 if (checkAppUser.Result == null)
                 {
-                    IdentityUser newUser = new IdentityUser
+                    User newUser = new User
                     {
+                        Registro = DateTime.Now,
                         UserName = Input.UserName,
                         Email = Input.Email,
                         PhoneNumber = Input.PhoneNumber
@@ -105,7 +113,7 @@ namespace EmpleadosEBS.Areas.Identity.Pages.Account
 
                     if (taskCreateAppUser.Result.Succeeded)
                     {
-                        IdentityUser appUser = newUser;
+                        User appUser = newUser;
 
                         _logger.LogInformation("Usuario Creado.");
 

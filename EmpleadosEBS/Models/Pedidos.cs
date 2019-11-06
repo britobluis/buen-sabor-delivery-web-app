@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EmpleadosEBS.Data;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,7 +47,7 @@ namespace EmpleadosEBS.Models
         //relacion con articulo de muchos a uno
         public Articulo Articulo { get; set; }
         //relacion con plato de muchos a uno
-        public Plato Plato { get; set; }
+        public virtual Plato Plato { get; set; }
     }
     //------------------------------------------------------------------------------------
     public class Plato
@@ -91,9 +92,9 @@ namespace EmpleadosEBS.Models
         //relacion con receta muchos a uno 
         public Plato Plato { get; set; }
         //relacion con Articulo muchos a uno
-        public Articulo Articulo { get; set; }
+        public virtual Articulo Articulo { get; set; }
         //relacion con pedido muchos a uno
-        public Pedido Pedido { get; set; }
+        public virtual Pedido Pedido { get; set; }
     }
     //------------------------------------------------------------------------------------
     public class EstadoPedido
@@ -142,7 +143,7 @@ namespace EmpleadosEBS.Models
 
         public string UserId { get; set; }
 
-        public IdentityUser User { get; set; }
+        public User User { get; set; }
     }
     //------------------------------------------------------------------------------------
 }

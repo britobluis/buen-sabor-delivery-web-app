@@ -15,6 +15,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using EmpleadosEBS.Models;
 using EmpleadosEBS.Repositories;
+using Rotativa.AspNetCore;
+using EmpleadosEBS.Hubs;
+
 
 namespace EmpleadosEBS
 {
@@ -41,7 +44,7 @@ namespace EmpleadosEBS
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>()
+            services.AddDefaultIdentity<User>().AddRoles<IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -59,6 +62,9 @@ namespace EmpleadosEBS
 
             services.AddMemoryCache();
             services.AddSession();
+
+            services.AddSignalR();
+
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -123,9 +129,16 @@ namespace EmpleadosEBS
             });
 
             CreateRolesAndAdminUser(serviceProvider);
+
+            RotativaConfiguration.Setup(env, "..\\Rotativa\\Windows\\");
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<InformeHub>("/InformeHub");
+            });
         }
 
-
+        //----------------------------------------------------------------------------
         private static void CreateRolesAndAdminUser(IServiceProvider serviceProvider)
         {
             const string adminRoleName = "Administrador";
@@ -138,14 +151,21 @@ namespace EmpleadosEBS
             }
 
             string adminUserEmail = "seba_storm@hotmail.com";
-            string adminPwd = "Dana.2002";
-            AddUserToRole(serviceProvider, adminUserEmail, adminPwd, adminRoleName);
             string cajeroUserEmail = "cajero@cajero.com";
-            string cajeroPwd = "Dana.2002";
-            AddUserToRole(serviceProvider, cajeroUserEmail, cajeroPwd, "Cajero");
             string cocineroUserEmail = "cocinero@cocinero.com";
-            string cocineroPwd = "Dana.2002";
-            AddUserToRole(serviceProvider, cocineroUserEmail, cocineroPwd, "Cocinero");
+            string cliente1 = "usuario1@usuario.com";
+            string cliente2 = "Usuario2@usuario.com";
+            string cliente3 = "Usuario3@usuario.com";
+            string Pwd = "Dana.2002";
+
+            AddUserToRole(serviceProvider, adminUserEmail, Pwd, adminRoleName);
+            AddUserToRole(serviceProvider, cajeroUserEmail, Pwd, "Cajero");
+            AddUserToRole(serviceProvider, cocineroUserEmail, Pwd, "Cocinero");
+            AddUserToRole(serviceProvider, cliente1, Pwd, "Cliente");
+            AddUserToRole(serviceProvider, cliente2, Pwd, "Cliente");
+            AddUserToRole(serviceProvider, cliente3, Pwd, "Cliente");
+           
+            
         }
 
         // Crear un rol si no existe
@@ -166,17 +186,18 @@ namespace EmpleadosEBS
         //Agrega usuario a un rol si el usuario existe, de lo contrario, cree al usuario y agréguelo al rol.
         private static void AddUserToRole(IServiceProvider serviceProvider, string userEmail, string userPwd, string roleName)
         {
-            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
-            Task<IdentityUser> checkAppUser = userManager.FindByEmailAsync(userEmail);
+            Task<User> checkAppUser = userManager.FindByEmailAsync(userEmail);
             checkAppUser.Wait();
 
-            IdentityUser appUser = checkAppUser.Result;
+            User appUser = checkAppUser.Result;
 
             if (checkAppUser.Result == null)
             {
-                IdentityUser newAppUser = new IdentityUser
+                User newAppUser = new User
                 {
+                    Registro = DateTime.Now,
                     Email = userEmail,
                     UserName = userEmail
                 };

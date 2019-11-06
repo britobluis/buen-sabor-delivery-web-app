@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EmpleadosEBS.Data;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,5 +14,6 @@ namespace EmpleadosEBS.Models.PedidoIndexData
         public IEnumerable<Articulo> Articulos { get; set; }
         public IEnumerable<Plato> Platos { get; set; }
         public IEnumerable<EstadoPedido> EstadoPedidos { get; set; }
+        public IEnumerable<User> Usuarios { get; set; }
     }
 }
