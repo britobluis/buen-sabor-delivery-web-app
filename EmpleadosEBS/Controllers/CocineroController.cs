@@ -309,6 +309,7 @@ namespace EmpleadosEBS.Controllers
             if (articulosSeleccionados != null)
             {
                 plato.Recetas = new List<Receta>();
+
                 foreach (var articulo in articulosSeleccionados)
                 {
                     var articuloToAdd = new Receta
