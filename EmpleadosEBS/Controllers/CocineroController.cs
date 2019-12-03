@@ -26,7 +26,7 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         public IActionResult Index()
         {
-            
+
             return View();
         }
         //--------------------------------------------------------------------------------
@@ -135,7 +135,7 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         public async Task<IActionResult> IndexPedido()
         {
-           
+
             var viewModel = new PedidoIndexData();
             viewModel.Pedidos = await _context.Pedido
                 .Include(p => p.DetPedidos)
@@ -258,8 +258,8 @@ namespace EmpleadosEBS.Controllers
         //--------------------------------------------------------------------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID, Denominacion, Descripcion" +
-            ", Imagen, PrecioVenta")]Plato plato, string[] articulosSeleccionados)
+        public async Task<IActionResult> CreatePlato([Bind("ID, Denominacion, Descripcion" +
+            ", Imagen, PrecioVenta, Aprobado")]Plato plato, List<ArticuloAsignado> articulosSeleccionados)
         {
             if (articulosSeleccionados != null)
             {
@@ -269,19 +269,24 @@ namespace EmpleadosEBS.Controllers
                     var articuloToAdd = new Receta
                     {
                         PlatoID = plato.ID,
-                        ArticuloID = int.
-                        Parse(articulo),
-                        Cantidad = 1
+                        ArticuloID = _context.Articulo.Where(w => w.Denominacion == articulo.Denominacion).Select(s => s.ID).FirstOrDefault(),
+                        Cantidad = articulo.Cantidad
                     };
+
                     plato.Recetas.Add(articuloToAdd);
+
                 }
             }
+            plato.Aprobado = true;
+
             if (ModelState.IsValid)
             {
                 _context.Add(plato);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexPlato));
+
             }
+
             ArticulosPlatoData(plato);
             return View(plato);
         }
@@ -316,14 +321,20 @@ namespace EmpleadosEBS.Controllers
                 .Where(p => p.EsInsumo == true);
 
             var PlatosArticulos = new HashSet<int>(plato.Recetas.Select(c => c.ID));
+
+            var ArticuloReceta = _context.Receta.Select(s => s.ID);
+
             var viewModel = new List<ArticuloAsignado>();
+
             foreach (var articulo in allArticulos)
             {
                 viewModel.Add(new ArticuloAsignado
                 {
                     ID = articulo.ID,
                     Denominacion = articulo.Denominacion,
-                    Asignado = PlatosArticulos.Contains(articulo.ID)
+                    Asignado = PlatosArticulos.Contains(articulo.ID),
+                    Cantidad = articulo.Recetas.Where(w => w.ArticuloID == articulo.ID).Select(s => s.Cantidad).First(),
+                    UnidadMedida = articulo.UnidadMedida
 
                 });
             }

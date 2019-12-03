@@ -22,39 +22,41 @@
                 <input type="hidden" asp-for="PrecioVenta" />
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <table>
-                            <tr>
-                                @{
-                                    int cnt = 0;
-                                    List<EmpleadosEBS.Models.PlatoIndexData.ArticuloAsignado> articulos = ViewBag.Articulos;
+                        <table class="table">
 
-                                    foreach (var articulo in articulos)
-                                    {
-                                        if (cnt++ % 3 == 0)
-                                        {
-                                        @:</tr><tr>
-                                        }
-                                        @:<td>
+                            @{
+                                List<EmpleadosEBS.Models.PlatoIndexData.ArticuloAsignado> articulos = ViewBag.Articulos;
+
+                                foreach (var articulo in articulos)
+                                {
+                                    <tr>
+                                        <td>
                                             <input type="checkbox"
                                                    name="articulosSeleccionados"
                                                    value="@articulo.ID"
                                                    @(Html.Raw(articulo.Asignado ? "checked=\"checked\"" : "")) />
-                                            @articulo.ID @:  @articulo.Denominacion
-                                        @:</td>
-                                    }
-                                @:</tr>
-                                }
-                            </table>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Guardar" class="btn btn-outline-success" />
-                    </div>
-                </form>
-            </div>
-        </div>
+                                        </td>
+                                        <td>
+                                            @articulo.Denominacion
+                                        </td>
+                                        <td>
+                                            @articulo.Cantidad
+                                        </td>
+                                    </tr>
 
-        <div>
-            <a class="btn btn-outline-info" asp-action="IndexPlato">Volver a la lista</a>
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-outline-success" />
+                </div>
+            </form>
         </div>
     </div>
+
+    <div>
+        <a class="btn btn-outline-info" asp-action="IndexPlato">Volver a la lista</a>
+    </div>
+</div>
