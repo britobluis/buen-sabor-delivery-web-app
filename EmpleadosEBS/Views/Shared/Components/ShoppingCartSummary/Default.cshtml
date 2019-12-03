@@ -1,8 +1,8 @@
 ﻿@model EmpleadosEBS.ViewModels.ShoppingCartViewModel
-
+@using EmpleadosEBS.Data
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
-@inject SignInManager<IdentityUser> SignInManager
+@inject SignInManager<User> SignInManager
 
 
 @if (Model.ShoppingCart.ShoppingCartItems.Count > 0 && SignInManager.IsSignedIn(User))

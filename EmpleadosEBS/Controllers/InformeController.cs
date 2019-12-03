@@ -19,10 +19,13 @@ namespace EmpleadosEBS.Components
             _context = context;
         }
        
-        public ActionResult InformePedido()
+        public ActionResult InformeIngreso(DateTime inicio,DateTime final)
         {
-           
-            return ViewComponent("InformeVenta", new {t1 = ("20/08/2019"), t2 = ("25/08/2019") });
+            
+
+
+            return ViewComponent("InformeIngreso", new {fechaInicio = inicio, fechaFinal = final });
+                       
         }
 
         

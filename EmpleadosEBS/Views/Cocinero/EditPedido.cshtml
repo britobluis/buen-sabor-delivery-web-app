@@ -11,16 +11,17 @@
         <div class="col-md-4">
             <form asp-action="EditPedido">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="NumeroPedido" />
+                <input type="hidden" asp-for="FechaHora" />
                 <input type="hidden" asp-for="ID" />
                 <input type="hidden" asp-for="EstadoPedidoID" />
                 <input type="hidden" asp-for="PorDelivery" />
                 <div class="form-group">
-                    <label asp-for="FechaHora" class="control-label"></label>
-                    <input asp-for="FechaHora" class="form-control" />
-                    <span asp-validation-for="FechaHora" class="text-danger"></span>
+                    <label asp-for="NumeroPedido" class="control-label"></label>
+                    <input asp-for="NumeroPedido" class="form-control" readonly="readonly" />
+                    
                 </div>
                 <input type="hidden" asp-for="PrecioVenta" />
+                <input type="hidden" asp-for="UserId" />
 
                 <table>
                     <tr>
@@ -34,9 +35,9 @@
                                         @platos.Cantidad -
                                     </td>
                                     <td>
-                                        @platos.Plato.Denominacion
+                                        @platos.Plato.Denominacion 
                                     </td>
-
+                                   
                                 }
                             }
                         @:</tr>

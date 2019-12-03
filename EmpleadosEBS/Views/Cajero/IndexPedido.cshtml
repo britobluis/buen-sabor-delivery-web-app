@@ -9,8 +9,9 @@
         <thead>
             <tr>
                 <th>
-                    NumeroPedido
+                    Nro de Pedido
                 </th>
+
                 <th>
                     Por Delivery
                 </th>
@@ -32,6 +33,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.NumeroPedido)
                         </td>
+
                         <td>
                             @Html.DisplayFor(modelItem => item.PorDelivery)
                         </td>
@@ -46,7 +48,11 @@
                                     {
 
                                         @Plato.Cantidad @: @Plato.Plato.Denominacion  <br />
-                                    }                                    
+                                    }
+                                    if (Plato.ArticuloID.HasValue)
+                                    {
+                                        @Plato.Cantidad @: @Plato.Articulo.Denominacion <br />
+                                    }
                                 }
                             }
                         </td>
@@ -57,7 +63,9 @@
                             }
                             else
                             {
-                                <a class="btn btn-outline-success" asp-action="EditPedido" asp-route-id="@item.ID">Entregar</a>
+                                <a class="btn btn-outline-success" asp-action="EntregarPedido" asp-route-id="@item.ID">Entregar</a>
+                                <a class="btn btn-outline-success" asp-action="FacturaPedido" asp-route-id="@item.ID">Factura</a>
+                                
                             }
                         </td>
                     </tr>
@@ -66,3 +74,11 @@
         </tbody>
     </table>
 </div>
+<div id='myModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+
+</div>   

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EmpleadosEBS.Models.Pedido>
+﻿@model EmpleadosEBS.ViewModels.PedidoUsuarioViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -19,29 +19,29 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.NumeroPedido)
+                    usuario
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PorDelivery)
+                    Delivery
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FechaHora)
+                    Fecha
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PrecioVenta)
+                    Precio
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EstadoPedido)
+                    Estado del pedido
                 </th>
 
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Pedidos)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.NumeroPedido)
+                        @Html.DisplayFor(modelItem => item.User.UserName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PorDelivery)
