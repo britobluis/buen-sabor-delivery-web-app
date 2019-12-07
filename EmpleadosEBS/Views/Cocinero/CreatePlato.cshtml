@@ -1,10 +1,9 @@
-﻿@model EmpleadosEBS.Models.Plato
+﻿@model EmpleadosEBS.Models.PlatoDetalle
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_LayoutCocinero.cshtml";
 }
-
 <div class="jumbotron">
     <h3>Crear Plato</h3>
     <hr />
@@ -12,31 +11,30 @@
         <div class="col-md-4">
             <form asp-action="CreatePlato">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="ID" />
+                <input type="hidden" asp-for="Plato.ID" />
                 <div class="form-group">
-                    <label asp-for="Denominacion" class="control-label"></label>
-                    <input asp-for="Denominacion" class="form-control" />
-                    <span asp-validation-for="Denominacion" class="text-danger"></span>
+                    <label asp-for="Plato.Denominacion" class="control-label"></label>
+                    <input asp-for="Plato.Denominacion" class="form-control" />
+                    <span asp-validation-for="Plato.Denominacion" class="text-danger"></span>
                 </div>
-                <input type="hidden" asp-for="Imagen" />
+                <input type="hidden" asp-for="Plato.Imagen" />
                 <div class="form-group">
-                    <label asp-for="Descripcion" class="control-label"></label>
-                    <textarea asp-for="Descripcion" class="form-control" id="exampleTextarea" rows="3"></textarea>
-                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    <label asp-for="Plato.Descripcion" class="control-label"></label>
+                    <textarea asp-for="Plato.Descripcion" class="form-control" id="exampleTextarea" rows="3"></textarea>
+                    <span asp-validation-for="Plato.Descripcion" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PrecioVenta" class="control-label"></label>
-                    <input asp-for="PrecioVenta" class="form-control" />
-                    <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+                    <label asp-for="Plato.PrecioVenta" class="control-label"></label>
+                    <input asp-for="Plato.PrecioVenta" class="form-control" />
+                    <span asp-validation-for="Plato.PrecioVenta" class="text-danger"></span>
                 </div>
-                <input type="hidden" asp-for="Aprobado" />
+                <input type="hidden" asp-for="Plato.Aprobado" />
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <table class="table">
                             @{
                                 List<EmpleadosEBS.Models.PlatoIndexData.ArticuloAsignado> articulos = ViewBag.Articulos;
-                                
-                                                              
+
                                 foreach (var articulo in articulos)
                                 {
                                     <tr>
@@ -48,6 +46,9 @@
                                         </td>
                                         <td>
                                             @articulo.Denominacion
+
+                                            @await Component.InvokeAsync("DetallePlato", new {@articulo.Denominacion})
+
                                         </td>
                                         <td>
                                             <input type="number"
@@ -62,7 +63,7 @@
                                     </tr>
                                     if (!articulo.Asignado)
                                     {
-                                        
+
                                     }
                                 }
                             }
