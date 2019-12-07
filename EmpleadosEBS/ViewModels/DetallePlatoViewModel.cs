@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace EmpleadosEBS.ViewModels
 {
-    public class InformePlatoViewModel
+    public class DetallePlatoViewModel
     {
-        public ICollection<Plato> Platos { get; set; }
+        public ICollection<Articulo> articulos { get; set; }
+        public ICollection<Receta> Recetas { get; set; }
+
     }
 }

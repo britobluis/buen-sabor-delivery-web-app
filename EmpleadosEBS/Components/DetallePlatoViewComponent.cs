@@ -1,4 +1,5 @@
 ﻿using EmpleadosEBS.Data;
+using EmpleadosEBS.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,16 +16,13 @@ namespace EmpleadosEBS.Components
         {
             _context = context;
         }
-
-        public async Task<IViewComponentResult> InvokeAsync(int articuloId, string articuloDenominacion,)
+        public async Task<IViewComponentResult> InvokeAsync(int articuloId)
         {
-            var items = await GetItemsAsync(maxPriority, isDone);
+            PlatoDetalle detalle = new PlatoDetalle();
+            var items = await _context.Articulo.Where(s => s.ID == articuloId).Select(s => s.ID);
+            
             return View(items);
         }
-        private Task<List<TodoItem>> GetItemsAsync(int maxPriority, bool isDone)
-        {
-            return db.ToDo.Where(x => x.IsDone == isDone &&
-                                 x.Priority <= maxPriority).ToListAsync();
-        }
+     
     }
 }

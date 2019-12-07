@@ -33,38 +33,11 @@
                     <div class="col-md-offset-2 col-md-10">
                         <table class="table">
                             @{
-                                List<EmpleadosEBS.Models.PlatoIndexData.ArticuloAsignado> articulos = ViewBag.Articulos;
-
-                                foreach (var articulo in articulos)
+                                foreach (var articulo in Model.Articulos)
                                 {
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox"
-                                                   name=@articulo.ID
-                                                   value="@articulo.ID"
-                                                   @(Html.Raw(articulo.Asignado ? "checked=\"checked\"" : "")) />
-                                        </td>
-                                        <td>
-                                            @articulo.Denominacion
 
-                                            @await Component.InvokeAsync("DetallePlato", new {@articulo.Denominacion})
+                                    @await Component.InvokeAsync("DetallePlato", new { @articulo.ID})
 
-                                        </td>
-                                        <td>
-                                            <input type="number"
-                                                   style="width:50px"
-                                                   name=@articulo.Cantidad
-                                                   value="@articulo.Cantidad"
-                                                   @(Html.Raw(articulo.Cantidad)) />
-                                        </td>
-                                        <td>
-                                            @articulo.UnidadMedida
-                                        </td>
-                                    </tr>
-                                    if (!articulo.Asignado)
-                                    {
-
-                                    }
                                 }
                             }
                         </table>
